@@ -3,7 +3,7 @@
 Phase model. A white model of what survives today, on a plate in a dark room;
 a projector paints what is inferred as light.
 
-Status: **rendered** (12 November 2026, vermilion accent), after the second refutation pass. Not posted; the account name is still open.
+Status: **rendered** (12 November 2026, vermilion accent), after the second refutation pass. The MP4 still has the thump, hum and swell cues that have since been removed; it will be re-rendered once the narrator speed is chosen. Not posted; the account name is still open.
 
 ## The answer the film gives
 
@@ -28,8 +28,8 @@ secured in the twentieth century.
 |---|---|---|
 | 1 | House lights. The model turns slowly. | Room tone |
 | 2, 3 | Each standing upright is picked out once; the figure counts to 17 as the voice says it. | One soft tick per stone |
-| (pause) | House lights cut. The projector strikes with a flicker. | Relay click, low thump, faint hum |
-| 4 | Footprints of the missing uprights sweep round the circle, then the uprights rise; on "lintels" the missing lintels appear. "of 30" joins the figure. | Swell |
+| (pause) | House lights cut. The projector strikes with a flicker. | Relay click |
+| 4 | Footprints of the missing uprights sweep round the circle, then the uprights rise; on "lintels" the missing lintels appear. "of 30" joins the figure. | |
 | 5 | Hold; the camera keeps moving. | |
 | 6 | The two fallen trilithon uprights and their lintels appear in light; camera lowest and closest. | |
 | 7 | House lights rise; the white legend row brightens. | Lift |

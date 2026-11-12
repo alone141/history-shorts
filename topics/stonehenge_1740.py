@@ -72,9 +72,7 @@ FILM = {
     "stills": {"01_table": "s1+1.0", "02_loupe_arrives": "s2.end-0.3", "03_seventeen": "s3.end+0.2", "04_carried_off": "s4.end-0.1",
                "05_plate": "s5+2.0", "06_put_back": "s6+1.5", "07_ours": "s7+1.0", "08_hold": "end-0.6"},
     "sound": [
-        {"type": "swell", "at": "s2"},                 # the loupe arrives
         {"type": "tick", "at": "s3+1.05"},             # the underline closes
-        {"type": "swell", "at": "s4+0.2"},
         {"type": "lift", "at": "s5+0.1"},              # the caption plate
     ],
 }

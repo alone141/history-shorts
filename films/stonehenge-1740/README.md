@@ -3,7 +3,7 @@
 Archive light table. Real public-domain page scans on a backlit table, a loupe
 at a true magnification, one mark, a caption plate.
 
-Status: **rendered** (12 November 2026, vermilion accent), after the second refutation pass. Not posted; the account name is still open.
+Status: **rendered** (12 November 2026, vermilion accent), after the second refutation pass. The MP4 still has the thump, hum and swell cues that have since been removed; it will be re-rendered once the narrator speed is chosen. Not posted; the account name is still open.
 
 ## The finding
 
@@ -26,9 +26,9 @@ A study published in 2022 gives the same four numbers for today.
 | Voice | Picture | Sound |
 |---|---|---|
 | 1 | The table: page 19 and two of Stukeley's engraved views. A slow push begins. | Room tone |
-| 2 | The loupe (5x) glides onto the page. | Swell |
+| 2 | The loupe (5x) glides onto the page. | |
 | 3 | The lens rests on the sentence; an underline draws under "17 left ſtanding." | Tick as it closes |
-| 4 | The loupe glides down the paragraph to the lintels and "22 are carried off". | Swell |
+| 4 | The loupe glides down the paragraph to the lintels and "22 are carried off". | |
 | 5 | The loupe lifts away. The caption plate rises: 17 · 6 · 2 · 22, with both sources. | Lift |
 | 6, 7 | Hold; the push continues. | |
 | (hold) | Credit line. | |
