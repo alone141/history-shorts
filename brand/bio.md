@@ -1,6 +1,7 @@
 # Measured Past: profile text
 
 Handle: `measuredpast` (availability not yet checked). Display name: Measured Past.
+Profile photo: `profile.png` (the monogram, chosen by the account owner; the other options can be redrawn with `make_profile.py`).
 
 ## TikTok (80 characters at most)
 
