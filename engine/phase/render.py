@@ -582,7 +582,9 @@ class Renderer:
         self._set(lit, "uPlateR", self.R)
         self._set(lit, "uEmissive", PICK_GLOW)
         if "uPoisson" in lit:
-            lit["uPoisson"].write(np.array(POISSON, dtype="f4").tobytes())
+            # a driver may report only the elements the shader reads (Mesa trims the array to 8)
+            taps = lit["uPoisson"].array_length
+            lit["uPoisson"].write(np.array(POISSON[:taps], dtype="f4").tobytes())
         self._set(lit, "uShadow", 0)
         self._set(lit, "uMap", 1)
 

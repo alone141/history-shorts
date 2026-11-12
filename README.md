@@ -83,6 +83,12 @@ To rebuild the stone table from the raw open data (about 450 MB more):
 .venv/Scripts/python -m topics.stonehenge.build_stones
 ```
 
+## Without a graphics card (Linux server or cloud container)
+
+The phase model also renders on Mesa's software OpenGL under a virtual display:
+prefix the `engine.film` commands with `xvfb-run -a`. On four cores the phase
+film takes about 13 minutes and the light table film about 9.
+
 ## Where things stand
 
 See the two film READMEs. In short: both films are scripted, revised after one
