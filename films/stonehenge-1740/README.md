@@ -29,7 +29,7 @@ A study published in 2022 gives the same four numbers for today.
 | 2 | The loupe (5x) glides onto the page. | |
 | 3 | The lens rests on the sentence; an underline draws under "17 left ſtanding." | Tick as it closes |
 | 4 | The loupe glides down the paragraph to the lintels and "22 are carried off". | |
-| 5 | The loupe lifts away. The caption plate rises: 17 · 6 · 2 · 22, with both sources. | Lift |
+| 5 | The loupe lifts away. The caption plate rises: 17 · 6 · 2 · 22, with both sources. | |
 | 6, 7 | Hold; the push continues. | |
 | (hold) | Credit line. | |
 

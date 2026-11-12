@@ -71,6 +71,5 @@ FILM = {
     "sound": [
         {"type": "tick", "at": "pick"},                       # one soft tick per counted stone
         {"type": "click", "at": "s3.end+0.45"},               # house lights relay
-        {"type": "lift", "at": "s7"},
     ],
 }

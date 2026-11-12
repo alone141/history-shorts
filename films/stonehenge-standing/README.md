@@ -32,7 +32,7 @@ secured in the twentieth century.
 | 4 | Footprints of the missing uprights sweep round the circle, then the uprights rise; on "lintels" the missing lintels appear. "of 30" joins the figure. | |
 | 5 | Hold; the camera keeps moving. | |
 | 6 | The two fallen trilithon uprights and their lintels appear in light; camera lowest and closest. | |
-| 7 | House lights rise; the white legend row brightens. | Lift |
+| 7 | House lights rise; the white legend row brightens. | |
 | 8 | House lights fall; the light pulses; the light legend row brightens. | |
 | (hold) | Credit line. | |
 

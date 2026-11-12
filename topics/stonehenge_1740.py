@@ -73,7 +73,6 @@ FILM = {
                "05_plate": "s5+2.0", "06_put_back": "s6+1.5", "07_ours": "s7+1.0", "08_hold": "end-0.6"},
     "sound": [
         {"type": "tick", "at": "s3+1.05"},             # the underline closes
-        {"type": "lift", "at": "s5+0.1"},              # the caption plate
     ],
 }
 
