@@ -3,7 +3,7 @@
 Every spoken and on-screen claim, its source, and the wording or the measurement
 behind it. Quotations are kept to the words that carry the fact.
 
-Status: revised after the first independent refutation pass (12 November 2026);
+Status: revised after two independent refutation passes (12 November 2026);
 see "Refutation record" at the end. Not final until the film is approved.
 
 ## Sources
@@ -35,8 +35,8 @@ see "Refutation record" at the end. Not final until the film is approved.
 | # | Text | Source | Wording or method |
 |---|---|---|---|
 | 8 | "17 of 30 circle uprights still stand" | rows 2 and 3 | The counter runs through the 17 standing uprights in stone-number order. The 30 carries the caveat of row 2. |
-| 9 | "WHITE survives today · laser scan 2021" | EA LIDAR | Heights are from the airborne laser scan flown 4 April 2021, measured above the 2022 composite ground model. |
-| 10 | "LIGHT inferred · built c. 2500 BC" | row 1 | |
+| 9 | "WHITE survives today · airborne laser scan 2021" | EA LIDAR | Heights are from the airborne laser scan flown 4 April 2021, measured above the 2022 composite ground model. |
+| 10 | "LIGHT inferred · sarsens set up c. 2500 BC" | row 1 | |
 | 11 | Engraved scale bar "10 m" | Nash 2021 scale bar; EA LIDAR | The plan's own 10 m scale bar sets the model scale; fitting the plan to the scan changed it by 0.3 % (scale 1.0032, rotation -0.21 degrees). |
 | 12 | "Plan after Nash et al. 2021, CC BY 4.0 · Heights: Environment Agency LIDAR 2021, OGL v3.0 · Synthetic voice" | licences | See CREDITS.md. The narration is a text-to-speech voice (Kokoro). |
 
@@ -73,3 +73,12 @@ First pass, 12 November 2026, by an independent agent instructed to refute every
 | "28 of 41" bluestones unresolved | 29 of 41 | Miscount. |
 
 Still open: the Environment Agency licence wording was confirmed from data.gov.uk metadata, not from the survey portal page itself; Field 2015's printed page number.
+
+Second pass, 12 November 2026, by a fresh independent agent on the revised wording. It found no wrong number and re-derived the thirteen re-set or secured stones from the English Heritage research notes. Changes made because of it:
+
+| Was | Now | Why |
+|---|---|---|
+| Legend "survives today · laser scan 2021" | "survives today · airborne laser scan 2021" | The 2021 data is the Environment Agency's airborne survey, not a ground scan of the stones. |
+| Legend "inferred · built c. 2500 BC" | "inferred · sarsens set up c. 2500 BC" | The monument has phases from about 3000 BC; the date is for the sarsens. |
+
+Noted and left as is: "17 of 30" on screen is unhedged, the voice says "most likely" as it appears. Two of the lintels shown in light survive on the ground. The Great Trilithon is complete because it was re-erected in 1958.

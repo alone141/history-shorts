@@ -11,14 +11,14 @@ On page 19 of his book of 1740, William Stukeley counts the outer circle:
 17 uprights standing, 6 lintels in place, 2 on the ground, 22 carried off.
 A study published in 2022 gives the same four numbers for today.
 
-## Script (67 spoken words, 32.5 s)
+## Script (68 spoken words, 32.7 s)
 
 1. William Stukeley surveyed Stonehenge in the 1720s.
 2. His book of 1740 counts the outer circle:
 3. seventeen uprights left standing,
 4. six lintels in place, two on the ground, twenty-two carried off.
 5. A study published in 2022 gives the same four numbers.
-6. In between, three stones fell and were put back, and more were straightened.
+6. In the circle, three stones fell and were put back, and more were straightened.
 7. The scans are real. The mark and the lens are ours.
 
 ## What happens when

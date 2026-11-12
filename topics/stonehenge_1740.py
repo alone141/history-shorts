@@ -22,7 +22,7 @@ SCRIPT = [
     {"id": "s4", "beat": 3, "gap_before": 0.25, "text": "six lintels in place, two on the ground, twenty-two carried off."},
     {"id": "s5", "beat": 4, "gap_before": 0.6, "text": "A study published in 2022 gives the same four numbers.",
      "say": "A study published in twenty twenty-two gives the same four numbers."},
-    {"id": "s6", "beat": 5, "text": "In between, three stones fell and were put back, and more were straightened."},
+    {"id": "s6", "beat": 5, "text": "In the circle, three stones fell and were put back, and more were straightened."},
     {"id": "s7", "beat": 6, "text": "The scans are real. The mark and the lens are ours."},
 ]
 

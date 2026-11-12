@@ -34,8 +34,8 @@ FILM = {
     "phase": {
         "label": "circle uprights still stand",
         "figure_total": 30,
-        "legend_matter": ["WHITE", "survives today · laser scan 2021"],
-        "legend_light": ["LIGHT", "inferred · built c. 2500 BC"],
+        "legend_matter": ["WHITE", "survives today · airborne laser scan 2021"],
+        "legend_light": ["LIGHT", "inferred · sarsens set up c. 2500 BC"],
         "credit": "Plan after Nash et al. 2021, CC BY 4.0 · Heights: Environment Agency LIDAR 2021, OGL v3.0 · Synthetic voice",
         # house lights: full for the count, cut for the projector, up for "white", down for "light"
         "house": [["start", 1.0], ["s3.end+0.45", 1.0], ["s3.end+0.72", 0.20], ["s5", 0.25],
