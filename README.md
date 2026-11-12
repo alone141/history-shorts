@@ -92,7 +92,7 @@ film takes about 13 minutes and the light table film about 9.
 ## Where things stand
 
 Both films are rendered (vermilion accent) after two independent refutation
-passes; see each film's FACTS.md. Not posted. Open: the account name. Not done:
+passes; see each film's FACTS.md. Not posted. Account name: Measured Past. Not done:
 a code review of the pipeline, and the TikTok and Instagram labelling rules.
 
 ## This PC

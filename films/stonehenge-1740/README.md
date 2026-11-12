@@ -3,7 +3,7 @@
 Archive light table. Real public-domain page scans on a backlit table, a loupe
 at a true magnification, one mark, a caption plate.
 
-Status: **rendered** (12 November 2026, vermilion accent), after the second refutation pass. Not posted; the account name is still open.
+Status: **rendered** (12 November 2026, vermilion accent), after the second refutation pass. Not posted.
 
 ## The finding
 

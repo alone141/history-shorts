@@ -180,4 +180,4 @@ Order of work: sources and `FACTS.md` first; script; stills for approval; refuta
 
 ## 11. Account name
 
-**OPEN.** Proposals to follow.
+**Measured Past** (handle `measuredpast`), chosen by the account owner on 12 November 2026. Whether the handle is free on TikTok, Instagram and YouTube has not been checked. Bio line: "History and archaeology, shown from the evidence." The name is not shown in the films.

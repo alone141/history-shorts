@@ -3,7 +3,7 @@
 Phase model. A white model of what survives today, on a plate in a dark room;
 a projector paints what is inferred as light.
 
-Status: **rendered** (12 November 2026, vermilion accent), after the second refutation pass. Not posted; the account name is still open.
+Status: **rendered** (12 November 2026, vermilion accent), after the second refutation pass. Not posted.
 
 ## The answer the film gives
 
