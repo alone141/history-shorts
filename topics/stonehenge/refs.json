@@ -1,0 +1,20 @@
+[
+  {
+    "name": "darvill-2022",
+    "url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/792A5E8E091C8B7CB9C26B4A35A6B399/S0003598X22000059a.pdf/keeping-time-at-stonehenge.pdf",
+    "dest": "data/stonehenge/refs/darvill_2022_keeping_time_at_stonehenge.pdf",
+    "note": "Darvill, T. 2022. Keeping time at Stonehenge. Antiquity 96(386): 319-335. doi:10.15184/aqy.2022.5. CC BY 4.0. Counts of the circle today, Fig 4 and Fig 8"
+  },
+  {
+    "name": "nash-2021-fig1",
+    "url": "https://journals.plos.org/plosone/article/figure/image?size=large&id=10.1371/journal.pone.0254760.g001",
+    "dest": "data/stonehenge/refs/nash_2021_plosone_fig1.png",
+    "note": "Nash, D.J. et al. 2021. PLoS ONE 16(8): e0254760, Fig 1. CC BY 4.0. Panel B is the plan digitised by digitise_plan.py"
+  },
+  {
+    "name": "stukeley-1740-ocr",
+    "url": "https://archive.org/download/b30448554/b30448554_djvu.txt",
+    "dest": "data/stonehenge/stukeley/b30448554_djvu.txt",
+    "note": "Internet Archive OCR text of the Wellcome copy. Search aid only; quotations are read from the page scans"
+  }
+]

@@ -1,0 +1,1 @@
+python3 narrate.py && python3 render_film.py && python3 make_sound.py && ffmpeg -y -i film_silent.mp4 -i mix.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 160k -ar 48000 -ac 2 -shortest -movflags +faststart film.mp4

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "inter",
+    "url": "https://github.com/rsms/inter/releases/download/v4.1/Inter-4.1.zip",
+    "dest": "vendor/fonts/Inter-4.1.zip",
+    "note": "Inter and Inter Display 4.1, SIL Open Font License 1.1"
+  },
+  {
+    "name": "jetbrains-mono",
+    "url": "https://github.com/JetBrains/JetBrainsMono/releases/download/v2.304/JetBrainsMono-2.304.zip",
+    "dest": "vendor/fonts/JetBrainsMono-2.304.zip",
+    "note": "JetBrains Mono 2.304, SIL Open Font License 1.1"
+  }
+]

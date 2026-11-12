@@ -1,0 +1,60 @@
+{
+ "voice": "bm_fable",
+ "lang": "en-gb",
+ "speed": 0.92,
+ "sample_rate": 24000,
+ "duration_s": 31.6,
+ "frames": 948,
+ "sentences": [
+  {
+   "id": "s1",
+   "beat": 1,
+   "text": "Stonehenge, in Wiltshire, is about four and a half thousand years old.",
+   "start_s": 0.4,
+   "end_s": 4.887
+  },
+  {
+   "id": "s2a",
+   "beat": 2,
+   "text": "Thirty tall stones once made its outer circle.",
+   "start_s": 5.267,
+   "end_s": 8.855
+  },
+  {
+   "id": "s2b",
+   "beat": 2,
+   "text": "Sixteen still stand.",
+   "start_s": 9.235,
+   "end_s": 11.429
+  },
+  {
+   "id": "s4",
+   "beat": 4,
+   "text": "The light shows where the others stood, and the ring of lintels they carried.",
+   "start_s": 13.679,
+   "end_s": 18.1,
+   "lintels_s": 16.508
+  },
+  {
+   "id": "s5",
+   "beat": 5,
+   "text": "Inside stood five great trilithons, each two uprights and a lintel.",
+   "start_s": 18.48,
+   "end_s": 23.37
+  },
+  {
+   "id": "s6a",
+   "beat": 6,
+   "text": "White is stone that stands today.",
+   "start_s": 23.75,
+   "end_s": 26.434
+  },
+  {
+   "id": "s6b",
+   "beat": 6,
+   "text": "Light is what we infer.",
+   "start_s": 26.814,
+   "end_s": 29.11
+  }
+ ]
+}

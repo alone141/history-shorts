@@ -1,0 +1,200 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Stonehenge projection</title>
+<style>
+@font-face{font-family:ID;src:url(/fonts/InterDisplay-SemiBold.otf);font-weight:600}
+@font-face{font-family:IDB;src:url(/fonts/InterDisplay-Bold.otf)}
+@font-face{font-family:IM;src:url(/fonts/Inter-Medium.otf)}
+@font-face{font-family:JM;src:url(/fonts/JetBrainsMono-Medium.ttf)}
+html,body{margin:0;background:#06080b;width:1080px;height:1920px;overflow:hidden}
+#c{position:absolute;left:0;top:0}
+#vig{position:absolute;inset:0;background:radial-gradient(ellipse 75% 55% at 50% 38%,rgba(0,0,0,0) 40%,rgba(0,0,0,.72) 100%)}
+#shade{position:absolute;left:0;right:0;bottom:0;height:700px;background:linear-gradient(rgba(6,8,11,0),rgba(6,8,11,.88) 45%)}
+#topshade{position:absolute;left:0;right:0;top:0;height:420px;background:linear-gradient(rgba(6,8,11,.9),rgba(6,8,11,0))}
+.t{position:absolute;color:#f1f2ee;white-space:nowrap}
+#id{left:60px;top:74px;font:500 24px JM;letter-spacing:.14em;color:#8fa0a8}
+#hook{left:60px;top:118px;font:600 74px/82px ID;letter-spacing:-.01em}
+#num{left:52px;top:1100px;font:700 168px/168px IDB;letter-spacing:-.03em}
+#num small{font:500 66px IM;letter-spacing:0;color:#9aa3a8;margin:0 6px 0 4px}
+#lab{left:60px;top:1274px;font:500 42px IM;color:#e6e8e4}
+.lg{left:60px;font:500 24px JM;color:#c9d0d2;letter-spacing:.02em}
+.sw{display:inline-block;width:26px;height:26px;margin-right:16px;vertical-align:-5px;border-radius:3px}
+#scale{left:60px;top:1074px;font:500 22px JM;color:#a9b4b9;letter-spacing:.06em}
+#src{left:60px;top:1488px;opacity:0;font:500 22px JM;color:#8e999e}
+#cap{left:60px;top:1418px;width:810px;white-space:normal;font:500 38px/49px IM;color:#f1f2ee;opacity:0;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.lg{transform-origin:0 50%}
+#num,#lab{opacity:0}
+</style></head><body>
+<canvas id="c" width="1080" height="1920"></canvas><div id="topshade"></div><div id="vig"></div><div id="shade"></div>
+<div class="t" id="id">STONEHENGE · WILTSHIRE</div>
+<div class="t" id="hook">How much of Stonehenge<br>is still standing?</div>
+<div class="t" id="num"><span id="n">16</span><span id="ofw"><small>of</small><span id="of">30</span></span></div>
+<div class="t" id="lab">circle uprights still stand</div>
+<div class="t lg" id="lg1" style="top:1334px;opacity:0"><span class="sw" style="background:#f3f3f1"></span>WHITE MATTER  stands today · LiDAR 2021</div>
+<div class="t lg" id="lg2" style="top:1372px"><span class="sw" style="background:#27d6ee;box-shadow:0 0 14px #27d6eeaa"></span>PROJECTED LIGHT  inferred · c. 2500 BC</div>
+<div class="t" id="scale">MODEL 1:200 · PLATE 80 m · GROUND FLATTENED</div>
+<div class="t" id="cap"></div>
+<div class="t" id="src">OpenStreetMap contributors · Environment Agency LIDAR, OGL</div>
+<script src="/node_modules/three/build/three.min.js"></script>
+<script>
+(async()=>{
+const S=await (await fetch('/scene.json')).json();const NAR=await (await fetch('/narration.json')).json();const SN={};NAR.sentences.forEach(o=>SN[o.id]=o);
+document.getElementById('n').textContent=S.nstand;
+const W=1080,H=1920,PR=S.plate;
+const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(1);renderer.setSize(W,H,false);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.setClearColor(0x06080b);renderer.outputColorSpace=THREE.SRGBColorSpace;
+const scene=new THREE.Scene();
+const CY=0x27d6ee;
+// camera from the north-east (the horseshoe opens that way), 39 deg up
+let az=THREE.MathUtils.degToRad(+window.AZ||128), el=THREE.MathUtils.degToRad(+window.EL||37), D=+window.D||205;
+const cam=new THREE.PerspectiveCamera(+window.FOV||22,W/H,10,800);
+const tgt=new THREE.Vector3(0,+window.TY||1,0);
+const az0=az,el0=el;let D0=D;
+function setCam(az,el){cam.position.set(D*Math.cos(el)*Math.sin(az),D*Math.sin(el),D*Math.cos(el)*Math.cos(az)).add(tgt);cam.lookAt(tgt);}
+setCam(az,el);
+cam.setViewOffset(W,H,0,+window.VO||-120,W,H);
+// lights
+const hemi=new THREE.HemisphereLight(0xdfe6ee,0x30343a,0.4);scene.add(hemi);
+const key=new THREE.DirectionalLight(0xfff6ea,2.5);
+const ka=az+THREE.MathUtils.degToRad(+window.KA||-62);
+key.position.set(110*Math.sin(ka),95,110*Math.cos(ka));
+key.castShadow=true;key.shadow.mapSize.set(4096,4096);const sc=key.shadow.camera;sc.left=-62;sc.right=62;sc.top=62;sc.bottom=-62;sc.near=10;sc.far=330;
+renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;key.shadow.radius=5;key.shadow.bias=-0.0006;key.shadow.normalBias=0.08;
+scene.add(key);
+const proj=new THREE.Vector3(-30,150,60);
+const matter=new THREE.MeshStandardMaterial({color:0xf3f3f1,roughness:0.9,metalness:0});
+// ---- plinth + plate
+const plinth=new THREE.Mesh(new THREE.CylinderGeometry(PR+6,PR+7.5,9,96),new THREE.MeshStandardMaterial({color:0x14181d,roughness:0.35,metalness:0.25}));
+plinth.position.y=-1.8-4.5;plinth.receiveShadow=true;scene.add(plinth);
+const floor=new THREE.Mesh(new THREE.CircleGeometry(400,64),new THREE.MeshStandardMaterial({color:0x07090c,roughness:0.6}));
+floor.rotation.x=-Math.PI/2;floor.position.y=-10.4;scene.add(floor);
+// canvases: base (ditches) and light (projection, emissive)
+const TS=2048,k=TS/(2*PR);const P=(x,z)=>[(x+PR)*k,(z+PR)*k];
+function mk(){const c=document.createElement('canvas');c.width=c.height=TS;return c}
+const bc=mk(),bx=bc.getContext('2d');bx.fillStyle='#6f7378';bx.fillRect(0,0,TS,TS);
+bx.save();bx.beginPath();bx.arc(TS/2,TS/2,PR*k,0,7);bx.clip();
+bx.lineCap='round';bx.lineJoin='round';
+S.ditch.forEach(d=>{bx.beginPath();d.forEach((p,i)=>{const q=P(p[0],p[1]);i?bx.lineTo(q[0],q[1]):bx.moveTo(q[0],q[1])});bx.strokeStyle='#3f4347';bx.lineWidth=2.6*k;bx.globalAlpha=.5;bx.stroke();bx.strokeStyle='#2c2f33';bx.lineWidth=1.3*k;bx.globalAlpha=.75;bx.stroke()});
+bx.restore();
+const lc=mk(),lx=lc.getContext('2d');lx.fillStyle='#000';lx.fillRect(0,0,TS,TS);
+// inferred geometry (metres, x east, z south) -------------------------------------------
+const R=S.R,rad=a=>a*Math.PI/180;
+const items=[]; // {x,z,rot,w,d,y0,y1,kind}
+const cen=S.stones.map(s=>{let x=0,z=0;s.poly.forEach(p=>{x+=p[0];z+=p[1]});return [x/s.poly.length,z/s.poly.length,s]});
+// sarsen circle: missing uprights (fallen or gone) and the 30 lintels
+S.slots.forEach(sl=>{const a=rad(sl.ang),x=R*Math.cos(a),z=-R*Math.sin(a);
+ if(sl.state!=='standing')items.push({x,z,a,w:2.1,d:1.1,y0:0,y1:4.1,kind:'up'});
+ const b=rad(sl.ang+6),m=R*Math.cos(rad(6));items.push({x:m*Math.cos(b),z:-m*Math.sin(b),a:b,w:3.5,d:1.05,y0:4.1,y1:4.9,kind:'lin'});});
+// trilithons: 10 uprights, 5 lintels; matter where a tall mapped stone stands
+const rin=S.rin;
+S.tri_ang.forEach((ang,j)=>{const a=rad(ang),x=rin*Math.cos(a),z=-rin*Math.sin(a);
+ const has=cen.some(c=>c[2].h>=4.5&&c[2].r<12&&Math.hypot(c[0]-x,c[1]-z)<2.0);
+ if(!has)items.push({x,z,a,w:2.1,d:1.2,y0:0,y1:6.2,kind:'up'});
+ if(j%2===0){const b=rad(ang-11),m=rin*Math.cos(rad(11));items.push({x:m*Math.cos(b),z:-m*Math.sin(b),a:b,w:4.4,d:1.2,y0:6.2,y1:7.1,kind:'lin'})}});
+// bluestone ring: radius from the small mapped stones, 60 positions (count is a guess)
+for(let i=0;i<60;i++){const a=rad(i*6+3),x=S.rblue*Math.cos(a),z=-S.rblue*Math.sin(a);
+ if(cen.some(c=>c[2].r<15&&c[2].r>9&&c[2].area<4&&Math.hypot(c[0]-x,c[1]-z)<1.0))continue;
+ items.push({x,z,a,w:0.9,d:0.6,y0:0,y1:2.0,kind:'blue'})}
+// footprints: drawn each frame with per-item alpha (pure function of frame)
+const lt0=null;
+function drawLight(pool,fa){lx.setTransform(1,0,0,1,0,0);lx.shadowBlur=0;lx.fillStyle='#000';lx.fillRect(0,0,TS,TS);
+ if(pool>0){let g=lx.createRadialGradient(TS/2,TS/2,0,TS/2,TS/2,26*k);g.addColorStop(0,`rgba(24,150,175,${.55*pool})`);g.addColorStop(.6,`rgba(20,120,140,${.3*pool})`);g.addColorStop(1,'rgba(0,0,0,0)');lx.fillStyle=g;lx.fillRect(0,0,TS,TS);}
+ items.forEach((it,i)=>{const al=fa[i];if(it.y0>0||al<=0.003)return;
+  lx.shadowColor=`rgba(39,214,238,${al})`;lx.shadowBlur=2.2*k;lx.fillStyle=`rgba(39,214,238,${.95*al})`;
+  const tx=-Math.sin(it.a),tz=-Math.cos(it.a),rx=Math.cos(it.a),rz=-Math.sin(it.a);
+  const pts=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([u,v])=>P(it.x+tx*u*it.w/2+rx*v*it.d/2,it.z+tz*u*it.w/2+rz*v*it.d/2));
+  lx.beginPath();pts.forEach((p,j)=>j?lx.lineTo(p[0],p[1]):lx.moveTo(p[0],p[1]));lx.closePath();lx.fill();lx.fill()});
+ lx.shadowBlur=0;lt.needsUpdate=true}
+const bt=new THREE.CanvasTexture(bc),lt=new THREE.CanvasTexture(lc);bt.colorSpace=THREE.SRGBColorSpace;lt.colorSpace=THREE.SRGBColorSpace;bt.anisotropy=8;lt.anisotropy=8;
+const top=new THREE.MeshStandardMaterial({map:bt,roughness:0.92,emissive:0xffffff,emissiveMap:lt,emissiveIntensity:1});
+const side=new THREE.MeshStandardMaterial({color:0x9a9da1,roughness:0.9});
+const plate=new THREE.Mesh(new THREE.CylinderGeometry(PR,PR,1.8,128),[side,top,side]);
+plate.position.y=-0.9;plate.receiveShadow=true;scene.add(plate);
+// ---- matter
+function shapeOf(poly){const sh=new THREE.Shape();poly.forEach((p,i)=>i?sh.lineTo(p[0],-p[1]):sh.moveTo(p[0],-p[1]));return sh}
+function extrude(poly,h,mat){const gm=new THREE.ExtrudeGeometry(shapeOf(poly),{depth:h,bevelEnabled:false});gm.rotateX(-Math.PI/2);
+ const m=new THREE.Mesh(gm,mat||matter);m.castShadow=true;m.receiveShadow=true;scene.add(m);return m}
+let standing=0,lying=0;
+S.stones.forEach(s=>{let h=s.h;if(h>=2.5){h=Math.min(h,s.r>13.4?4.1:6.8);standing++}else{h=Math.max(0.35,Math.min(h,1.1));lying++}
+ const m=extrude(s.poly,h);m.userData={h:s.h,s:s,cx:s.poly.reduce((a,p)=>a+p[0],0)/s.poly.length,cz:s.poly.reduce((a,p)=>a+p[1],0)/s.poly.length}});
+// banks / barrows
+S.bank.forEach(b=>{
+ if(b.closed){extrude(b.pts,0.9);return}
+ for(let i=0;i<b.pts.length-1;i++){let p=b.pts[i],q=b.pts[i+1];const pr=Math.hypot(...p),qr=Math.hypot(...q);if(pr>PR-1.5&&qr>PR-1.5)continue;
+  const dx=q[0]-p[0],dz=q[1]-p[1],L=Math.hypot(dx,dz);if(L<.1)continue;
+  const m=new THREE.Mesh(new THREE.BoxGeometry(L+0.6,0.7,2.4),matter);m.position.set((p[0]+q[0])/2,0.35,(p[1]+q[1])/2);m.rotation.y=-Math.atan2(dz,dx);m.castShadow=m.receiveShadow=true;scene.add(m)}});
+// ---- projected light volumes
+const lightMat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
+ uniforms:{col:{value:new THREE.Color(CY)},pp:{value:proj},h1:{value:7.2},kk:{value:1}},
+ vertexShader:`varying vec3 wN;varying vec3 wP;void main(){wN=normalize(mat3(modelMatrix)*normal);vec4 w=modelMatrix*vec4(position,1.);wP=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
+ fragmentShader:`uniform vec3 col;uniform vec3 pp;uniform float h1;uniform float kk;varying vec3 wN;varying vec3 wP;
+ void main(){vec3 L=normalize(pp-wP);float nl=max(dot(normalize(wN),L),0.);float lit=0.42+0.58*nl;
+ float fade=mix(1.0,0.62,clamp(wP.y/h1,0.,1.));vec3 V=normalize(cameraPosition-wP);float rim=pow(1.-abs(dot(normalize(wN),V)),2.0);
+ float a=(0.42+0.34*rim)*lit*fade*kk;gl_FragColor=vec4(col*a*1.15+vec3(0.06,0.14,0.16)*rim*fade*kk,a);}`});
+items.forEach(it=>{const h=it.y1-it.y0;const mm=lightMat.clone();mm.uniforms={col:lightMat.uniforms.col,pp:lightMat.uniforms.pp,h1:lightMat.uniforms.h1,kk:{value:1}};it.mat=mm;const m=new THREE.Mesh(new THREE.BoxGeometry(it.w,h,it.d),mm);it.mesh=m;
+ m.position.set(it.x,it.y0+h/2,it.z);m.rotation.y=it.a;m.renderOrder=5;scene.add(m)});
+// ---- timeline (all pure functions of the frame number; times come from narration.json)
+const cl=(x,a,b)=>Math.min(1,Math.max(0,(x-a)/(b-a)));
+const eo=u=>1-Math.pow(1-u,3), eio=u=>u*u*(3-2*u), eioc=u=>0.5-0.5*Math.cos(Math.PI*u);
+const T=NAR.duration_s;
+const grp=it=>it.kind==='blue'?4:(Math.hypot(it.x,it.z)>13?(it.kind==='up'?0:1):(it.kind==='up'?2:3));
+const angf=it=>{let a=Math.atan2(-it.z,it.x);a=(a+Math.PI*2+0.6)%(Math.PI*2);return a/(Math.PI*2)};
+items.forEach(it=>{it.g=grp(it);it.af=angf(it)});
+const flick=[0.9,0.12,0.65,0.05,0.8,0.45];
+const B3=SN.s2b.end_s+0.3, CUT=B3+0.2, STRIKE=B3+0.75;           // house cut 0.25 s, projector strike with flicker
+const S4=SN.s4.start_s, LIN=SN.s4.lintels_s, S5=SN.s5.start_s, S6A=SN.s6a.start_s, S6B=SN.s6b.start_s, E6=SN.s6b.end_s;
+window.TL={B3,CUT,STRIKE,S4,LIN,S5,S6A,S6B,E6,T};
+function house(t){ // 1 in house light, cut to 0.2, returns slowly, full again for the end
+ if(t<CUT)return 1; if(t<CUT+0.25)return 1-0.8*eio(cl(t,CUT,CUT+0.25));
+ if(t<S4)return 0.2; if(t<S5)return 0.2+0.3*eioc(cl(t,S4,S5));
+ return 0.5+0.5*eioc(cl(t,S5+1.5,E6+0.6))}
+function strike(t){ if(t<STRIKE)return 0; const f=Math.floor((t-STRIKE)*30); if(f<6)return flick[f]; return 1}
+// the 16 standing circle uprights: pick each one out in turn
+const picks=[];
+S.slots.filter(sl=>sl.state==='standing').forEach(sl=>{const a=rad(sl.ang),x=R*Math.cos(a),z=-R*Math.sin(a);let best=null,bd=3.6;
+ scene.children.forEach(m=>{if(m.userData&&m.userData.h>=2.5&&m.userData.s.r>13.4){const d=Math.hypot(m.userData.cx-x,m.userData.cz-z);if(d<bd){bd=d;best=m}}});
+ if(best){if(!best.userData.own){best.material=matter.clone();best.userData.own=true}picks.push({m:best,ang:sl.ang,af:((Math.atan2(-z,x)+Math.PI*2+0.6)%(Math.PI*2))/(Math.PI*2)})}});
+picks.sort((a,b)=>a.af-b.af);
+const PK0=SN.s2a.start_s+0.7, PK1=SN.s2b.start_s+0.30; // last stone peaks as the voice says "Sixteen"
+picks.forEach((p,i)=>{const u=picks.length>1?i/(picks.length-1):0;p.tp=PK0+(PK1-PK0)*eioc(0.15+0.85*u)*1.0-(PK1-PK0)*0.0});
+// make times strictly increasing and spread by a smooth non-linear curve
+picks.forEach((p,i)=>{const u=i/(picks.length-1);p.tp=PK0+(PK1-PK0)*(0.8*u+0.2*eioc(u))});
+window.PICKS=picks.map(p=>p.tp);
+const cap=document.getElementById('cap');let capId='';
+const el_=id=>document.getElementById(id);
+let lastBlack=false;
+window.setFrame=function(f){const t=f/30,u=t/T;
+ // camera: slow orbit that never stops (a linear part + an eased part), lower and closer in beat 5, back for the end
+ const sm=0.45*u+0.55*eioc(u);
+ const pz=eioc(cl(t,S5,S5+1.6))*(1-eioc(cl(t,S6A-0.3,S6A+2.4)));
+ D=D0*(1-0.13*pz); const elv=el0+THREE.MathUtils.degToRad(-5.5)*pz;
+ setCam(az0+THREE.MathUtils.degToRad(8)*(sm-1),elv+THREE.MathUtils.degToRad(1.2)*sm);
+ const h=house(t);hemi.intensity=0.4*h;key.intensity=2.5*h;
+ const St=strike(t);
+ // beat 2 pick-out
+ picks.forEach(p=>p.m.material.emissive.setRGB(0,0,0));
+ picks.forEach(p=>{const d=t-p.tp;const g=d<-0.12?0:(d<0?eio(1+d/0.12):Math.exp(-d*3.2)*(d<1.6?1:0));const e=p.m.material.emissive;e.r=Math.max(e.r,0.55*g);e.g=Math.max(e.g,0.54*g);e.b=Math.max(e.b,0.5*g)});
+ // footprints (g0 at S4, g2 and g4 in beat 5); volumes by group
+ const fs=it=>it.g===0?S4+0.12+1.15*it.af:(it.g===2?S5+0.15+0.9*it.af:S5+2.1+1.3*it.af);
+ const vs=it=>it.g===0?fs(it)+0.45:(it.g===1?LIN+0.0+0.9*it.af:(it.g===2?fs(it)+0.45:(it.g===3?S5+1.1+0.9*it.af:fs(it)+0.45)));
+ const fa=items.map(it=>{let a=0;if(it.y0===0)a=eo(cl(t,fs(it),fs(it)+0.4));return a*St});
+ items.forEach(it=>{const st=vs(it);const v=eo(cl(t,st,st+0.6))*St;it.mat.uniforms.kk.value=v;it.mesh.visible=v>0.002});
+ const anyFoot=St>0; if(anyFoot||!lastBlack){drawLight(St,fa);lastBlack=!anyFoot}
+ // text: number counts with the stones, "of 30" and legend rows
+ const cnt=picks.filter(p=>t>=p.tp).length; el_('n').textContent=cnt>=picks.length?S.nstand:cnt;
+ el_('num').style.opacity=eo(cl(t,SN.s2a.start_s+0.3,SN.s2a.start_s+0.8));el_('lab').style.opacity=eo(cl(t,SN.s2a.start_s+0.5,SN.s2a.start_s+1.0));
+ el_('ofw').style.opacity=eo(cl(t,S4+1.0,S4+1.6));
+ const em=(t0)=>{const d=t-t0;return d<0?0:(d<0.25?eio(d/0.25):Math.exp(-(d-0.25)*1.6))};
+ const e1=em(S6A),e2=em(S6B);
+ const base1=eo(cl(t,SN.s2a.start_s+0.8,SN.s2a.start_s+1.3)),base2=eo(cl(t,S4+1.0,S4+1.6));
+ const r1=el_('lg1'),r2=el_('lg2');
+ r1.style.opacity=base1*(0.72+0.28*e1);r1.style.transform=`scale(${1+0.07*e1})`;r1.style.filter=`brightness(${1+0.5*e1})`;
+ r2.style.opacity=base2*(0.72+0.28*e2);r2.style.transform=`scale(${1+0.07*e2})`;r2.style.filter=`brightness(${1+0.5*e2})`;
+ // captions: one spoken sentence at a time, 0.15 s fade
+ let cur=null;NAR.sentences.forEach(o=>{if(t>=o.start_s-0.01&&t<=o.end_s+0.2)cur=o});
+ if(cur){if(capId!==cur.id){cap.textContent=cur.text;capId=cur.id}cap.style.opacity=cl(t,cur.start_s,cur.start_s+0.15)*(1-cl(t,cur.end_s,cur.end_s+0.15))}else{cap.style.opacity=0}
+ el_('src').style.opacity=eo(cl(t,E6+0.35,E6+0.95));
+ renderer.render(scene,cam);};
+window.setFrame(0);window.STATS={standing,lying,items:items.length,picks:picks.length};
+window.DONE=true;
+})();
+</script></body></html>

@@ -1,0 +1,38 @@
+[
+  {
+    "name": "osm",
+    "url": "https://www.openstreetmap.org/api/0.6/map?bbox=-1.8275,51.1782,-1.8250,51.1796",
+    "dest": "data/stonehenge/osm/map.osm",
+    "note": "OpenStreetMap extract: stone footprints, ditch, bank. ODbL 1.0, (c) OpenStreetMap contributors"
+  },
+  {
+    "name": "lidar-point-cloud",
+    "url": "https://environment.data.gov.uk/tiles/collections/survey/national_lidar_programme_point_cloud/2021/1/SU1040",
+    "dest": "data/stonehenge/lidar/SU1040_point_cloud_2021.zip",
+    "note": "Environment Agency National LIDAR Programme point cloud, tile SU1040, flown 2021-04-04. OGL v3.0. About 188 MB"
+  },
+  {
+    "name": "lidar-dsm",
+    "url": "https://environment.data.gov.uk/tiles/collections/survey/national_lidar_programme_dsm/2021/1/SU1040",
+    "dest": "data/stonehenge/lidar/SU1040_dsm_2021.zip",
+    "note": "Environment Agency National LIDAR Programme 1 m surface model. OGL v3.0"
+  },
+  {
+    "name": "lidar-dtm",
+    "url": "https://environment.data.gov.uk/tiles/collections/survey/lidar_composite_dtm/2022/1/SU1040",
+    "dest": "data/stonehenge/lidar/SU1040_dtm_2022.zip",
+    "note": "Environment Agency LIDAR Composite 1 m ground model 2022. OGL v3.0"
+  },
+  {
+    "name": "stukeley-1740",
+    "url": "https://archive.org/download/b30448554/b30448554_jp2.zip",
+    "dest": "data/stonehenge/stukeley/b30448554_jp2.zip",
+    "note": "Stukeley 1740, Wellcome Library copy, Internet Archive b30448554, Public Domain Mark. 164 page scans, about 121 MB"
+  },
+  {
+    "name": "stukeley-1740-metadata",
+    "url": "https://archive.org/metadata/b30448554",
+    "dest": "data/stonehenge/stukeley/b30448554_metadata.json",
+    "note": "Internet Archive record for the scans (rights statement, file list)"
+  }
+]

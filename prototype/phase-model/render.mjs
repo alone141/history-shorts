@@ -1,0 +1,15 @@
+import {createRequire} from 'module';const require=createRequire(import.meta.url);
+const {chromium}=require('playwright');import http from 'http';import fs from 'fs';import path from 'path';
+const root=path.dirname(new URL(import.meta.url).pathname);
+const srv=http.createServer((q,r)=>{let u=decodeURIComponent(q.url.split('?')[0]);let f=u.startsWith('/fonts/')?'/home/user/lumieralight'+u:path.join(root,u);
+ try{const b=fs.readFileSync(f);r.writeHead(200,{'content-type':f.endsWith('.html')?'text/html':f.endsWith('.json')?'application/json':f.endsWith('.js')?'text/javascript':'application/octet-stream'});r.end(b)}catch(e){r.writeHead(404);r.end()}}).listen(0);
+const port=srv.address().port;const out=process.argv[2]||path.join(root,'still.png');
+const params=process.argv[3]||'';
+const b=await chromium.launch({args:['--use-gl=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist']});
+const p=await b.newPage({viewport:{width:1080,height:1920},deviceScaleFactor:1});
+p.on('console',m=>console.log('console',m.text()));p.on('pageerror',e=>console.log('ERR',e.message));
+await p.addInitScript(`Object.assign(window,${JSON.stringify(Object.fromEntries(new URLSearchParams(params)))})`);
+await p.goto(`http://localhost:${port}/scene.html`);
+await p.waitForFunction('window.DONE',null,{timeout:120000});await p.evaluate('document.fonts.ready');await p.waitForTimeout(500);
+console.log(JSON.stringify(await p.evaluate('window.STATS')));
+await p.screenshot({path:out});await b.close();srv.close();

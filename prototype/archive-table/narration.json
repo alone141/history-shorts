@@ -1,0 +1,50 @@
+[
+ {
+  "beat": 1,
+  "text": "In the 1720s, William Stukeley measured and drew Stonehenge.",
+  "start_s": 0.4,
+  "end_s": 5.469
+ },
+ {
+  "beat": 1,
+  "text": "His book came out in 1740.",
+  "start_s": 5.819,
+  "end_s": 9.131
+ },
+ {
+  "beat": 2,
+  "text": "This is his view from the south-west.",
+  "start_s": 9.481,
+  "end_s": 11.466
+ },
+ {
+  "beat": 2,
+  "text": "Under the glass, every line is his engraver's.",
+  "start_s": 11.816,
+  "end_s": 14.461
+ },
+ {
+  "beat": 3,
+  "text": "He drew visitors among the stones, so the page shows how large they are.",
+  "start_s": 14.811,
+  "end_s": 18.795
+ },
+ {
+  "beat": 4,
+  "text": "On another plate he drew the circle complete: his own reconstruction.",
+  "start_s": 19.145,
+  "end_s": 22.953
+ },
+ {
+  "beat": 5,
+  "text": "The scans are real.",
+  "start_s": 23.303,
+  "end_s": 24.543
+ },
+ {
+  "beat": 5,
+  "text": "Only the orange marks are ours.",
+  "start_s": 24.893,
+  "end_s": 26.77
+ }
+]

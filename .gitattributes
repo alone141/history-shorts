@@ -1,0 +1,10 @@
+# store text with LF line endings; never touch binary media
+* text=auto
+*.wav binary
+*.mp4 binary
+*.png binary
+*.jpg binary
+*.otf binary
+*.ttf binary
+*.jp2 binary
+*.npy binary

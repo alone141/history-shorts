@@ -1,0 +1,20 @@
+# Python 3.10 or later. Versions are the ones the two Stonehenge films were built with.
+numpy==2.2.6
+scipy==1.15.3
+pillow==12.0.0
+shapely==2.1.2
+scikit-image==0.25.2
+av==13.1.0
+moderngl==5.12.0
+kokoro-onnx==0.6.1
+onnxruntime==1.23.2
+soundfile==0.14.0
+pyloudnorm==0.2.0
+truststore==0.10.4
+# only for rebuilding the Stonehenge data from the raw downloads
+laspy==2.7.0
+lazrs==0.8.2
+tifffile==2025.5.10
+imagecodecs==2025.3.30
+pyproj==3.7.1
+pymupdf==1.28.2

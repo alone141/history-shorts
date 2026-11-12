@@ -1,0 +1,18 @@
+# downloads, environments and render output stay out of version control
+.venv/
+data/
+vendor/
+models/
+build/
+__pycache__/
+*.pyc
+*.npy
+*.laz
+*.jp2
+*.onnx
+*.bin
+frames/
+# partial downloads and safe-write temporaries
+*.part
+*.part.png
+*.new
