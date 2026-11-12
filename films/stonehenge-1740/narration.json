@@ -4,18 +4,27 @@
  "speed": 1.05,
  "sample_rate": 24000,
  "fps": 30,
- "duration_s": 30.5667,
- "frames": 917,
- "word_count": 68,
+ "duration_s": 34.2333,
+ "frames": 1027,
+ "word_count": 76,
  "cue_method": "sentence start + duration of synthesised prefix text - 0.08 s",
  "sentences": [
+  {
+   "id": "s0",
+   "beat": 1,
+   "text": "What did Stonehenge look like in 1740?",
+   "say": "What did Stonehenge look like in seventeen forty?",
+   "start_s": 0.4,
+   "end_s": 3.682,
+   "cues": {}
+  },
   {
    "id": "s1",
    "beat": 1,
    "text": "William Stukeley surveyed Stonehenge in the 1720s.",
    "say": "William Stukeley surveyed Stonehenge in the seventeen twenties.",
-   "start_s": 0.4,
-   "end_s": 4.452,
+   "start_s": 4.062,
+   "end_s": 8.114,
    "cues": {}
   },
   {
@@ -23,8 +32,8 @@
    "beat": 2,
    "text": "His book of 1740 counts the outer circle:",
    "say": "His book of seventeen forty counts the outer circle:",
-   "start_s": 4.832,
-   "end_s": 8.207,
+   "start_s": 8.494,
+   "end_s": 11.869,
    "cues": {}
   },
   {
@@ -32,8 +41,8 @@
    "beat": 2,
    "text": "seventeen uprights left standing,",
    "say": "seventeen uprights left standing,",
-   "start_s": 8.457,
-   "end_s": 11.064,
+   "start_s": 12.119,
+   "end_s": 14.726,
    "cues": {}
   },
   {
@@ -41,8 +50,8 @@
    "beat": 3,
    "text": "six lintels in place, two on the ground, twenty-two carried off.",
    "say": "six lintels in place, two on the ground, twenty-two carried off.",
-   "start_s": 11.314,
-   "end_s": 15.329,
+   "start_s": 14.976,
+   "end_s": 18.991,
    "cues": {}
   },
   {
@@ -50,8 +59,8 @@
    "beat": 4,
    "text": "A study published in 2022 gives the same four numbers.",
    "say": "A study published in twenty twenty-two gives the same four numbers.",
-   "start_s": 15.929,
-   "end_s": 19.958,
+   "start_s": 19.591,
+   "end_s": 23.62,
    "cues": {}
   },
   {
@@ -59,8 +68,8 @@
    "beat": 5,
    "text": "In the circle, three stones fell and were put back, and more were straightened.",
    "say": "In the circle, three stones fell and were put back, and more were straightened.",
-   "start_s": 20.338,
-   "end_s": 24.599,
+   "start_s": 24.0,
+   "end_s": 28.261,
    "cues": {}
   },
   {
@@ -68,8 +77,8 @@
    "beat": 6,
    "text": "The scans are real. The mark and the lens are ours.",
    "say": "The scans are real. The mark and the lens are ours.",
-   "start_s": 24.979,
-   "end_s": 28.065,
+   "start_s": 28.641,
+   "end_s": 31.727,
    "cues": {}
   }
  ]
