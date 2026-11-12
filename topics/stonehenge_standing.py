@@ -13,14 +13,15 @@ SCRIPT = [
     {"id": "s1", "beat": 1, "text": "The great stones were raised about 4,500 years ago.",
      "say": "The great stones were raised about four and a half thousand years ago."},
     {"id": "s2", "beat": 2, "text": "The outer circle most likely had thirty uprights."},
-    {"id": "s3", "beat": 2, "text": "Seventeen still stand."},
+    {"id": "s3", "beat": 2, "text": "But of those thirty, only seventeen still stand.",
+     "cues": {"seventeen": "But of those thirty, only"}},
     {"id": "s4", "beat": 4, "gap_before": 2.0,
-     "text": "The light shows where the others stood, and the missing lintels.",
-     "cues": {"lintels": "The light shows where the others stood, and the missing"}},
-    {"id": "s5", "beat": 4, "text": "Thirteen of the seventeen were re-set or secured last century."},
-    {"id": "s6", "beat": 5, "text": "Inside, three of five trilithons are complete."},
-    {"id": "s7", "beat": 6, "text": "White is what survives today."},
-    {"id": "s8", "beat": 6, "text": "Light is what we infer."},
+     "text": "Here we show where the others stood, and the missing lintels.",
+     "cues": {"lintels": "Here we show where the others stood, and the missing"}},
+    {"id": "s5", "beat": 4, "text": "Last century, engineers re-set or secured thirteen of the seventeen."},
+    {"id": "s6", "beat": 5, "text": "Inside, three of the five trilithons still stand complete."},
+    {"id": "s7", "beat": 6, "text": "Here is what survives today."},
+    {"id": "s8", "beat": 6, "text": "And here is what we infer."},
 ]
 
 FILM = {
@@ -42,7 +43,7 @@ FILM = {
                   ["s7-0.25", 0.27], ["s7+0.9", 0.80], ["s8-0.15", 0.80], ["s8+0.7", 0.25], ["end", 0.30]],
         "strike": "s3.end+1.1",
         "projector": [["start", 1.0], ["s7-0.25", 1.0], ["s7+0.9", 0.5], ["s8-0.15", 0.5], ["s8+0.55", 1.0], ["end", 1.0]],
-        "pick": {"group": "circle_upright", "from": "s2+0.55", "to": "s3+0.28"},
+        "pick": {"group": "circle_upright", "from": "s2+0.55", "to": "s3.cue:seventeen+0.28"},
         "figure_in": "s2+0.1",
         "of_in": "s4+0.9",
         "legend": {"matter_in": "s2+0.9", "light_in": "s4+0.9", "matter_pulse": "s7", "light_pulse": "s8"},
@@ -65,7 +66,7 @@ FILM = {
         "render": {"scale_bar_bearing": 128, "north_mark_bearing": 0, "key_bearing": 118},
     },
     # frames to show for approval and to keep with the film
-    "stills": {"01_house": "s1+1.5", "02_count": "s3+0.35", "03_strike": "s3.end+1.3", "04_light": "s4.end+0.3",
+    "stills": {"01_house": "s1+1.5", "02_count": "s3.cue:seventeen+0.35", "03_strike": "s3.end+1.3", "04_light": "s4.end+0.3",
                "05_reset": "s5+1.5", "06_trilithons": "s6.end+0.2", "07_white": "s7+1.3", "08_hold": "end-0.6"},
     # sound cues, on the narration clock (all made by code; see engine/sound.py)
     "sound": [

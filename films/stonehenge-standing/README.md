@@ -11,16 +11,16 @@ Seventeen of the outer circle's thirty uprights stand. Six lintels are in place.
 Three of five trilithons are complete. Thirteen of the seventeen were re-set or
 secured in the twentieth century.
 
-## Script (62 spoken words, 33.9 s)
+## Script (70 spoken words, 33.8 s)
 
 1. The great stones were raised about 4,500 years ago.
 2. The outer circle most likely had thirty uprights.
-3. Seventeen still stand.
-4. The light shows where the others stood, and the missing lintels.
-5. Thirteen of the seventeen were re-set or secured last century.
-6. Inside, three of five trilithons are complete.
-7. White is what survives today.
-8. Light is what we infer.
+3. But of those thirty, only seventeen still stand.
+4. Here we show where the others stood, and the missing lintels.
+5. Last century, engineers re-set or secured thirteen of the seventeen.
+6. Inside, three of the five trilithons still stand complete.
+7. Here is what survives today.
+8. And here is what we infer.
 
 ## What happens when
 
