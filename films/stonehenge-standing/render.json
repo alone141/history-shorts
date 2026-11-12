@@ -1,0 +1,43 @@
+{
+ "video": {
+  "path": "/home/user/history-shorts/films/stonehenge-standing/stonehenge-standing.mp4",
+  "file_size": 13490176,
+  "top_level_atoms": [
+   "ftyp",
+   "moov",
+   "free",
+   "mdat"
+  ],
+  "faststart": true,
+  "duration_s": 33.9,
+  "container_bit_rate": 3183522,
+  "video": {
+   "codec": "h264",
+   "profile": "High",
+   "pix_fmt": "yuv420p",
+   "width": 1080,
+   "height": 1920,
+   "fps": 30.0,
+   "frames": 1017,
+   "duration_s": 33.9,
+   "bit_rate": 2980531,
+   "constant_frame_rate": true,
+   "max_keyframe_interval": 60,
+   "color_primaries": "bt709",
+   "color_trc": "bt709",
+   "colorspace": "bt709",
+   "color_range": "tv"
+  },
+  "audio": {
+   "codec": "aac",
+   "profile": "LC",
+   "sample_rate": 48000,
+   "channels": 2,
+   "duration_s": 33.9,
+   "bit_rate": 193735
+  },
+  "video_frames_written": 1017,
+  "audio_samples_written": 1627200
+ },
+ "seconds": 864.3
+}

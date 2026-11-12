@@ -1,0 +1,43 @@
+{
+ "video": {
+  "path": "/home/user/history-shorts/films/stonehenge-1740/stonehenge-1740.mp4",
+  "file_size": 24668406,
+  "top_level_atoms": [
+   "ftyp",
+   "moov",
+   "free",
+   "mdat"
+  ],
+  "faststart": true,
+  "duration_s": 32.7,
+  "container_bit_rate": 6035084,
+  "video": {
+   "codec": "h264",
+   "profile": "High",
+   "pix_fmt": "yuv420p",
+   "width": 1080,
+   "height": 1920,
+   "fps": 30.0,
+   "frames": 981,
+   "duration_s": 32.7,
+   "bit_rate": 5830094,
+   "constant_frame_rate": true,
+   "max_keyframe_interval": 60,
+   "color_primaries": "bt709",
+   "color_trc": "bt709",
+   "colorspace": "bt709",
+   "color_range": "tv"
+  },
+  "audio": {
+   "codec": "aac",
+   "profile": "LC",
+   "sample_rate": 48000,
+   "channels": 2,
+   "duration_s": 32.7,
+   "bit_rate": 197195
+  },
+  "video_frames_written": 981,
+  "audio_samples_written": 1569600
+ },
+ "seconds": 148.2
+}

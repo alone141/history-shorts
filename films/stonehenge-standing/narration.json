@@ -1,0 +1,87 @@
+{
+ "voice": "bm_fable",
+ "lang": "en-gb",
+ "speed": 0.92,
+ "sample_rate": 24000,
+ "fps": 30,
+ "duration_s": 33.9,
+ "frames": 1017,
+ "word_count": 62,
+ "cue_method": "sentence start + duration of synthesised prefix text - 0.08 s",
+ "sentences": [
+  {
+   "id": "s1",
+   "beat": 1,
+   "text": "The great stones were raised about 4,500 years ago.",
+   "say": "The great stones were raised about four and a half thousand years ago.",
+   "start_s": 0.4,
+   "end_s": 4.669,
+   "cues": {}
+  },
+  {
+   "id": "s2",
+   "beat": 2,
+   "text": "The outer circle most likely had thirty uprights.",
+   "say": "The outer circle most likely had thirty uprights.",
+   "start_s": 5.049,
+   "end_s": 8.482,
+   "cues": {}
+  },
+  {
+   "id": "s3",
+   "beat": 2,
+   "text": "Seventeen still stand.",
+   "say": "Seventeen still stand.",
+   "start_s": 8.863,
+   "end_s": 11.128,
+   "cues": {}
+  },
+  {
+   "id": "s4",
+   "beat": 4,
+   "text": "The light shows where the others stood, and the missing lintels.",
+   "say": "The light shows where the others stood, and the missing lintels.",
+   "start_s": 13.128,
+   "end_s": 16.936,
+   "cues": {
+    "lintels": 16.241
+   }
+  },
+  {
+   "id": "s5",
+   "beat": 4,
+   "text": "Thirteen of the seventeen were re-set or secured last century.",
+   "say": "Thirteen of the seventeen were re-set or secured last century.",
+   "start_s": 17.316,
+   "end_s": 21.976,
+   "cues": {}
+  },
+  {
+   "id": "s6",
+   "beat": 5,
+   "text": "Inside, three of five trilithons are complete.",
+   "say": "Inside, three of five trilithons are complete.",
+   "start_s": 22.356,
+   "end_s": 25.783,
+   "cues": {}
+  },
+  {
+   "id": "s7",
+   "beat": 6,
+   "text": "White is what survives today.",
+   "say": "White is what survives today.",
+   "start_s": 26.163,
+   "end_s": 28.721,
+   "cues": {}
+  },
+  {
+   "id": "s8",
+   "beat": 6,
+   "text": "Light is what we infer.",
+   "say": "Light is what we infer.",
+   "start_s": 29.101,
+   "end_s": 31.393,
+   "cues": {}
+  }
+ ]
+}

@@ -1,0 +1,76 @@
+{
+ "voice": "bm_fable",
+ "lang": "en-gb",
+ "speed": 0.92,
+ "sample_rate": 24000,
+ "fps": 30,
+ "duration_s": 32.7,
+ "frames": 981,
+ "word_count": 68,
+ "cue_method": "sentence start + duration of synthesised prefix text - 0.08 s",
+ "sentences": [
+  {
+   "id": "s1",
+   "beat": 1,
+   "text": "William Stukeley surveyed Stonehenge in the 1720s.",
+   "say": "William Stukeley surveyed Stonehenge in the seventeen twenties.",
+   "start_s": 0.4,
+   "end_s": 4.738,
+   "cues": {}
+  },
+  {
+   "id": "s2",
+   "beat": 2,
+   "text": "His book of 1740 counts the outer circle:",
+   "say": "His book of seventeen forty counts the outer circle:",
+   "start_s": 5.118,
+   "end_s": 8.901,
+   "cues": {}
+  },
+  {
+   "id": "s3",
+   "beat": 2,
+   "text": "seventeen uprights left standing,",
+   "say": "seventeen uprights left standing,",
+   "start_s": 9.151,
+   "end_s": 11.958,
+   "cues": {}
+  },
+  {
+   "id": "s4",
+   "beat": 3,
+   "text": "six lintels in place, two on the ground, twenty-two carried off.",
+   "say": "six lintels in place, two on the ground, twenty-two carried off.",
+   "start_s": 12.208,
+   "end_s": 16.502,
+   "cues": {}
+  },
+  {
+   "id": "s5",
+   "beat": 4,
+   "text": "A study published in 2022 gives the same four numbers.",
+   "say": "A study published in twenty twenty-two gives the same four numbers.",
+   "start_s": 17.102,
+   "end_s": 21.433,
+   "cues": {}
+  },
+  {
+   "id": "s6",
+   "beat": 5,
+   "text": "In the circle, three stones fell and were put back, and more were straightened.",
+   "say": "In the circle, three stones fell and were put back, and more were straightened.",
+   "start_s": 21.813,
+   "end_s": 26.395,
+   "cues": {}
+  },
+  {
+   "id": "s7",
+   "beat": 6,
+   "text": "The scans are real. The mark and the lens are ours.",
+   "say": "The scans are real. The mark and the lens are ours.",
+   "start_s": 26.775,
+   "end_s": 30.187,
+   "cues": {}
+  }
+ ]
+}

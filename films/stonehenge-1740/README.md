@@ -3,7 +3,7 @@
 Archive light table. Real public-domain page scans on a backlit table, a loupe
 at a true magnification, one mark, a caption plate.
 
-Status: **not rendered yet**. Script, stills and sound draft are awaiting approval.
+Status: **rendered** (12 November 2026, vermilion accent), after the second refutation pass. Not posted; the account name is still open.
 
 ## The finding
 
@@ -33,7 +33,7 @@ A study published in 2022 gives the same four numbers for today.
 | 6, 7 | Hold; the push continues. | |
 | (hold) | Credit line. | |
 
-## Files (after rendering)
+## Files
 
 - `stonehenge-1740.mp4`: the film, H.264, 1080 x 1920, 30 fps
 - `stills/`, `contact_sheet.jpg`: eight frames

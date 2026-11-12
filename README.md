@@ -91,12 +91,9 @@ film takes about 13 minutes and the light table film about 9.
 
 ## Where things stand
 
-See the two film READMEs. In short: both films are scripted, revised after one
-independent refutation pass, and shown as stills with draft sound in `review/`;
-none is rendered. Open decisions: the accent colour (vermilion recommended),
-approval of the scripts, the account name. Not done: a second refutation pass
-on the revised wording, a code review of the pipeline, the TikTok and Instagram
-labelling rules (blocked on the network where this was built).
+Both films are rendered (vermilion accent) after two independent refutation
+passes; see each film's FACTS.md. Not posted. Open: the account name. Not done:
+a code review of the pipeline, and the TikTok and Instagram labelling rules.
 
 ## This PC
 

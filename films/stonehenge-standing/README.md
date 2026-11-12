@@ -3,7 +3,7 @@
 Phase model. A white model of what survives today, on a plate in a dark room;
 a projector paints what is inferred as light.
 
-Status: **not rendered yet**. Script, stills and sound draft are awaiting approval.
+Status: **rendered** (12 November 2026, vermilion accent), after the second refutation pass. Not posted; the account name is still open.
 
 ## The answer the film gives
 
@@ -36,7 +36,7 @@ secured in the twentieth century.
 | 8 | House lights fall; the light pulses; the light legend row brightens. | |
 | (hold) | Credit line. | |
 
-## Files (after rendering)
+## Files
 
 - `stonehenge-standing.mp4`: the film, H.264, 1080 x 1920, 30 fps
 - `stills/`, `contact_sheet.jpg`: eight frames

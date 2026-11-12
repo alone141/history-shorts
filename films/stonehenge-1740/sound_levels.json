@@ -1,0 +1,74 @@
+{
+ "voice_lufs_target": -16.0,
+ "voice_lufs": -16.02,
+ "voice_peak_dbfs": -1.76,
+ "voice_true_peak_dbtp": -1.75,
+ "voice_gain_db": 2.61,
+ "true_peak_guard_applied": true,
+ "true_peak_guard_mode": "limiter",
+ "true_peak_guard_db": 3.87,
+ "mix_guard_db": 0.0,
+ "mix_lufs": -15.95,
+ "mix_true_peak_dbtp": -1.69,
+ "room_rms_dbfs": -48.0,
+ "cue_margin_db": 12.0,
+ "duration_s": 32.7,
+ "sample_rate": 48000,
+ "cues": [
+  {
+   "type": "swell",
+   "t": 5.12,
+   "dur": 1.6,
+   "peak_dbfs": -16.76,
+   "margin_below_voice_peak_db": 15.0,
+   "short_term_lufs": -28.78,
+   "margin_below_voice_lufs_db": 12.76,
+   "scaled_for_loudness_db": 0.0,
+   "ok": true
+  },
+  {
+   "type": "tick",
+   "t": 10.2,
+   "dur": 0.05,
+   "peak_dbfs": -15.86,
+   "margin_below_voice_peak_db": 14.1,
+   "short_term_lufs": -43.77,
+   "margin_below_voice_lufs_db": 27.74,
+   "scaled_for_loudness_db": 0.0,
+   "ok": true
+  },
+  {
+   "type": "swell",
+   "t": 12.41,
+   "dur": 1.6,
+   "peak_dbfs": -16.76,
+   "margin_below_voice_peak_db": 15.0,
+   "short_term_lufs": -28.67,
+   "margin_below_voice_lufs_db": 12.65,
+   "scaled_for_loudness_db": 0.0,
+   "ok": true
+  },
+  {
+   "type": "lift",
+   "t": 17.2,
+   "dur": 1.2,
+   "peak_dbfs": -17.73,
+   "margin_below_voice_peak_db": 15.97,
+   "short_term_lufs": -33.35,
+   "margin_below_voice_lufs_db": 17.33,
+   "scaled_for_loudness_db": 0.0,
+   "ok": true
+  }
+ ],
+ "checks": {
+  "voice_lufs_within_tolerance": true,
+  "true_peak_at_or_below_ceiling": true,
+  "room_rms_within_tolerance": true,
+  "cue_peak_margins": true,
+  "cue_loudness_margins": true,
+  "length_matches_narration": true,
+  "no_voice_peak_guard_needed": false,
+  "no_mix_peak_guard_needed": true
+ },
+ "ok": true
+}
