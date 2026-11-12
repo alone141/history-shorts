@@ -11,8 +11,9 @@ On page 19 of his book of 1740, William Stukeley counts the outer circle:
 17 uprights standing, 6 lintels in place, 2 on the ground, 22 carried off.
 A study published in 2022 gives the same four numbers for today.
 
-## Script (68 spoken words, 30.6 s)
+## Script (76 spoken words, 34.2 s)
 
+0. What did Stonehenge look like in 1740? (the title, spoken as the opening)
 1. William Stukeley surveyed Stonehenge in the 1720s.
 2. His book of 1740 counts the outer circle:
 3. seventeen uprights left standing,

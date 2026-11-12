@@ -11,8 +11,9 @@ Seventeen of the outer circle's thirty uprights stand. Six lintels are in place.
 Three of five trilithons are complete. Thirteen of the seventeen were re-set or
 secured in the twentieth century.
 
-## Script (70 spoken words, 33.8 s)
+## Script (77 spoken words, 36.9 s)
 
+0. How much of Stonehenge is still standing? (the title, spoken as the opening)
 1. The great stones were raised about 4,500 years ago.
 2. The outer circle most likely had thirty uprights.
 3. But of those thirty, only seventeen still stand.

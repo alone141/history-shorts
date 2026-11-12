@@ -14,6 +14,8 @@ from __future__ import annotations
 SCANS = "data/stonehenge/stukeley/b30448554_jp2.zip!b30448554_jp2/b30448554_{:04d}.jp2"
 
 SCRIPT = [
+    {"id": "s0", "beat": 1, "text": "What did Stonehenge look like in 1740?",
+     "say": "What did Stonehenge look like in seventeen forty?"},
     {"id": "s1", "beat": 1, "text": "William Stukeley surveyed Stonehenge in the 1720s.",
      "say": "William Stukeley surveyed Stonehenge in the seventeen twenties."},
     {"id": "s2", "beat": 2, "text": "His book of 1740 counts the outer circle:",
@@ -65,7 +67,7 @@ FILM = {
         "in": {"at": "s5+0.1", "dur": 0.9}, "rise": 12,
         "leader": {"from": "seventeen", "at": "s5+0.5", "dur": 0.6},
     },
-    "camera": {"scale": [1.0, 1.05], "focus": [540, 880],
+    "camera": {"scale": [1.0, 1.045], "focus": [540, 880],
                "moves": [{"at": "s2", "dur": 3.0, "focus": [450, 850]}]},
     "credit": {"text": "Wellcome Collection, Public Domain Mark · Synthetic voice",
                "at": "s7.end+0.4", "dur": 0.6, "x": 60, "bottom": 1524},

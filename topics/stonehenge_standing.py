@@ -10,6 +10,7 @@ from topics.stonehenge.model import build_model
 
 # "text" is the caption; "say" is what the voice reads when figures are written out
 SCRIPT = [
+    {"id": "s0", "beat": 1, "text": "How much of Stonehenge is still standing?"},
     {"id": "s1", "beat": 1, "text": "The great stones were raised about 4,500 years ago.",
      "say": "The great stones were raised about four and a half thousand years ago."},
     {"id": "s2", "beat": 2, "text": "The outer circle most likely had thirty uprights."},
