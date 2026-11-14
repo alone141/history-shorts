@@ -1,7 +1,7 @@
 """Film: Napoleon did not shoot the nose off the Sphinx.  (archive light table)
 
 The finding: plate XLVI of Norden's "Voyage d'Egypte et de Nubie" (Copenhagen,
-1755) shows the Sphinx from the front with the nose broken. Plate XLV, the same
+1755) shows the Sphinx from the front with the nose damaged. Plate XLV, the same
 head with the three pyramids, is engraved "F. L. Norden del.; 1737": Norden drew
 it in 1737. Napoleon Bonaparte was born on 15 August 1769, 32 years later.
 
@@ -22,15 +22,16 @@ SCRIPT = [
     {"id": "s0", "beat": 1, "text": "Napoleon did not shoot the nose off the Sphinx."},
     {"id": "s1", "beat": 1, "text": "And one old drawing proves it."},
     {"id": "s2", "beat": 2, "text": "A Danish naval officer, Frederic Norden, drew the Sphinx in Egypt."},
-    {"id": "s3", "beat": 3, "gap_before": 0.25, "text": "Look at the face. The nose is already broken."},
-    {"id": "s4", "beat": 4, "gap_before": 0.25, "text": "Now read the corner of the plate: Norden drew it, 1737.",
-     "say": "Now read the corner of the plate: Norden drew it, seventeen thirty-seven."},
+    {"id": "s3", "beat": 3, "gap_before": 0.25, "text": "Look at the face. The nose is already damaged."},
+    {"id": "s4", "beat": 4, "gap_before": 0.25, "text": "Same head, another plate. Read the corner: Norden drew it, 1737.",
+     "say": "Same head, another plate. Read the corner: Norden drew it, seventeen thirty-seven."},
     {"id": "s5", "beat": 5, "gap_before": 0.5, "text": "Napoleon was born in 1769. Thirty-two years later.",
      "say": "Napoleon was born in seventeen sixty-nine. Thirty-two years later."},
-    {"id": "s6", "beat": 6, "text": "So who did it? One medieval writer blames a man around 1378.",
-     "say": "So who did it? One medieval writer blames a man around thirteen seventy-eight."},
-    {"id": "s7", "beat": 6, "gap_before": 0.2, "text": "Nobody can prove it."},
-    {"id": "s8", "beat": 7, "text": "Who told you it was Napoleon?"},
+    {"id": "s6", "beat": 6, "text": "So who did it?"},
+    {"id": "s7", "beat": 6, "gap_before": 0.2, "text": "One medieval writer says a man attacked its face, around 1378.",
+     "say": "One medieval writer says a man attacked its face, around thirteen seventy-eight."},
+    {"id": "s8", "beat": 6, "gap_before": 0.2, "text": "Nobody can prove it."},
+    {"id": "s9", "beat": 7, "text": "Who told you it was Napoleon?"},
 ]
 
 # plate XLVI, front view: the broken nose
@@ -48,7 +49,7 @@ FILM = {
     "hook": {"lines": ["Napoleon didn't break", "the Sphinx's nose."], "x": 60, "y": 200},
     "objects": [
         {"id": "painting", "scan": D + "gerome_bonaparte_sphinx_3071.jpg", "rotate": 0,
-         "centre": [330, 510], "width": 500, "tilt": -1.6, "z": 1},
+         "centre": [330, 532], "width": 500, "tilt": -1.6, "z": 1},
         {"id": "front", "scan": D + "norden1755_pl46_sphinx_face.jp2", "rotate": 270, "crop": PLATE_CROP,
          "centre": [600, 760], "width": 700, "tilt": 1.0, "z": 2},
         {"id": "dated", "scan": D + "norden1755_pl45_sphinx_pyramides.jp2", "rotate": 270, "crop": PLATE_CROP,
@@ -60,17 +61,17 @@ FILM = {
         "enter": [300, 620],
         "stops": [
             {"object": "front", "at": NOSE_AT, "arrive": "s3+0.1", "travel": 1.6, "bulge": 0.18},
-            {"object": "dated", "at": SIGNED_AT, "arrive": "s4+1.6", "travel": 1.6, "bulge": 0.1},
+            {"object": "dated", "at": SIGNED_AT, "arrive": "s4+2.4", "travel": 1.8, "bulge": 0.1},
         ],
     },
     "marks": [
         {"id": "nose", "type": "ellipse", "object": "front", "box": NOSE_BOX, "draw": "s3+1.3", "dur": 0.7, "width": 2.6},
-        {"id": "signed", "type": "underline", "object": "dated", "box": SIGNED_BOX, "draw": "s4+2.4", "dur": 0.8, "width": 2.6},
+        {"id": "signed", "type": "underline", "object": "dated", "box": SIGNED_BOX, "draw": "s4+3.3", "dur": 0.8, "width": 2.6},
     ],
     "plate": {
         "label": "DRAWN 1737 · NAPOLEON BORN 1769",
         "reading": "32 years",
-        "text": ["The nose was broken before he was born."],
+        "text": ["The nose was damaged before he was born."],
         "source": "Norden, Voyage d'Egypte et de Nubie, 1755, pl. XLV-XLVI",
         "ours": "The marks and the 5x loupe are ours.",
         "x": 60, "y": 1098, "width": 820,
@@ -79,12 +80,12 @@ FILM = {
     },
     "camera": {"scale": [1.0, 1.045], "focus": [540, 880],
                "moves": [{"at": "s2", "dur": 3.0, "focus": [560, 820]}]},
-    "credit": {"text": "Getty Research Institute, Internet Archive · Synthetic voice",
-               "at": "s8.end+0.3", "dur": 0.6, "x": 60, "bottom": 1524},
+    "credit": {"text": "Getty Research Institute · Wikimedia · Synthetic voice",
+               "at": "s9.end+0.3", "dur": 0.6, "x": 60, "bottom": 1524},
     "stills": {"01_table": "s1+0.8", "02_loupe_arrives": "s3+0.3", "03_nose": "s3.end", "04_signed": "s4.end",
-               "05_plate": "s5+2.4", "06_who": "s6+2.5", "07_question": "s8+0.8", "08_hold": "end-0.3"},
+               "05_plate": "s5+2.4", "06_who": "s7+2.5", "07_question": "s9+0.8", "08_hold": "end-0.3"},
     "sound": [
         {"type": "tick", "at": "s3+2.0"},              # the ring round the nose closes
-        {"type": "tick", "at": "s4+3.2"},              # the underline closes
+        {"type": "tick", "at": "s4+4.1"},              # the underline closes
     ],
 }
