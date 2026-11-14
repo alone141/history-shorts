@@ -49,7 +49,7 @@ FILM = {
     "hook": {"lines": ["Napoleon didn't break", "the Sphinx's nose."], "x": 60, "y": 200},
     "objects": [
         {"id": "painting", "scan": D + "gerome_bonaparte_sphinx_3071.jpg", "rotate": 0,
-         "centre": [330, 532], "width": 500, "tilt": -1.6, "z": 1},
+         "centre": [330, 562], "width": 500, "tilt": -1.6, "z": 1},
         {"id": "front", "scan": D + "norden1755_pl46_sphinx_face.jp2", "rotate": 270, "crop": PLATE_CROP,
          "centre": [600, 760], "width": 700, "tilt": 1.0, "z": 2},
         {"id": "dated", "scan": D + "norden1755_pl45_sphinx_pyramides.jp2", "rotate": 270, "crop": PLATE_CROP,
