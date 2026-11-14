@@ -17,8 +17,8 @@ The plate carries three independent checks on those readings, and all are used h
      on one of them, to about half an inch.
 
 A tenth of an inch can only be checked by the double reading. Rows that fail a check
-are listed; nothing is corrected silently. Corrections made after looking at the scan
-are in FIXES below, each with its reason.
+are listed; nothing is corrected silently. The few readings settled against the drawing
+(two are slips on the plate itself) are in FIXES below, each with its reason.
 """
 from __future__ import annotations
 
@@ -37,17 +37,17 @@ INCH = 0.0254
 POSITION_LIMIT_IN = 2.5        # check 2: how far a level may sit from its upright line
 THICKNESS_LIMIT_IN = 0.6       # check 3: how far a thickness may sit from a drawn cross-line
 
-# (strip, line index, corner) -> value: readings settled by looking at the scan again. Empty if none were needed.
+# (strip, line index, corner) -> (value, reason): the few readings settled against the plate's own drawing and text.
 FIXES: dict[tuple[str, int, str], tuple[str, str]] = {
     ("lower", 2, "sw"): ("111.2", "the plate's brace reads 110.0 and 110.2; Petrie's text (p. 41) prints +111.2 for the S.W. "
                                   "second course, and the plate's own cross-lines for courses 2 and 3 (53.5 and 44.2 in) fit 111.2"),
     ("lower", 70, "ne"): ("2237.7", "the plate prints 2337.7, a slip of the pen: the line stands between 2209.9 and 2266.5, "
                                     "and its position and its cross-line (27.8 in) give 2237.7"),
     ("lower", 70, "sw"): ("2237.9", "the plate prints 2337.9; as for the N.E. figure, position and cross-line (28.1 in) give 2237.9"),
-    ("lower", 21, "ne"): ("752.8", "the two readings were 752.6 and 752.8; the cross-lines of courses 21 and 22 "
-                                   "(23.75 and 34.46 in) fit 752.8"),
-    ("middle", 61, "sw"): ("3888.9", "the last digit is blotted on the scan; the cross-lines of courses 132 and 133 "
-                                     "(23.05 and 22.02 in) put the level at 3888.9"),
+    ("middle", 45, "sw"): ("3472.8", "the last digit is nearly filled with ink (8, 0 or 6 by the outline); the cross-line of the "
+                                     "course above (23.2 in, to 3496.0) fits 3472.8 only"),
+    ("middle", 61, "sw"): ("3888.9", "the last digit is a filled blob, a 0 by its outline; but the cross-lines of courses 132 and "
+                                     "133 (23.05 and 22.02 in) put the level at 3888.9, and 3888.0 fits neither"),
 }
 
 
@@ -212,7 +212,7 @@ def build() -> dict:
         "checks": {
             "read_from_two_scans": sum(1 for n in numbers if "also" in courses[n]),
             "settled_by_third_reading": sum(1 for n in numbers if courses[n]["how"] == "referee"),
-            "fixed_after_looking_again": [f"{strip} line {k} {corner}: {value} ({reason})" for (strip, k, corner), (value, reason) in FIXES.items()],
+            "settled_against_the_drawing": [f"{strip} line {k} {corner}: {value} ({reason})" for (strip, k, corner), (value, reason) in FIXES.items()],
             "largest_position_error_in": max(abs(courses[n].get("position_error_in", 0.0)) for n in numbers),
             "problems": problems,
         },
