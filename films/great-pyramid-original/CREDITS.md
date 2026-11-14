@@ -1,8 +1,8 @@
 # Credits: What did the Great Pyramid originally look like?
 
-## On screen (final hold)
+## On screen (under the spoken title, and on the final hold)
 
-> Levels and height: Petrie, The Pyramids and Temples of Gizeh (1883), pl. VIII and p. 43 · Synthetic voice
+> Survey: Petrie 1883, pl. VIII and p. 43 · Synthetic voice
 
 ## For the post description
 

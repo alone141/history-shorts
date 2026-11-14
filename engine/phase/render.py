@@ -404,7 +404,9 @@ class Renderer:
         mid = size / 2
         rim = (R - 0.7) * k
         draw.ellipse([mid - rim, mid - rim, mid + rim, mid + rim], outline=ink, width=max(2, round(0.06 * k)))
-        font = ImageFont.truetype(str(ROOT / self.tokens["type"]["families"]["mono"]["medium"]), round(1.05 * k))
+        # the mono face has a marked zero, which closes up when the lettering is small on screen ("100" reads "188")
+        family = self.desc["model"]["plate"].get("label_family", "mono")
+        font = ImageFont.truetype(str(ROOT / self.tokens["type"]["families"][family]["medium"]), round(1.05 * k))
 
         def stamp(bearing: float, radius: float, turn: float, paint) -> None:
             """Draw upright in a tile, turn it anticlockwise by `turn` degrees, place it at a compass bearing."""
@@ -638,11 +640,13 @@ class Renderer:
         self._set(self.glow, "uColor", self.accent * look["light_body"])
         self._set(self.flat, "uPlateR", self.R)
         clip = st.get("clip")
-        rising = clip is not None and clip < 0.999
+        rising = clip is not None and clip < 1.0
         clip_y = clip * self.light_top if rising else 1e9
         self._set(self.glow, "uClipY", clip_y)
         self._set(self.glow, "uBand", look["clip_band"])
-        self._set(self.glow, "uLead", look["clip_lead"] if rising else 0.0)
+        # the bright front fades out over its own height as it reaches the top, so it does not vanish on one frame
+        lead = look["clip_lead"] * min(1.0, (1.0 - clip) * self.light_top / look["clip_band"]) if rising else 0.0
+        self._set(self.glow, "uLead", lead)
         self._set(self.line, "uClipY", clip_y)
 
     def _draw(self, view_proj: np.ndarray, eye: np.ndarray, forward: np.ndarray, st: dict) -> None:
@@ -687,14 +691,19 @@ class Renderer:
         """The 3D picture for this frame as (H, W, 3) uint8, plus the frame's state."""
         ctx, look, W, H = self.ctx, self.look, self.W, self.H
         st = self.state(frame)
-        cam = st["camera"]
-        target = np.array([0.0, cam["target_y"], 0.0])
-        base = target + bearing_vector(cam["bearing"], cam["elevation"]) * cam["distance"]
-        forward = (target - base) / np.linalg.norm(target - base)
-        right = np.cross(forward, [0.0, 1.0, 0.0])
-        right /= np.linalg.norm(right)
-        up = np.cross(right, forward)
         room = srgb(self.palette["room"])
+
+        def camera_at(moment: float):
+            """Where the camera is and looks at a moment (seconds): a pure function of time."""
+            c = {field: spline(self.tl["camera"], field, moment) for field in ("bearing", "elevation", "distance", "target_y")}
+            aim = np.array([0.0, c["target_y"], 0.0])
+            eye0 = aim + bearing_vector(c["bearing"], c["elevation"]) * c["distance"]
+            ahead = (aim - eye0) / np.linalg.norm(aim - eye0)
+            side = np.cross(ahead, [0.0, 1.0, 0.0])
+            side /= np.linalg.norm(side)
+            return c, aim, eye0, ahead, side, np.cross(side, ahead)
+
+        cam, target, base, forward, right, up = camera_at(st["t"])
         # a film that moves in close keeps the same depth of field by scaling the lens with the distance
         aperture = look["aperture"] * (cam["distance"] / look["aperture_at"] if look.get("aperture_at") else 1.0)
         self._prepare(st)
@@ -709,6 +718,13 @@ class Renderer:
                 dx, dy = radius * math.cos(angle) * aperture, radius * math.sin(angle) * aperture
             else:
                 dx = dy = 0.0
+            if look["shutter"] > 0 and n > 1:
+                # the shutter stays open for part of the frame: each view sees the camera where it is at its own
+                # moment, so fine lines that move far between frames blur along their path and do not strobe
+                # (the moments are taken in a shuffled order, so that time is not tied to the lens or pixel offsets)
+                step = next(m for m in (7, 11, 13, 3, 1) if math.gcd(m, n) == 1)
+                moment = st["t"] + (((i * step) % n + 0.5) / n - 0.5) * look["shutter"] / self.fps
+                _, target, base, forward, right, up = camera_at(moment)
             eye = base + right * dx + up * dy
             # each view is moved by part of a pixel; a wider spread (aa_width) quietens very fine parallel lines
             jx, jy = (halton(i + 1, 2) - 0.5) * look["aa_width"], (halton(i + 1, 3) - 0.5) * look["aa_width"]

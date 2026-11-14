@@ -88,7 +88,7 @@ def build_model() -> dict:
 
     return {
         "frame": "model units of %.1f m; x east, y north; origin on the axis at pavement level" % UNIT_M,
-        "plate": {"radius": PLATE_RADIUS, "scale_bar_m": 100, "unit_m": UNIT_M, "axis_azimuth_deg": 0},
+        "plate": {"radius": PLATE_RADIUS, "scale_bar_m": 100, "unit_m": UNIT_M, "axis_azimuth_deg": 0, "label_family": "text"},
         "matter": matter,
         "light": light,
         "pick_order": [p["id"] for p in matter],

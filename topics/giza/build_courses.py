@@ -10,14 +10,20 @@ The plate carries three independent checks on those readings, and all are used h
 
   1. The strips of the fold-out overlap, so some courses were read from two scans.
   2. The upright line of each course is drawn at 1/200 scale along the plate, so its
-     position gives the level again, to about two inches (the paper has stretched a
-     little, so each line is compared with its neighbours, not with the whole strip).
+     position gives the level again, to about two and a half inches (the paper has
+     stretched a little, so each line is compared with its neighbours, not with the
+     whole strip). This is tested on the N.E. level; the S.W. level must lie within
+     ten inches of it.
   3. Each course's thickness is drawn as cross-lines at 1/10 scale ("the readings at
      the four corners"), so the difference between one level and the next must sit
-     on one of them, to about half an inch.
+     within 0.6 inch of a drawn line. The plate's own ten-inch grid lines are drawn
+     across the same space and cannot be told from cross-lines, which loosens this.
 
-A tenth of an inch can only be checked by the double reading. Rows that fail a check
-are listed; nothing is corrected silently. The few readings settled against the drawing
+What the checks catch, tried in the code review of 14 November 2026 by changing one
+committed reading at a time: an error of
+two inches or more nearly always (about 97 in 100); an error of one inch about three
+times in four; a tenth of an inch only by the double reading. Rows that fail a check
+are listed and the table is not written; nothing is corrected silently. The few readings settled against the drawing
 (two are slips on the plate itself) are in FIXES below, each with its reason.
 """
 from __future__ import annotations
@@ -67,8 +73,11 @@ def settled() -> dict[str, dict[int, dict]]:
                 other = b.get(key)
                 if other is None or key not in a or other["ne"] != row["ne"] or other["sw"] != row["sw"]:
                     how = "unsettled"
+                elif row.get("doubt") or other.get("doubt"):      # a doubt that nobody read a third time
+                    how = "unsettled"
             out[key[0]][key[1]] = {"ne": row["ne"].strip(), "sw": row["sw"].strip(), "how": how,
                                    "doubt": bool(row.get("doubt")) and how == "referee"}
+    # a FIXES entry settles its whole row: whoever adds one must have looked at both numbers of that row
     for (strip, k, corner), (value, _reason) in FIXES.items():
         out[strip][k][corner] = value
         out[strip][k]["how"] = "fixed"
@@ -222,9 +231,11 @@ def build() -> dict:
 
 if __name__ == "__main__":
     result = build()
-    save_text(OUT, json.dumps(result, indent=1) + "\n")
     print(json.dumps(result["summary"], indent=1))
     print(json.dumps({k: v for k, v in result["checks"].items() if k != "problems"}, indent=1))
     print(f"{len(result['checks']['problems'])} problems")
     for line in result["checks"]["problems"]:
         print("  ", line)
+    if result["checks"]["problems"]:
+        raise SystemExit("the table was not written: settle the rows above first")
+    save_text(OUT, json.dumps(result, indent=1) + "\n")

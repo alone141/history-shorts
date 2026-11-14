@@ -36,7 +36,7 @@ RENDER_DEFAULTS = {
     "key_bearing": 118, "key_elevation_deg": 46,
     "light_body": 0.42, "light_edge": 2.6, "light_edge_px": 3.2, "light_foot": 1.5, "light_pool": 0.05, "light_pulse": 0.5,
     "scale_bar_bearing": 180, "north_mark_bearing": 0,
-    "near": 20.0, "clip_band": 0.5, "clip_lead": 1.4, "pick_gain": 1.0, "pick_decay": 3.0, "aa_width": 1.0, "spot_dark": 0.5, "rim_dark": 0.12,
+    "near": 20.0, "clip_band": 0.5, "clip_lead": 1.4, "pick_gain": 1.0, "pick_decay": 3.0, "aa_width": 1.0, "spot_dark": 0.5, "rim_dark": 0.12, "shutter": 0.0,
 }
 
 
@@ -54,6 +54,13 @@ def describe(film: dict, narration: dict, accent: str | None = None) -> dict:
     at = lambda expr: round(resolve(expr, narration), 4)
     model = film["model"]() if callable(film["model"]) else film["model"]
     model["pick_group"] = spec["pick"]["group"]
+    # faults that would otherwise show only minutes into a render, or never
+    if spec.get("figure") and len(spec["figure"]["values"]) != len(model["pick_order"]):
+        raise ValueError(f"the readout has {len(spec['figure']['values'])} values for {len(model['pick_order'])} counted things")
+    groups = {prism["group"] for prism in model["light"]}
+    for name in list(spec.get("light_levels", {})) + [g for r in spec["reveal"] for g in r["groups"]]:
+        if name not in groups:
+            raise ValueError(f"no light volume belongs to a group called {name!r} (groups: {sorted(groups)})")
     strikes = spec["strike"] if isinstance(spec["strike"], list) else [spec["strike"]]
     figure = spec.get("figure")
     timeline = {
@@ -67,6 +74,7 @@ def describe(film: dict, narration: dict, accent: str | None = None) -> dict:
                    "follow_clip_until": at(figure["follow_clip_until"]) if figure.get("follow_clip_until") else None} if figure else None,
         "label_after": {"t": at(spec["label_after"]["at"]) if spec["label_after"].get("at") else None,
                         "above": spec["label_after"].get("above"), "from": spec["label_after"].get("from"),
+                        "first_from": spec["label_after"].get("first_from"),
                         "until": at(spec["label_after"]["until"]) if spec["label_after"].get("until") else None} if spec.get("label_after") else None,
         "light_levels": {name: [[at(t), v] for t, v in keys] for name, keys in spec.get("light_levels", {}).items()},
         "pick": {"t0": at(spec["pick"]["from"]), "t1": at(spec["pick"]["to"])},
@@ -78,6 +86,7 @@ def describe(film: dict, narration: dict, accent: str | None = None) -> dict:
         "camera": [{"t": at(k["t"]), "bearing": k["bearing"], "elevation": k["elevation"],
                     "distance": k["distance"], "target_y": k.get("target_y", 1.5)} for k in spec["camera"]],
         "credit_in": at(spec["credit_in"]),
+        "credit_also": [at(t) for t in spec["credit_also"]] if spec.get("credit_also") else None,
     }
     return {
         "id": film["id"],

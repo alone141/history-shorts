@@ -61,7 +61,10 @@ A film may also ask for these (all optional; see `topics/great_pyramid_original.
 - **A readout in real units.** The figure shows a length that follows the count ("138 m  454 ft") in place of "17 of 30", with a label that can change once and change back.
 - **Light that rises.** Volumes are drawn only up to a level that climbs, with a bright front, so a casing can grow from the ground to its point. Groups of volumes can be dimmed separately.
 - **A first glimpse.** The projector may strike more than once, so the answer can flash in the first second and be earned afterwards.
-- **A close camera.** The near plane and the lens follow the camera in, so the picture can go from the whole model to a detail a few metres across.
+- **A close camera.** The near plane and the lens follow the camera in, so the picture can go from the whole model to a detail a few metres across. Where fine parallel lines move fast, the shutter can stay open through the frame (`"shutter"`), which blurs them along their path and stops them strobing.
+- **A label that follows the number.** The readout's label can wait for the count to land and hide while the number runs, so that no frame pairs a number with the wrong label.
+- **Legend words of its own.** Where "white" and "light" would mislead (a white casing drawn in orange light), the legend can say "today" and "lost".
+- **The source line twice.** It can also be shown under a spoken title that has no caption.
 
 ### 3.2 Archive light table (the workhorse)
 
@@ -153,11 +156,11 @@ Beat order that has worked: hook and subject in house light; the count; lights d
 
 No music. A silent beat of about two seconds before the turn. `python -m engine.film <topic> sound` writes the mix and a levels report; the render refuses to run if the report fails. A person must still listen: numbers cannot hear a squashed consonant or a cue that lands on the wrong word.
 
-At speed 1.05, about 64 spoken words give 25 seconds and about 77 give 36. A film may shorten its own lead-in, gaps and tail (`"voice"` in the topic).
+At speed 1.05, about 77 spoken words give 36 seconds with the standard pauses. A film may shorten its own lead-in, gaps and tail (`"voice"` in the topic), and may ask for `"tight"` clips: the synthesiser ends every clip with about half a second of rumble too low to hear, so every pause otherwise runs that much longer than the script sets. With tight clips, 75 words give 26 seconds.
 
 ## 9. Captions, credits and labels
 
-- **Captions** are burned in and are the narration, word for word, one sentence at a time, or a few words at a time in the larger size when the script gives `"chunks"` (each chunk starts where the voice reaches it). A sentence that only repeats the hook on screen may go without a caption. On dark grounds they sit directly on the picture with a soft shadow; on the light table they sit on a dark rounded box. Same face, size and position in both.
+- **Captions** are burned in and are the narration, word for word, one sentence at a time, or a few words at a time in the larger size when the script gives `"chunks"`. Each chunk starts where the voice reaches it, found by matching the audio; one chunk gives way to the next on a single frame, and `check` refuses a chunk too short to read. A sentence that only repeats the hook on screen may go without a caption. On dark grounds they sit directly on the picture with a soft shadow; on the light table they sit on a dark rounded box. Same face, size and position in both.
 - **Sources on screen.** The source of the main number is on screen in mono while the number is: in the legend (phase model) or on the plate (light table).
 - **Credit line.** One or two lines at 22 px on the final hold: data source and licence, and "Synthetic voice".
 - **Post description.** The fuller credit from the film's `CREDITS.md`.

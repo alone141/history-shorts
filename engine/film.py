@@ -51,7 +51,8 @@ def narrate(film: dict) -> dict:
     """Synthesise the script (cached per sentence) and return the narration clock."""
     v = {**TOKENS["voice"], **film.get("voice", {})}        # a film may tighten its own lead-in, gaps and tail
     return voice.synthesise(film["script"], build_dir(film) / "voice", voice=v["voice"], lang=v["lang"],
-                            speed=v["speed"], fps=TOKENS["frame"]["fps"], lead_in=v["lead_in_s"], gap=v["gap_s"], tail=v["tail_s"])
+                            speed=v["speed"], fps=TOKENS["frame"]["fps"], lead_in=v["lead_in_s"], gap=v["gap_s"], tail=v["tail_s"],
+                            tight=bool(v.get("tight", False)))
 
 
 def cues(film: dict, narration: dict) -> list[dict]:
@@ -86,15 +87,29 @@ def mix(film: dict, narration: dict) -> dict:
                      voice_lufs=s["voice_lufs"], room_rms_dbfs=s["room_rms_dbfs"], cue_margin_db=s["cue_margin_db"])
 
 
+SHORTEST_CHUNK_S = 0.33        # a caption chunk on screen for less than this cannot be read
+
+
+def timing_problems(narration: dict) -> list[str]:
+    """Caption chunks that are too short to read."""
+    out = []
+    for sentence in narration["sentences"]:
+        for chunk in sentence.get("chunks") or []:
+            if chunk["end_s"] - chunk["start_s"] < SHORTEST_CHUNK_S:
+                out.append(f"caption chunk {chunk['text']!r} in {sentence['id']} is on screen for only "
+                           f"{chunk['end_s'] - chunk['start_s']:.2f} s")
+    return out
+
+
 def check(film: dict, narration: dict) -> list[str]:
     if film["look"] == "phase":
         from engine import phase
         scene = phase.Scene(film, narration, samples=1)
         problems = scene.validate()
         scene.close()
-        return problems
+        return problems + timing_problems(narration)
     from engine import table
-    return table.validate(table.load(film, narration))
+    return table.validate(table.load(film, narration)) + timing_problems(narration)
 
 
 def stills(film: dict, narration: dict, out_dir: Path, *, accent: str | None = None, names: list[str] | None = None,
@@ -180,6 +195,9 @@ def main() -> None:
         print(f"{narration['duration_s']} s, {narration['frames']} frames, {narration['word_count']} spoken words")
         for s in narration["sentences"]:
             print(f"  {s['id']:<4} {s['start_s']:6.2f} - {s['end_s']:6.2f}  {s['text']}")
+            for c in s.get("chunks") or []:          # where the two ways of placing a chunk disagree, look at it
+                note = f"   (the two matches differ by {c['spread_s']:.2f} s)" if (c.get("spread_s") or 0) > 0.12 else ""
+                print(f"         {c['start_s']:6.2f} - {c['end_s']:6.2f}  {c['text']}{note}")
         print("voice:", build_dir(film) / "voice" / "voice.wav")
     elif args.step == "sound":
         levels = mix(film, narration)
