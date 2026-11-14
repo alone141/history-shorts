@@ -105,12 +105,14 @@ film takes 13 to 15 minutes and the light table film about 9.
 
 ## Where things stand
 
-The two Stonehenge films are rendered (vermilion accent) after two independent
-refutation passes; see each film's FACTS.md. The Great Pyramid film has its script,
-model, stills and documents, checked claim by claim (its FACTS.md has the record);
-its final render follows the last review. Nothing is posted. Account name: Measured
-Past. Not done: a code review of the whole pipeline (the changes made for the Great
-Pyramid film were reviewed), and the TikTok and Instagram labelling rules.
+All three films are rendered (vermilion accent). The two Stonehenge films went through
+two independent refutation passes. The Great Pyramid film went through a claim-by-claim
+fact check and a review of a candidate render (facts, picture, code); its FACTS.md has
+the record of what was changed and why. Nothing is posted. Account name: Measured Past.
+Not done: nobody has yet watched the films in motion or listened to the mixes (the
+checks so far are on decoded frames, measured sound levels and timing); a code review
+of the whole pipeline (the changes made for the Great Pyramid film were reviewed); and
+the TikTok and Instagram labelling rules.
 
 ## This PC
 
