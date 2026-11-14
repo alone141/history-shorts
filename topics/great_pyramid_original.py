@@ -46,7 +46,7 @@ FILM = {
         "label_after": {"text": "as built · casing and apex", "at": "s3+3.0", "until": "s4.cue:taken+0.2"},
         "figure": {"values": MODEL["levels_m"], "clip_top": MODEL["original_height_m"],
                    "follow_clip_from": "s3", "follow_clip_until": "s4.cue:taken+0.2",
-                   "unit": "m", "decimals": 0, "second": {"factor": 3.28084, "unit": "ft", "decimals": 0}},
+                   "unit": "m", "decimals": 1, "second": {"factor": 3.28084, "unit": "ft", "decimals": 0}},
         "legend_matter": ["WHITE", "there today · every course surveyed 1880-82"],
         "legend_light": ["LIGHT", "inferred · from the base and the slope"],
         "credit": "Course levels: Petrie, The Pyramids and Temples of Gizeh (1883), pl. VIII · Synthetic voice",
