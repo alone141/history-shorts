@@ -1,0 +1,103 @@
+{
+ "voice": "bm_fable",
+ "lang": "en-gb",
+ "speed": 1.05,
+ "sample_rate": 24000,
+ "fps": 30,
+ "duration_s": 37.8667,
+ "frames": 1136,
+ "word_count": 82,
+ "cue_method": "sentence start + duration of synthesised prefix text - 0.08 s",
+ "sentences": [
+  {
+   "id": "s0",
+   "beat": 1,
+   "text": "Napoleon did not shoot the nose off the Sphinx.",
+   "say": "Napoleon did not shoot the nose off the Sphinx.",
+   "start_s": 0.4,
+   "end_s": 3.439,
+   "cues": {}
+  },
+  {
+   "id": "s1",
+   "beat": 1,
+   "text": "And one old drawing proves it.",
+   "say": "And one old drawing proves it.",
+   "start_s": 3.819,
+   "end_s": 5.856,
+   "cues": {}
+  },
+  {
+   "id": "s2",
+   "beat": 2,
+   "text": "A Danish naval officer, Frederic Norden, drew the Sphinx in Egypt.",
+   "say": "A Danish naval officer, Frederic Norden, drew the Sphinx in Egypt.",
+   "start_s": 6.236,
+   "end_s": 10.679,
+   "cues": {}
+  },
+  {
+   "id": "s3",
+   "beat": 3,
+   "text": "Look at the face. The nose is already damaged.",
+   "say": "Look at the face. The nose is already damaged.",
+   "start_s": 10.929,
+   "end_s": 13.939,
+   "cues": {}
+  },
+  {
+   "id": "s4",
+   "beat": 4,
+   "text": "Same head, another plate. Read the corner: Norden drew it, 1737.",
+   "say": "Same head, another plate. Read the corner: Norden drew it, seventeen thirty-seven.",
+   "start_s": 14.189,
+   "end_s": 19.18,
+   "cues": {}
+  },
+  {
+   "id": "s5",
+   "beat": 5,
+   "text": "Napoleon was born in 1769. Thirty-two years later.",
+   "say": "Napoleon was born in seventeen sixty-nine. Thirty-two years later.",
+   "start_s": 19.68,
+   "end_s": 24.165,
+   "cues": {}
+  },
+  {
+   "id": "s6",
+   "beat": 6,
+   "text": "So who did it?",
+   "say": "So who did it?",
+   "start_s": 24.545,
+   "end_s": 25.645,
+   "cues": {}
+  },
+  {
+   "id": "s7",
+   "beat": 6,
+   "text": "One medieval writer says a man attacked its face, around 1378.",
+   "say": "One medieval writer says a man attacked its face, around thirteen seventy-eight.",
+   "start_s": 25.845,
+   "end_s": 30.939,
+   "cues": {}
+  },
+  {
+   "id": "s8",
+   "beat": 6,
+   "text": "Nobody can prove it.",
+   "say": "Nobody can prove it.",
+   "start_s": 31.139,
+   "end_s": 32.856,
+   "cues": {}
+  },
+  {
+   "id": "s9",
+   "beat": 7,
+   "text": "Who told you it was Napoleon?",
+   "say": "Who told you it was Napoleon?",
+   "start_s": 33.236,
+   "end_s": 35.358,
+   "cues": {}
+  }
+ ]
+}
