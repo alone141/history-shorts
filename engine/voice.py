@@ -280,7 +280,7 @@ def synthesise(script: list[dict], out_dir: str | Path, *, voice: str = "bm_fabl
         }
         if item.get("chunks"):
             texts, says = _chunk_parts(item)
-            offsets, spreads = [0.0], [0.0]
+            offsets, spreads, at_pause = [0.0], [0.0], [True]
             for count in range(1, len(says)):
                 prefix_clip, _ = _clip(" ".join(says[:count]), voice, lang, speed, cache_dir, models, tight)
                 suffix_clip, _ = _clip(" ".join(says[count:]), voice, lang, speed, cache_dir, models, tight)
@@ -294,10 +294,12 @@ def synthesise(script: list[dict], out_dir: str | Path, *, voice: str = "bm_fabl
                     estimate = max(0.0, prefix_clip.size / sample_rate + CUE_OFFSET_S)
                 spreads.append(round(abs(before - estimate), 3) if before is not None else None)
                 moved = _snap_to_pause(clip, sample_rate, estimate)
+                at_pause.append(moved != estimate)
                 offsets.append(max(offsets[-1] + 0.1, moved - CHUNK_LEAD_S))
             edges = [round(start / sample_rate + o, 3) for o in offsets] + [entry["end_s"]]
-            entry["chunks"] = [{"text": text, "start_s": a, "end_s": b, "spread_s": spread}
-                               for text, a, b, spread in zip(texts, edges[:-1], edges[1:], spreads)]
+            # "at_pause": the chunk starts as a real pause ends, which is certain; otherwise "spread_s" is the check
+            entry["chunks"] = [{"text": text, "start_s": a, "end_s": b, "spread_s": spread, "at_pause": bool(pause)}
+                               for text, a, b, spread, pause in zip(texts, edges[:-1], edges[1:], spreads, at_pause)]
         if item.get("caption") is False:
             entry["caption"] = False
         placed.append((entry, _faded(clip, sample_rate), start))

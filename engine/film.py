@@ -101,6 +101,14 @@ def timing_problems(narration: dict) -> list[str]:
     return out
 
 
+def timing_notes(narration: dict) -> list[str]:
+    """Caption chunks worth a look: no pause placed them, and the two ways of matching the voice disagree."""
+    return [f"caption chunk {chunk['text']!r} in {sentence['id']}: placed with no pause to go by, and the match from "
+            f"the start of the sentence differs by {chunk['spread_s']:.2f} s; check it against the voice"
+            for sentence in narration["sentences"] for chunk in sentence.get("chunks") or []
+            if not chunk.get("at_pause", True) and (chunk.get("spread_s") or 0) > 0.12]
+
+
 def check(film: dict, narration: dict) -> list[str]:
     if film["look"] == "phase":
         from engine import phase
@@ -155,6 +163,8 @@ def render(film: dict, *, accent: str | None = None, samples: int | None = None,
     problems = check(film, narration)
     if problems:
         raise SystemExit("layout problems, not rendering:\n  " + "\n  ".join(problems))
+    for note in timing_notes(narration):
+        print("note:", note, flush=True)
     levels = mix(film, narration)
     if not levels.get("ok", False):
         raise SystemExit("sound levels are outside the limits: see " + str(build_dir(film) / "audio" / "mix.levels.json"))
@@ -195,9 +205,10 @@ def main() -> None:
         print(f"{narration['duration_s']} s, {narration['frames']} frames, {narration['word_count']} spoken words")
         for s in narration["sentences"]:
             print(f"  {s['id']:<4} {s['start_s']:6.2f} - {s['end_s']:6.2f}  {s['text']}")
-            for c in s.get("chunks") or []:          # where the two ways of placing a chunk disagree, look at it
-                note = f"   (the two matches differ by {c['spread_s']:.2f} s)" if (c.get("spread_s") or 0) > 0.12 else ""
-                print(f"         {c['start_s']:6.2f} - {c['end_s']:6.2f}  {c['text']}{note}")
+            for c in s.get("chunks") or []:
+                print(f"         {c['start_s']:6.2f} - {c['end_s']:6.2f}  {c['text']}")
+        for note in timing_notes(narration):
+            print("note:", note)
         print("voice:", build_dir(film) / "voice" / "voice.wav")
     elif args.step == "sound":
         levels = mix(film, narration)
@@ -208,6 +219,8 @@ def main() -> None:
     elif args.step == "check":
         problems = check(film, narration)
         print("\n".join(problems) if problems else "no layout problems")
+        for note in timing_notes(narration):
+            print("note:", note)
     elif args.step == "stills":
         paths = stills(film, narration, build_dir(film) / "look", accent=args.accent, names=args.only)
         contact_sheet(paths, build_dir(film) / "look" / "contact_sheet.jpg")
