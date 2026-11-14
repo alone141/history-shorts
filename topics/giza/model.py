@@ -24,16 +24,19 @@ INCH = 0.0254
 UNIT_M = 8.2                   # metres per model unit
 PLATE_RADIUS = 22.0            # model units (180 m of ground)
 
-# Petrie 1883, sections 21 to 26 (inches)
-CASING_BASE = 9068.8           # mean side of the casing at the pavement
-ORIGINAL_HEIGHT = 5776.0       # +/- 7.0, from the base and the face angle 51 deg 52 min +/- 2 min
-CORE_INSIDE_CASING = 33.7      # at the base corners: core plane inside the casing line, on the pavement
-SUMMIT_LEVEL = 5408.55         # mean of 5407.9 (N.E.) and 5409.2 (S.W.): top of course 201
-SUMMIT = {"n": 224.5, "e": 214.1, "s": 215.0, "w": 217.6}    # core planes from the pyramid's axis at that level
+# Petrie 1883, sections 20 to 26 (inches); every figure checked on the page scans (pp. 38 to 44)
+CASING_BASE = 9068.8           # mean side of the casing at the pavement, +/- .5 (p. 43)
+ORIGINAL_HEIGHT = 5776.0       # +/- 7.0, from the base and the face angle 51 deg 52 min +/- 2 min (p. 43)
+CORE_INSIDE_CASING = 33.7      # mean of the eight corner values on Plate X (27.7 to 39.4): the plane sighted over
+                               # the edges of the core masonry stands this far inside the casing line, on the pavement
+SUMMIT_LEVEL = 5408.55         # mean of 5407.9 (N.E.) and 5409.2 (S.W.): the flat top, top of course 201 (p. 43)
+SUMMIT = {"n": 224.5, "e": 214.1, "s": 215.0, "w": 217.6}    # the same planes from the pyramid's axis at that level (p. 43)
 
 # Modelling choices (not measurements)
 STEP_BEVEL = 0.012             # model units: a hair of chamfer so each step edge catches the light
-LOOSE_TOP = {202: 0.62, 203: 0.34}   # the two highest courses survive only in part: drawn as smaller slabs
+# Courses 202 and 203 are a remnant of stones in the middle of the flat top. Petrie gives their levels (N.E. only)
+# but not their outline, so they are drawn as two small slabs at the centre: this share of the plane's width.
+SUMMIT_REMNANT = {202: 0.62, 203: 0.34}
 
 
 def _unit(inches: float) -> float:
@@ -53,9 +56,10 @@ def build_model() -> dict:
     for course in data["courses"]:
         both = [v for v in (course["ne_in"], course["sw_in"]) if v is not None]
         top = sum(both) / len(both)                     # mean of the two corners; N.E. alone for the last two
-        # each course is a slab whose top edge touches the mean plane of the core on each side
+        # each course is a flat-sided slab whose top edge touches, on each side, the plane Petrie sighted over
+        # the prominent edges of the core masonry (drawn straight between the base and the flat top)
         n, e, s, w = (core_half_width(side, top) for side in "nesw")
-        share = LOOSE_TOP.get(course["n"], 1.0)
+        share = SUMMIT_REMNANT.get(course["n"], 1.0)
         n, e, s, w = (v * share for v in (n, e, s, w))
         poly = [[-_unit(w), -_unit(s)], [_unit(e), -_unit(s)], [_unit(e), _unit(n)], [-_unit(w), _unit(n)]]
         matter.append({"id": str(course["n"]), "group": "course", "state": "standing",
