@@ -1,0 +1,3360 @@
+{
+"batches": [
+{
+"a": [
+{
+"strip": "lower",
+"k": 0,
+"ne": "",
+"sw": "",
+"doubt": false,
+"note": "base frame line (pavement), no numbers; '10 INCHES' label beside it"
+},
+{
+"strip": "lower",
+"k": 1,
+"ne": "58.6",
+"sw": "57.6",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 2,
+"ne": "107.7",
+"sw": "110.0",
+"doubt": false,
+"note": "S.W. doubled with a brace: upper 110.0, lower 110.2"
+},
+{
+"strip": "lower",
+"k": 3,
+"ne": "155.9",
+"sw": "155.4",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 4,
+"ne": "199.9",
+"sw": "199.9",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 5,
+"ne": "240.1",
+"sw": "238.8",
+"doubt": true,
+"note": "S.W. third digit is filled in: read as 8, could be 0 (230.8)"
+},
+{
+"strip": "lower",
+"k": 6,
+"ne": "278.1",
+"sw": "278.4",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 7,
+"ne": "317.3",
+"sw": "322.5",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 8,
+"ne": "355.1",
+"sw": "357.4",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 9,
+"ne": "391.5",
+"sw": "391.6",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 10,
+"ne": "427.5",
+"sw": "429.3",
+"doubt": true,
+"note": "S.W. decimal digit blotted: read as 3, could be 8"
+},
+{
+"strip": "lower",
+"k": 11,
+"ne": "461.2",
+"sw": "461.9",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 12,
+"ne": "490.9",
+"sw": "495.9",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 13,
+"ne": "520.7",
+"sw": "521.6",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 14,
+"ne": "550.1",
+"sw": "550.8",
+"doubt": true,
+"note": "S.W. decimal digit blotted: read as 8, could be 3"
+},
+{
+"strip": "lower",
+"k": 15,
+"ne": "579.4",
+"sw": "579.0",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 16,
+"ne": "608.3",
+"sw": "607.1",
+"doubt": true,
+"note": "N.E. third digit blotted: read as 8 (could be 6); decimal read as 3"
+},
+{
+"strip": "lower",
+"k": 17,
+"ne": "636.3",
+"sw": "635.4",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 18,
+"ne": "667.4",
+"sw": "666.5",
+"doubt": true,
+"note": "N.E. second digit (just right of the rule) is blotted: read as 6, could be 5 (657.4)"
+},
+{
+"strip": "lower",
+"k": 19,
+"ne": "705.5",
+"sw": "705.6",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 20,
+"ne": "729.0",
+"sw": "729.7",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 21,
+"ne": "752.6",
+"sw": "752.2",
+"doubt": true,
+"note": "N.E. decimal digit filled in: read as 6, could be 8"
+},
+{
+"strip": "lower",
+"k": 22,
+"ne": "787.3",
+"sw": "787.3",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 23,
+"ne": "820.3",
+"sw": "820.4",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 24,
+"ne": "852.7",
+"sw": "852.7",
+"doubt": false,
+"note": "N.E. shows a stray dot between 5 and 2 (\"8|5.2.7\"); read as 852.7, matching S.W."
+},
+{
+"strip": "lower",
+"k": 25,
+"ne": "885.0",
+"sw": "885.1",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 26,
+"ne": "915.8",
+"sw": "916.3",
+"doubt": false,
+"note": "N.E. decimal digit blotted, read 8 (closed loops); S.W. decimal read 3"
+},
+{
+"strip": "lower",
+"k": 27,
+"ne": "945.5",
+"sw": "945.9",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 28,
+"ne": "974.7",
+"sw": "975.1",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 29,
+"ne": "1002.8",
+"sw": "1003.1",
+"doubt": true,
+"note": "N.E. decimal digit blotted: 8 (best) or 3"
+},
+{
+"strip": "lower",
+"k": 30,
+"ne": "1031.0",
+"sw": "1030.9",
+"doubt": true,
+"note": "N.E. second digit is only a faint partial mark (broken 0, could look like 1); read 0 because 1131.0 would break both sanity rules"
+},
+{
+"strip": "lower",
+"k": 31,
+"ne": "1058.8",
+"sw": "1059.2",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 32,
+"ne": "1085.1",
+"sw": "1085.2",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 33,
+"ne": "1111.4",
+"sw": "1111.4",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 34,
+"ne": "1137.6",
+"sw": "1137.7",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 35,
+"ne": "1187.4",
+"sw": "1186.9",
+"doubt": false,
+"note": "S.W. third digit is a filled blob, read 8"
+},
+{
+"strip": "lower",
+"k": 36,
+"ne": "1228.5",
+"sw": "1228.7",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 37,
+"ne": "1266.7",
+"sw": "1266.7",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 38,
+"ne": "1303.0",
+"sw": "1303.0",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 39,
+"ne": "1336.9",
+"sw": "1336.8",
+"doubt": true,
+"note": "S.W. decimal digit blotted: 8 (best) or 3"
+},
+{
+"strip": "lower",
+"k": 40,
+"ne": "1368.8",
+"sw": "1368.6",
+"doubt": true,
+"note": "N.E. decimal digit is a filled blob: 8 (best), could be 0 or 3"
+},
+{
+"strip": "lower",
+"k": 41,
+"ne": "1399.7",
+"sw": "1399.3",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 42,
+"ne": "1427.7",
+"sw": "1428.7",
+"doubt": true,
+"note": "S.W. fourth digit (units) is a filled blob: 8 (best), could be 0"
+},
+{
+"strip": "lower",
+"k": 43,
+"ne": "1461.0",
+"sw": "1460.8",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 44,
+"ne": "1502.1",
+"sw": "1501.9",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 45,
+"ne": "1540.0",
+"sw": "1540.0",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 46,
+"ne": "1567.3",
+"sw": "1568.2",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 47,
+"ne": "1602.9",
+"sw": "1603.1",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 48,
+"ne": "1638.4",
+"sw": "1638.2",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 49,
+"ne": "1669.6",
+"sw": "1669.6",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 50,
+"ne": "1697.6",
+"sw": "1697.7",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 51,
+"ne": "1724.2",
+"sw": "1724.2",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 52,
+"ne": "1750.5",
+"sw": "1750.7",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 53,
+"ne": "1776.1",
+"sw": "1776.3",
+"doubt": true,
+"note": "S.W. decimal digit is blotted: read as 3, could be 8 (1776.8)."
+},
+{
+"strip": "lower",
+"k": 54,
+"ne": "1801.8",
+"sw": "1801.6",
+"doubt": true,
+"note": "N.E. decimal digit is blotted: read as 8, could be 3 (1801.3)."
+},
+{
+"strip": "lower",
+"k": 55,
+"ne": "1827.1",
+"sw": "1826.7",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 56,
+"ne": "1851.9",
+"sw": "1851.5",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 57,
+"ne": "1874.4",
+"sw": "1876.5",
+"doubt": false,
+"note": "Both clearly printed; the N.E. and S.W. units digits really do differ (4 vs 6)."
+},
+{
+"strip": "lower",
+"k": 58,
+"ne": "1903.0",
+"sw": "1902.1",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 59,
+"ne": "1931.7",
+"sw": "1931.7",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 60,
+"ne": "1959.8",
+"sw": "1959.4",
+"doubt": true,
+"note": "N.E. decimal digit is blotted: read as 8, could be 3 (1959.3)."
+},
+{
+"strip": "lower",
+"k": 61,
+"ne": "1986.0",
+"sw": "1985.8",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 62,
+"ne": "2010.4",
+"sw": "2010.8",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 63,
+"ne": "2036.4",
+"sw": "2037.0",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 64,
+"ne": "2062.0",
+"sw": "2063.1",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 65,
+"ne": "2088.2",
+"sw": "2088.6",
+"doubt": false,
+"note": "N.E. third digit is blotted; read as 8, agreeing with the S.W. number."
+},
+{
+"strip": "lower",
+"k": 66,
+"ne": "2111.9",
+"sw": "2112.9",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 67,
+"ne": "2146.9",
+"sw": "2146.9",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 68,
+"ne": "2177.5",
+"sw": "2178.6",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 69,
+"ne": "2209.9",
+"sw": "2209.8",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 70,
+"ne": "2337.7",
+"sw": "2337.9",
+"doubt": true,
+"note": "Second digit: the plate clearly prints 3 in both numbers (2337.7 / 2337.9), enlarged crop confirms. This breaks the sequence (row 69 is 2209.9, row 71 is 2266.5), so it is probably an engraver's slip for 2237.7 / 2237.9. Transcribed as printed."
+},
+{
+"strip": "lower",
+"k": 71,
+"ne": "2266.5",
+"sw": "2266.0",
+"doubt": false,
+"note": "The S.W. decimal point is printed as a short dash."
+},
+{
+"strip": "lower",
+"k": 72,
+"ne": "2292.3",
+"sw": "2292.1",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 73,
+"ne": "2317.6",
+"sw": "2318.0",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 74,
+"ne": "2348.0",
+"sw": "2348.5",
+"doubt": true,
+"note": "N.E. decimal digit is a filled-in blob: read as 0, could be 8 or 6. S.W. fourth digit (8) is also filled in, read as 8."
+},
+{
+"strip": "lower",
+"k": 75,
+"ne": "2377.0",
+"sw": "2377.8",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 76,
+"ne": "2400.6",
+"sw": "2402.6",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 77,
+"ne": "2426.1",
+"sw": "2426.5",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 78,
+"ne": "2449.8",
+"sw": "2449.9",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 79,
+"ne": "2472.9",
+"sw": "2473.4",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 80,
+"ne": "2497.0",
+"sw": "2497.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 0,
+"ne": "",
+"sw": "",
+"doubt": false,
+"note": "Frame line with the '10' of the '10 INCHES' scale label; no levels."
+},
+{
+"strip": "middle",
+"k": 1,
+"ne": "2292.3",
+"sw": "2292.1",
+"doubt": false,
+"note": "Same plate line as lower 72 (strips overlap)."
+},
+{
+"strip": "middle",
+"k": 2,
+"ne": "2317.6",
+"sw": "2318.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 3,
+"ne": "2348.0",
+"sw": "2348.5",
+"doubt": true,
+"note": "N.E. decimal digit is a filled-in blob: read as 0, could be 8 or 6. S.W. fourth digit (8) is filled in, read as 8."
+},
+{
+"strip": "middle",
+"k": 4,
+"ne": "2377.0",
+"sw": "2377.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 5,
+"ne": "2400.6",
+"sw": "2402.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 6,
+"ne": "2426.1",
+"sw": "2426.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 7,
+"ne": "2449.8",
+"sw": "2449.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 8,
+"ne": "2472.9",
+"sw": "2473.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 9,
+"ne": "2497.0",
+"sw": "2497.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 10,
+"ne": "2520.2",
+"sw": "2521.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 11,
+"ne": "2543.5",
+"sw": "2544.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 12,
+"ne": "2566.1",
+"sw": "2566.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 13,
+"ne": "2593.9",
+"sw": "2594.6",
+"doubt": false,
+"note": "S.W. units digit 4 is small and blotted but reads as 4"
+},
+{
+"strip": "middle",
+"k": 14,
+"ne": "2616.8",
+"sw": "2617.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 15,
+"ne": "2643.1",
+"sw": "2643.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 16,
+"ne": "2665.0",
+"sw": "2666.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 17,
+"ne": "2688.1",
+"sw": "2688.5",
+"doubt": false,
+"note": "8s are filled-in blots in both numbers; read as 8 (two loops), consistent between N.E. and S.W."
+},
+{
+"strip": "middle",
+"k": 18,
+"ne": "2710.8",
+"sw": "2711.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 19,
+"ne": "2749.3",
+"sw": "2749.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 20,
+"ne": "2783.6",
+"sw": "2785.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 21,
+"ne": "2816.7",
+"sw": "2817.3",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 22,
+"ne": "2846.1",
+"sw": "2846.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 23,
+"ne": "2872.2",
+"sw": "2872.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 24,
+"ne": "2897.8",
+"sw": "2898.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 25,
+"ne": "2920.8",
+"sw": "2922.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 26,
+"ne": "2946.8",
+"sw": "2944.7",
+"doubt": false,
+"note": "Both clearly lettered as printed; S.W. is 2.1 lower than N.E. (unusual direction, but the digits 4 6 . 8 and 4 4 . 7 are distinct)"
+},
+{
+"strip": "middle",
+"k": 27,
+"ne": "2984.3",
+"sw": "2985.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 28,
+"ne": "3022.6",
+"sw": "3024.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 29,
+"ne": "3058.2",
+"sw": "3058.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 30,
+"ne": "3091.7",
+"sw": "3091.3",
+"doubt": true,
+"note": "S.W. decimal digit: read as 3, could be 5 (blotted)"
+},
+{
+"strip": "middle",
+"k": 31,
+"ne": "3119.1",
+"sw": "3120.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 32,
+"ne": "3148.4",
+"sw": "3149.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 33,
+"ne": "3174.7",
+"sw": "3176.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 34,
+"ne": "3201.1",
+"sw": "3202.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 35,
+"ne": "3226.1",
+"sw": "3227.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 36,
+"ne": "3250.9",
+"sw": "3251.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 37,
+"ne": "3280.2",
+"sw": "3281.3",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 38,
+"ne": "3306.8",
+"sw": "3307.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 39,
+"ne": "3330.0",
+"sw": "3331.2",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 40,
+"ne": "3352.9",
+"sw": "3354.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 41,
+"ne": "3377.0",
+"sw": "3377.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 42,
+"ne": "3400.2",
+"sw": "3401.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 43,
+"ne": "3423.2",
+"sw": "3423.8",
+"doubt": true,
+"note": "S.W. decimal digit is smudged (a stain crosses the row); read as 8 (two loops visible), 3 is the less likely alternative."
+},
+{
+"strip": "middle",
+"k": 44,
+"ne": "3445.3",
+"sw": "3446.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 45,
+"ne": "3472.4",
+"sw": "3472.8",
+"doubt": true,
+"note": "S.W. decimal digit is a filled blot; read as 8, but 6 or 0 are possible."
+},
+{
+"strip": "middle",
+"k": 46,
+"ne": "3494.8",
+"sw": "3496.0",
+"doubt": true,
+"note": "N.E. decimal digit read as 8; slightly open at upper left, so 3 is a possible alternative."
+},
+{
+"strip": "middle",
+"k": 47,
+"ne": "3530.4",
+"sw": "3530.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 48,
+"ne": "3562.2",
+"sw": "3563.2",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 49,
+"ne": "3592.0",
+"sw": "3592.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 50,
+"ne": "3621.1",
+"sw": "3621.3",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 51,
+"ne": "3647.1",
+"sw": "3648.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 52,
+"ne": "3673.5",
+"sw": "3675.2",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 53,
+"ne": "3697.8",
+"sw": "3698.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 54,
+"ne": "3722.6",
+"sw": "3722.6",
+"doubt": true,
+"note": "S.W. decimal digit: a round loop with a detached tick above it; read as 6 (broken top stroke), but it could be 0 with a stray mark."
+},
+{
+"strip": "middle",
+"k": 55,
+"ne": "3745.6",
+"sw": "3745.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 56,
+"ne": "3768.2",
+"sw": "3768.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 57,
+"ne": "3791.0",
+"sw": "3791.3",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 58,
+"ne": "3813.1",
+"sw": "3814.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 59,
+"ne": "3839.7",
+"sw": "3841.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 60,
+"ne": "3864.6",
+"sw": "3865.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 61,
+"ne": "3887.8",
+"sw": "3888.0",
+"doubt": true,
+"note": "S.W. decimal digit is a completely filled round blob: read as 0, could be 6 (3888.6). No tail or ascender visible, so 0 preferred."
+},
+{
+"strip": "middle",
+"k": 62,
+"ne": "3909.3",
+"sw": "3911.0",
+"doubt": false,
+"note": "S.W. third digit is a broken stroke (looks like '!'), read as 1."
+},
+{
+"strip": "middle",
+"k": 63,
+"ne": "3932.1",
+"sw": "3932.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 64,
+"ne": "3953.3",
+"sw": "3954.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 65,
+"ne": "3977.0",
+"sw": "3977.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 66,
+"ne": "3999.3",
+"sw": "4000.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 67,
+"ne": "4025.0",
+"sw": "4027.2",
+"doubt": false,
+"note": "N.E. second digit is a broken 0 (resembles 7); 0 is the only reading consistent with neighbours and S.W."
+},
+{
+"strip": "middle",
+"k": 68,
+"ne": "4050.5",
+"sw": "4051.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 69,
+"ne": "4072.2",
+"sw": "4074.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 70,
+"ne": "4093.2",
+"sw": "4095.6",
+"doubt": true,
+"note": "N.E. units digit is blotted: 3 or 8. Flat top and open left suggest 3; 4098.2 would leave only 18.1 to row 71, so 3 chosen."
+},
+{
+"strip": "middle",
+"k": 71,
+"ne": "4116.3",
+"sw": "4117.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 72,
+"ne": "4137.2",
+"sw": "4139.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 73,
+"ne": "4168.3",
+"sw": "4168.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 74,
+"ne": "4192.5",
+"sw": "4194.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 75,
+"ne": "4216.4",
+"sw": "4217.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 76,
+"ne": "4238.5",
+"sw": "4240.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 77,
+"ne": "4260.4",
+"sw": "4262.2",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 78,
+"ne": "4282.1",
+"sw": "4284.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 79,
+"ne": "4308.7",
+"sw": "4310.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 80,
+"ne": "4333.1",
+"sw": "4335.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 81,
+"ne": "4356.1",
+"sw": "4358.8",
+"doubt": true,
+"note": "SW units digit (4th) is a filled blot; read as 8, could be 6"
+},
+{
+"strip": "middle",
+"k": 82,
+"ne": "4378.3",
+"sw": "4381.4",
+"doubt": false,
+"note": "SW tens digit blotted, read as 8 (only value consistent with NE)"
+},
+{
+"strip": "middle",
+"k": 83,
+"ne": "4400.1",
+"sw": "4402.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 84,
+"ne": "4420.6",
+"sw": "4423.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 85,
+"ne": "4441.9",
+"sw": "4444.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 86,
+"ne": "4463.1",
+"sw": "4466.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 87,
+"ne": "4484.7",
+"sw": "4487.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 88,
+"ne": "4505.3",
+"sw": "4508.4",
+"doubt": false,
+"note": "SW units digit blotted, read as 8"
+},
+{
+"strip": "middle",
+"k": 89,
+"ne": "4526.8",
+"sw": "4529.6",
+"doubt": false,
+"note": "NE decimal digit blotted, read as 8"
+},
+{
+"strip": "middle",
+"k": 90,
+"ne": "4547.5",
+"sw": "4550.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 91,
+"ne": "4571.3",
+"sw": "4574.0",
+"doubt": true,
+"note": "NE decimal digit blotted: 3, possibly 8. SW decimal digit filled in, read as 0"
+},
+{
+"strip": "middle",
+"k": 92,
+"ne": "4593.4",
+"sw": "4597.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 93,
+"ne": "4619.2",
+"sw": "4621.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 94,
+"ne": "4640.6",
+"sw": "4643.8",
+"doubt": false,
+"note": "SW units digit blotted, read as 3"
+},
+{
+"strip": "middle",
+"k": 95,
+"ne": "4661.8",
+"sw": "4664.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 96,
+"ne": "4682.4",
+"sw": "4685.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 97,
+"ne": "4702.4",
+"sw": "4705.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 98,
+"ne": "4722.9",
+"sw": "4725.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 99,
+"ne": "4743.7",
+"sw": "4746.0",
+"doubt": true,
+"note": "Row is cut off by the top edge of the strip: only the lower halves of the digits are visible. NE reads 47 4 ?.7, units digit has an open curved bottom (3 or 5). SW reads 47 4 ?.0, units digit has a round closed bottom (6, 8 or 0). Units digits of both numbers are not reliable; needs the uncropped plate."
+},
+{
+"strip": "upper",
+"k": 0,
+"ne": "",
+"sw": "",
+"doubt": false,
+"note": "frame line / scale ticks only, no numbers"
+},
+{
+"strip": "upper",
+"k": 1,
+"ne": "4547.5",
+"sw": "4550.6",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 2,
+"ne": "4571.3",
+"sw": "4574.0",
+"doubt": true,
+"note": "NE decimal digit blotted: 3 (could be 8). SW decimal digit filled in: read 0 (no ascender), could be 6."
+},
+{
+"strip": "upper",
+"k": 3,
+"ne": "4593.4",
+"sw": "4597.0",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 4,
+"ne": "4619.2",
+"sw": "4621.9",
+"doubt": true,
+"note": "NE fourth digit (units) read as 9 with an open loop; could be 5 (4615.2). 9 chosen as closer to SW offset seen in neighbouring rows."
+},
+{
+"strip": "upper",
+"k": 5,
+"ne": "4640.6",
+"sw": "4643.8",
+"doubt": true,
+"note": "SW units digit blotted: 3 (could be 8); SW decimal 8 (could be 3)."
+},
+{
+"strip": "upper",
+"k": 6,
+"ne": "4661.8",
+"sw": "4664.7",
+"doubt": true,
+"note": "NE decimal digit blotted: 8 (could be 3)."
+},
+{
+"strip": "upper",
+"k": 7,
+"ne": "4682.4",
+"sw": "4685.0",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 8,
+"ne": "4702.4",
+"sw": "4705.6",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 9,
+"ne": "4722.9",
+"sw": "4725.9",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 10,
+"ne": "4743.7",
+"sw": "4746.0",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 11,
+"ne": "4763.4",
+"sw": "4766.7",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 12,
+"ne": "4784.6",
+"sw": "4787.1",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 13,
+"ne": "4805.4",
+"sw": "4807.5",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 14,
+"ne": "4825.1",
+"sw": "4827.9",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 15,
+"ne": "4845.4",
+"sw": "4848.0",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 16,
+"ne": "4865.9",
+"sw": "4868.5",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 17,
+"ne": "4886.2",
+"sw": "4888.3",
+"doubt": true,
+"note": "SW units digit heavily blotted: 8 (could be 3); the 8s in this row are all filled in."
+},
+{
+"strip": "upper",
+"k": 18,
+"ne": "4906.3",
+"sw": "4909.2",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 19,
+"ne": "4926.9",
+"sw": "4929.0",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 20,
+"ne": "4953.4",
+"sw": "4955.3",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 21,
+"ne": "4978.1",
+"sw": "4980.7",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 22,
+"ne": "5001.4",
+"sw": "5003.5",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 23,
+"ne": "5023.9",
+"sw": "5026.4",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 24,
+"ne": "5046.1",
+"sw": "5048.5",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 25,
+"ne": "5066.8",
+"sw": "5069.9",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 26,
+"ne": "5087.9",
+"sw": "5089.9",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 27,
+"ne": "5107.6",
+"sw": "5110.7",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 28,
+"ne": "5128.5",
+"sw": "5131.0",
+"doubt": true,
+"note": "S.W. third digit is blotted (3 or 2); read as 3, which also fits the rise from the row below (5121.0 would be only 10.3 above 5110.7)."
+},
+{
+"strip": "upper",
+"k": 29,
+"ne": "5149.0",
+"sw": "5151.6",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 30,
+"ne": "5169.4",
+"sw": "5171.7",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 31,
+"ne": "5190.6",
+"sw": "5192.2",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 32,
+"ne": "5210.7",
+"sw": "5212.8",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 33,
+"ne": "5231.3",
+"sw": "5233.4",
+"doubt": false,
+"note": "Third digits blotted but read as 3 in both numbers."
+},
+{
+"strip": "upper",
+"k": 34,
+"ne": "5252.0",
+"sw": "5253.8",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 35,
+"ne": "5271.8",
+"sw": "5274.6",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 36,
+"ne": "5295.7",
+"sw": "5298.2",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 37,
+"ne": "5319.2",
+"sw": "5320.9",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 38,
+"ne": "5341.3",
+"sw": "5342.9",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 39,
+"ne": "5362.9",
+"sw": "5364.3",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 40,
+"ne": "5385.7",
+"sw": "5386.8",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 41,
+"ne": "5407.9",
+"sw": "5409.2",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 42,
+"ne": "5430.4",
+"sw": "",
+"doubt": false,
+"note": "No S.W. number in this row."
+},
+{
+"strip": "upper",
+"k": 43,
+"ne": "5451.8",
+"sw": "",
+"doubt": false,
+"note": "No S.W. number in this row. The header labels N.E. / S.W. / 10 sit above it."
+},
+{
+"strip": "upper",
+"k": 44,
+"ne": "",
+"sw": "",
+"doubt": false,
+"note": "Frame line only; no numbers."
+}
+],
+"b": [
+{
+"strip": "lower",
+"k": 0,
+"ne": "",
+"sw": "",
+"doubt": false,
+"note": "Base frame line (pavement) with '10 INCHES' label; no numbers."
+},
+{
+"strip": "lower",
+"k": 1,
+"ne": "58.6",
+"sw": "57.6",
+"doubt": false,
+"note": "NE second digit is a filled blob read as 8."
+},
+{
+"strip": "lower",
+"k": 2,
+"ne": "107.7",
+"sw": "110.0",
+"doubt": false,
+"note": "SW is doubled with a brace: upper 110.0, lower 110.2."
+},
+{
+"strip": "lower",
+"k": 3,
+"ne": "155.9",
+"sw": "155.4",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 4,
+"ne": "199.9",
+"sw": "199.9",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 5,
+"ne": "240.1",
+"sw": "238.8",
+"doubt": true,
+"note": "SW third digit is a filled blob: read as 8, could be 0 (230.8)."
+},
+{
+"strip": "lower",
+"k": 6,
+"ne": "278.1",
+"sw": "278.4",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 7,
+"ne": "317.3",
+"sw": "322.5",
+"doubt": false,
+"note": "NE first digit blotted (3 looking like 8); 3 chosen by sequence."
+},
+{
+"strip": "lower",
+"k": 8,
+"ne": "355.1",
+"sw": "357.4",
+"doubt": false,
+"note": "Leading 3s blotted in both numbers."
+},
+{
+"strip": "lower",
+"k": 9,
+"ne": "391.5",
+"sw": "391.6",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 10,
+"ne": "427.5",
+"sw": "429.3",
+"doubt": true,
+"note": "SW decimal digit blotted: read as 3, could be 8 (429.8)."
+},
+{
+"strip": "lower",
+"k": 11,
+"ne": "461.2",
+"sw": "461.9",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 12,
+"ne": "490.9",
+"sw": "495.9",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 13,
+"ne": "520.7",
+"sw": "521.6",
+"doubt": false,
+"note": "NE third digit is a filled 0."
+},
+{
+"strip": "lower",
+"k": 14,
+"ne": "550.1",
+"sw": "550.8",
+"doubt": true,
+"note": "SW decimal digit blotted: read as 8, could be 3 (550.3)."
+},
+{
+"strip": "lower",
+"k": 15,
+"ne": "579.4",
+"sw": "579.0",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 16,
+"ne": "608.3",
+"sw": "607.1",
+"doubt": true,
+"note": "NE third digit blotted: read as 8, could be 6 or 0."
+},
+{
+"strip": "lower",
+"k": 17,
+"ne": "636.3",
+"sw": "635.4",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 18,
+"ne": "667.4",
+"sw": "666.5",
+"doubt": true,
+"note": "NE second digit is broken/faint next to the rule: read as 6, could be 5."
+},
+{
+"strip": "lower",
+"k": 19,
+"ne": "705.5",
+"sw": "705.6",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 20,
+"ne": "729.0",
+"sw": "729.7",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 21,
+"ne": "752.8",
+"sw": "752.2",
+"doubt": true,
+"note": "NE decimal digit is a filled blob: read as 8, could be 6 or 0."
+},
+{
+"strip": "lower",
+"k": 22,
+"ne": "787.3",
+"sw": "787.3",
+"doubt": false,
+"note": "Second digits blotted, read as 8 in both."
+},
+{
+"strip": "lower",
+"k": 23,
+"ne": "820.3",
+"sw": "820.4",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 24,
+"ne": "852.7",
+"sw": "852.7",
+"doubt": false,
+"note": "N.E. is printed with a stray extra dot between the 5 and the 2 (\"8 5.2.7\"); read as 852.7, matching S.W."
+},
+{
+"strip": "lower",
+"k": 25,
+"ne": "885.0",
+"sw": "885.1",
+"doubt": false,
+"note": "8s are blotted but both show closed loops"
+},
+{
+"strip": "lower",
+"k": 26,
+"ne": "915.8",
+"sw": "916.3",
+"doubt": true,
+"note": "N.E. decimal digit blotted: 8 preferred over 3. S.W. decimal digit blotted: 3 preferred over 8."
+},
+{
+"strip": "lower",
+"k": 27,
+"ne": "945.5",
+"sw": "945.9",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 28,
+"ne": "974.7",
+"sw": "975.1",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 29,
+"ne": "1002.8",
+"sw": "1003.1",
+"doubt": true,
+"note": "N.E. decimal digit blotted (8, could be 3). S.W. units digit blotted (3, could be 8; 3 chosen as nearer to N.E.)."
+},
+{
+"strip": "lower",
+"k": 30,
+"ne": "1031.0",
+"sw": "1030.9",
+"doubt": true,
+"note": "N.E. second digit is a broken fragment in the print (only a small tick survives, resembling a 1); read as 0 from the sanity rules (S.W. is 1030.9, row below 1002.8). Remaining digits 31.0 are clear."
+},
+{
+"strip": "lower",
+"k": 31,
+"ne": "1058.8",
+"sw": "1059.2",
+"doubt": false,
+"note": "N.E. decimal digit slightly blotted but shows two loops"
+},
+{
+"strip": "lower",
+"k": 32,
+"ne": "1085.1",
+"sw": "1085.2",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 33,
+"ne": "1111.4",
+"sw": "1111.4",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 34,
+"ne": "1137.6",
+"sw": "1137.7",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 35,
+"ne": "1187.4",
+"sw": "1186.9",
+"doubt": false,
+"note": "S.W. third digit is a filled blob, read as 8"
+},
+{
+"strip": "lower",
+"k": 36,
+"ne": "1228.5",
+"sw": "1228.7",
+"doubt": false,
+"note": "units digit 8 blotted in both numbers"
+},
+{
+"strip": "lower",
+"k": 37,
+"ne": "1266.7",
+"sw": "1266.7",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 38,
+"ne": "1303.0",
+"sw": "1303.0",
+"doubt": false,
+"note": "S.W. final 0 is filled in"
+},
+{
+"strip": "lower",
+"k": 39,
+"ne": "1336.9",
+"sw": "1336.8",
+"doubt": true,
+"note": "S.W. decimal digit blotted: 8 preferred, could be 3. S.W. second digit also blotted (3)."
+},
+{
+"strip": "lower",
+"k": 40,
+"ne": "1368.8",
+"sw": "1368.6",
+"doubt": true,
+"note": "N.E. decimal digit is a solid filled blob: read as 8, could be 0 or 6."
+},
+{
+"strip": "lower",
+"k": 41,
+"ne": "1399.7",
+"sw": "1399.3",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 42,
+"ne": "1427.7",
+"sw": "1428.7",
+"doubt": true,
+"note": "S.W. units digit is a solid filled blob: read as 8 (could be 0 or 6; not shaped like a 7, although N.E. has 7 there)."
+},
+{
+"strip": "lower",
+"k": 43,
+"ne": "1461.0",
+"sw": "1460.8",
+"doubt": false,
+"note": "S.W. decimal digit blotted, read as 8"
+},
+{
+"strip": "lower",
+"k": 44,
+"ne": "1502.1",
+"sw": "1501.9",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 45,
+"ne": "1540.0",
+"sw": "1540.0",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 46,
+"ne": "1567.3",
+"sw": "1568.2",
+"doubt": false,
+"note": "S.W. units digit slightly blotted, read as 8"
+},
+{
+"strip": "lower",
+"k": 47,
+"ne": "1602.9",
+"sw": "1603.1",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "lower",
+"k": 48,
+"ne": "1638.4",
+"sw": "1638.2",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 49,
+"ne": "1669.6",
+"sw": "1669.6",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 50,
+"ne": "1697.6",
+"sw": "1697.7",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 51,
+"ne": "1724.2",
+"sw": "1724.2",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 52,
+"ne": "1750.5",
+"sw": "1750.7",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 53,
+"ne": "1776.1",
+"sw": "1776.3",
+"doubt": true,
+"note": "S.W. decimal digit blotted: read as 3, could be 8"
+},
+{
+"strip": "lower",
+"k": 54,
+"ne": "1801.8",
+"sw": "1801.6",
+"doubt": true,
+"note": "N.E. decimal digit blotted: read as 8, could be 3"
+},
+{
+"strip": "lower",
+"k": 55,
+"ne": "1827.1",
+"sw": "1826.7",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 56,
+"ne": "1851.9",
+"sw": "1851.5",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 57,
+"ne": "1874.4",
+"sw": "1876.5",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 58,
+"ne": "1903.0",
+"sw": "1902.1",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 59,
+"ne": "1931.7",
+"sw": "1931.7",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 60,
+"ne": "1959.8",
+"sw": "1959.4",
+"doubt": true,
+"note": "N.E. decimal digit blotted: read as 8, could be 3"
+},
+{
+"strip": "lower",
+"k": 61,
+"ne": "1986.0",
+"sw": "1985.8",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 62,
+"ne": "2010.4",
+"sw": "2010.8",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 63,
+"ne": "2036.4",
+"sw": "2037.0",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 64,
+"ne": "2062.0",
+"sw": "2063.1",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 65,
+"ne": "2088.2",
+"sw": "2088.6",
+"doubt": false,
+"note": "third digit of both numbers is filled in; 8 fits the sequence"
+},
+{
+"strip": "lower",
+"k": 66,
+"ne": "2111.9",
+"sw": "2112.9",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 67,
+"ne": "2146.9",
+"sw": "2146.9",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 68,
+"ne": "2177.5",
+"sw": "2178.6",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 69,
+"ne": "2209.9",
+"sw": "2209.8",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 70,
+"ne": "2337.7",
+"sw": "2337.9",
+"doubt": true,
+"note": "Second digit of BOTH numbers is lettered as a 3 (2337.7 / 2337.9), even when enlarged. That is impossible in sequence (row 69 is 2209.9, row 71 is 2266.5); the intended values are almost certainly 2237.7 / 2237.9. Field holds the glyphs as printed."
+},
+{
+"strip": "lower",
+"k": 71,
+"ne": "2266.5",
+"sw": "2266.0",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 72,
+"ne": "2292.3",
+"sw": "2292.1",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 73,
+"ne": "2317.6",
+"sw": "2318.0",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 74,
+"ne": "2348.0",
+"sw": "2348.5",
+"doubt": true,
+"note": "N.E. decimal digit is a filled blob: read 0, could be 6 or 8. S.W. units digit blotted, read 8 (agrees with the clear 8 in N.E.)."
+},
+{
+"strip": "lower",
+"k": 75,
+"ne": "2377.0",
+"sw": "2377.8",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 76,
+"ne": "2400.6",
+"sw": "2402.6",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 77,
+"ne": "2426.1",
+"sw": "2426.5",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 78,
+"ne": "2449.8",
+"sw": "2449.9",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 79,
+"ne": "2472.9",
+"sw": "2473.4",
+"doubt": false
+},
+{
+"strip": "lower",
+"k": 80,
+"ne": "2497.0",
+"sw": "2497.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 0,
+"ne": "",
+"sw": "",
+"doubt": false,
+"note": "Frame line with the '10' of the scale label; no levels."
+},
+{
+"strip": "middle",
+"k": 1,
+"ne": "2292.3",
+"sw": "2292.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 2,
+"ne": "2317.6",
+"sw": "2318.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 3,
+"ne": "2348.0",
+"sw": "2348.5",
+"doubt": true,
+"note": "N.E. decimal digit is a filled blob: read 0, could be 6 or 8. S.W. units digit blotted, read 8. Same plate line as lower 74."
+},
+{
+"strip": "middle",
+"k": 4,
+"ne": "2377.0",
+"sw": "2377.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 5,
+"ne": "2400.6",
+"sw": "2402.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 6,
+"ne": "2426.1",
+"sw": "2426.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 7,
+"ne": "2449.8",
+"sw": "2449.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 8,
+"ne": "2472.9",
+"sw": "2473.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 9,
+"ne": "2497.0",
+"sw": "2497.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 10,
+"ne": "2520.2",
+"sw": "2521.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 11,
+"ne": "2543.5",
+"sw": "2544.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 12,
+"ne": "2566.1",
+"sw": "2566.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 13,
+"ne": "2593.9",
+"sw": "2594.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 14,
+"ne": "2616.8",
+"sw": "2617.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 15,
+"ne": "2643.1",
+"sw": "2643.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 16,
+"ne": "2665.0",
+"sw": "2666.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 17,
+"ne": "2688.1",
+"sw": "2688.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 18,
+"ne": "2710.8",
+"sw": "2711.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 19,
+"ne": "2749.3",
+"sw": "2749.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 20,
+"ne": "2783.6",
+"sw": "2785.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 21,
+"ne": "2816.7",
+"sw": "2817.3",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 22,
+"ne": "2846.1",
+"sw": "2846.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 23,
+"ne": "2872.2",
+"sw": "2872.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 24,
+"ne": "2897.8",
+"sw": "2898.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 25,
+"ne": "2920.8",
+"sw": "2922.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 26,
+"ne": "2946.8",
+"sw": "2944.7",
+"doubt": false,
+"note": "Read clearly as printed; S.W. is lower than N.E. here (2944.7 vs 2946.8), checked on an enlarged crop."
+},
+{
+"strip": "middle",
+"k": 27,
+"ne": "2984.3",
+"sw": "2985.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 28,
+"ne": "3022.6",
+"sw": "3024.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 29,
+"ne": "3058.2",
+"sw": "3058.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 30,
+"ne": "3091.7",
+"sw": "3091.3",
+"doubt": true,
+"note": "S.W. decimal digit unclear: blotted 3 or 5 (3091.3 or 3091.5); best reading 3."
+},
+{
+"strip": "middle",
+"k": 31,
+"ne": "3119.1",
+"sw": "3120.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 32,
+"ne": "3148.4",
+"sw": "3149.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 33,
+"ne": "3174.7",
+"sw": "3176.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 34,
+"ne": "3201.1",
+"sw": "3202.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 35,
+"ne": "3226.1",
+"sw": "3227.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 36,
+"ne": "3250.9",
+"sw": "3251.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 37,
+"ne": "3280.2",
+"sw": "3281.3",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 38,
+"ne": "3306.8",
+"sw": "3307.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 39,
+"ne": "3330.0",
+"sw": "3331.2",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 40,
+"ne": "3352.9",
+"sw": "3354.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 41,
+"ne": "3377.0",
+"sw": "3377.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 42,
+"ne": "3400.2",
+"sw": "3401.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 43,
+"ne": "3423.2",
+"sw": "3423.8",
+"doubt": true,
+"note": "S.W. decimal digit is smudged: read as 8, could be 3 or 9"
+},
+{
+"strip": "middle",
+"k": 44,
+"ne": "3445.3",
+"sw": "3446.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 45,
+"ne": "3472.4",
+"sw": "3472.8",
+"doubt": true,
+"note": "S.W. decimal digit is a filled blob: read as 8, could be 6 or 0"
+},
+{
+"strip": "middle",
+"k": 46,
+"ne": "3494.8",
+"sw": "3496.0",
+"doubt": true,
+"note": "N.E. decimal digit blotted: read as 8, could be 3 or 9"
+},
+{
+"strip": "middle",
+"k": 47,
+"ne": "3530.4",
+"sw": "3530.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 48,
+"ne": "3562.2",
+"sw": "3563.2",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 49,
+"ne": "3592.0",
+"sw": "3592.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 50,
+"ne": "3621.1",
+"sw": "3621.3",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 51,
+"ne": "3647.1",
+"sw": "3648.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 52,
+"ne": "3673.5",
+"sw": "3675.2",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 53,
+"ne": "3697.8",
+"sw": "3698.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 54,
+"ne": "3722.6",
+"sw": "3722.6",
+"doubt": true,
+"note": "S.W. decimal digit: a closed loop with a detached tick above; read as 6, could be 0"
+},
+{
+"strip": "middle",
+"k": 55,
+"ne": "3745.6",
+"sw": "3745.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 56,
+"ne": "3768.2",
+"sw": "3768.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 57,
+"ne": "3791.0",
+"sw": "3791.3",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 58,
+"ne": "3813.1",
+"sw": "3814.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 59,
+"ne": "3839.7",
+"sw": "3841.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 60,
+"ne": "3864.6",
+"sw": "3865.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 61,
+"ne": "3887.8",
+"sw": "3888.0",
+"doubt": true,
+"note": "S.W. decimal digit is a solid filled blob with no ascender or tail; read as a filled 0, could be 6 or 9."
+},
+{
+"strip": "middle",
+"k": 62,
+"ne": "3909.3",
+"sw": "3911.0",
+"doubt": false,
+"note": "S.W. third digit is a broken stroke (looks like '!'), read as 1."
+},
+{
+"strip": "middle",
+"k": 63,
+"ne": "3932.1",
+"sw": "3932.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 64,
+"ne": "3953.3",
+"sw": "3954.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 65,
+"ne": "3977.0",
+"sw": "3977.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 66,
+"ne": "3999.3",
+"sw": "4000.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 67,
+"ne": "4025.0",
+"sw": "4027.2",
+"doubt": false,
+"note": "N.E. second digit is a partly filled 0 touching the rule."
+},
+{
+"strip": "middle",
+"k": 68,
+"ne": "4050.5",
+"sw": "4051.8",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 69,
+"ne": "4072.2",
+"sw": "4074.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 70,
+"ne": "4093.2",
+"sw": "4095.6",
+"doubt": true,
+"note": "N.E. fourth digit (units) is blotted: read as 3 (flat top, open left), could be 8 (4098.2)."
+},
+{
+"strip": "middle",
+"k": 71,
+"ne": "4116.3",
+"sw": "4117.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 72,
+"ne": "4137.2",
+"sw": "4139.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 73,
+"ne": "4168.3",
+"sw": "4168.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 74,
+"ne": "4192.5",
+"sw": "4194.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 75,
+"ne": "4216.4",
+"sw": "4217.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 76,
+"ne": "4238.5",
+"sw": "4240.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 77,
+"ne": "4260.4",
+"sw": "4262.2",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 78,
+"ne": "4282.1",
+"sw": "4284.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 79,
+"ne": "4308.7",
+"sw": "4310.5",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 80,
+"ne": "4333.1",
+"sw": "4335.4",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 81,
+"ne": "4356.1",
+"sw": "4358.8",
+"doubt": false,
+"note": "SW 4th digit blotted/filled; read as 8 (two-lobed shape), 6 less likely"
+},
+{
+"strip": "middle",
+"k": 82,
+"ne": "4378.3",
+"sw": "4381.4",
+"doubt": false,
+"note": "SW 3rd digit blotted, read as 8"
+},
+{
+"strip": "middle",
+"k": 83,
+"ne": "4400.1",
+"sw": "4402.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 84,
+"ne": "4420.6",
+"sw": "4423.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 85,
+"ne": "4441.9",
+"sw": "4444.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 86,
+"ne": "4463.1",
+"sw": "4466.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 87,
+"ne": "4484.7",
+"sw": "4487.1",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 88,
+"ne": "4505.3",
+"sw": "4508.4",
+"doubt": false,
+"note": "SW 4th digit filled in, read as 8"
+},
+{
+"strip": "middle",
+"k": 89,
+"ne": "4526.8",
+"sw": "4529.6",
+"doubt": false,
+"note": "NE 4th digit and decimal blotted: read 6 and 8"
+},
+{
+"strip": "middle",
+"k": 90,
+"ne": "4547.5",
+"sw": "4550.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 91,
+"ne": "4571.3",
+"sw": "4574.0",
+"doubt": false,
+"note": "NE decimal blotted 3; SW decimal filled 0"
+},
+{
+"strip": "middle",
+"k": 92,
+"ne": "4593.4",
+"sw": "4597.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 93,
+"ne": "4619.2",
+"sw": "4621.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 94,
+"ne": "4640.6",
+"sw": "4643.8",
+"doubt": false,
+"note": "SW 4th digit blotted 3"
+},
+{
+"strip": "middle",
+"k": 95,
+"ne": "4661.8",
+"sw": "4664.7",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 96,
+"ne": "4682.4",
+"sw": "4685.0",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 97,
+"ne": "4702.4",
+"sw": "4705.6",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 98,
+"ne": "4722.9",
+"sw": "4725.9",
+"doubt": false
+},
+{
+"strip": "middle",
+"k": 99,
+"ne": "4743.7",
+"sw": "4746.0",
+"doubt": false,
+"note": "Row is cut off at the top edge of the middle strip (only lower halves of digits visible in middle_096.png). Values read from the same plate line where it repeats intact in the overlapping upper strip (upper_008.png, row 10), which matches the visible lower halves."
+},
+{
+"strip": "upper",
+"k": 0,
+"ne": "",
+"sw": "",
+"doubt": false,
+"note": "frame/border line, no numbers"
+},
+{
+"strip": "upper",
+"k": 1,
+"ne": "4547.5",
+"sw": "4550.6",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 2,
+"ne": "4571.3",
+"sw": "4574.6",
+"doubt": true,
+"note": "NE decimal digit blotted: 3 or 8 (read 3). SW decimal digit is a filled blob: 6 or 0 (read 6)."
+},
+{
+"strip": "upper",
+"k": 3,
+"ne": "4593.4",
+"sw": "4597.0",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 4,
+"ne": "4619.2",
+"sw": "4621.9",
+"doubt": true,
+"note": "NE units digit: 9 with an open loop, could be 5 (4615.2); 9 preferred from shape (tail) and agreement with SW."
+},
+{
+"strip": "upper",
+"k": 5,
+"ne": "4640.6",
+"sw": "4643.8",
+"doubt": false,
+"note": "SW units digit 3 is blotted but open on the left"
+},
+{
+"strip": "upper",
+"k": 6,
+"ne": "4661.8",
+"sw": "4664.7",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 7,
+"ne": "4682.4",
+"sw": "4685.0",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 8,
+"ne": "4702.4",
+"sw": "4705.6",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 9,
+"ne": "4722.9",
+"sw": "4725.9",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 10,
+"ne": "4743.7",
+"sw": "4746.0",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 11,
+"ne": "4763.4",
+"sw": "4766.7",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 12,
+"ne": "4784.6",
+"sw": "4787.1",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 13,
+"ne": "4805.4",
+"sw": "4807.5",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 14,
+"ne": "4825.1",
+"sw": "4827.9",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 15,
+"ne": "4845.4",
+"sw": "4848.0",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 16,
+"ne": "4865.9",
+"sw": "4868.5",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 17,
+"ne": "4886.2",
+"sw": "4888.3",
+"doubt": false,
+"note": "8s heavily blotted but consistent with neighbours"
+},
+{
+"strip": "upper",
+"k": 18,
+"ne": "4906.3",
+"sw": "4909.2",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 19,
+"ne": "4926.9",
+"sw": "4929.0",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 20,
+"ne": "4953.4",
+"sw": "4955.3",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 21,
+"ne": "4978.1",
+"sw": "4980.7",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 22,
+"ne": "5001.4",
+"sw": "5003.5",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 23,
+"ne": "5023.9",
+"sw": "5026.4",
+"doubt": false,
+"note": ""
+},
+{
+"strip": "upper",
+"k": 24,
+"ne": "5046.1",
+"sw": "5048.5",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 25,
+"ne": "5066.8",
+"sw": "5069.9",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 26,
+"ne": "5087.9",
+"sw": "5089.9",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 27,
+"ne": "5107.6",
+"sw": "5110.7",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 28,
+"ne": "5128.5",
+"sw": "5131.0",
+"doubt": true,
+"note": "S.W. third digit blotted; read as 3 (5131.0), an 8 would break the N.E./S.W. and step rules"
+},
+{
+"strip": "upper",
+"k": 29,
+"ne": "5149.0",
+"sw": "5151.6",
+"doubt": true,
+"note": "N.E. decimal digit is a filled blob; read as 0, could be 6 or 8"
+},
+{
+"strip": "upper",
+"k": 30,
+"ne": "5169.4",
+"sw": "5171.7",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 31,
+"ne": "5190.6",
+"sw": "5192.2",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 32,
+"ne": "5210.7",
+"sw": "5212.8",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 33,
+"ne": "5231.3",
+"sw": "5233.4",
+"doubt": false,
+"note": "third digits blotted but read as 3 in both numbers"
+},
+{
+"strip": "upper",
+"k": 34,
+"ne": "5252.0",
+"sw": "5253.8",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 35,
+"ne": "5271.8",
+"sw": "5274.6",
+"doubt": true,
+"note": "N.E. decimal digit filled; read as 8, could be 0"
+},
+{
+"strip": "upper",
+"k": 36,
+"ne": "5295.7",
+"sw": "5298.2",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 37,
+"ne": "5319.2",
+"sw": "5320.9",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 38,
+"ne": "5341.3",
+"sw": "5342.9",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 39,
+"ne": "5362.9",
+"sw": "5364.3",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 40,
+"ne": "5385.7",
+"sw": "5386.8",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 41,
+"ne": "5407.9",
+"sw": "5409.2",
+"doubt": false
+},
+{
+"strip": "upper",
+"k": 42,
+"ne": "5430.4",
+"sw": "",
+"doubt": false,
+"note": "no S.W. number printed"
+},
+{
+"strip": "upper",
+"k": 43,
+"ne": "5451.8",
+"sw": "",
+"doubt": false,
+"note": "no S.W. number printed; header labels N.E. / S.W. sit above this row"
+},
+{
+"strip": "upper",
+"k": 44,
+"ne": "",
+"sw": "",
+"doubt": false,
+"note": "frame line only, no numbers"
+}
+],
+"referee": []
+}
+],
+"provisional": true
+}
