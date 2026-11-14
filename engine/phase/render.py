@@ -721,9 +721,10 @@ class Renderer:
             if look["shutter"] > 0 and n > 1:
                 # the shutter stays open for part of the frame: each view sees the camera where it is at its own
                 # moment, so fine lines that move far between frames blur along their path and do not strobe
-                # (the moments are taken in a shuffled order, so that time is not tied to the lens or pixel offsets)
-                step = next(m for m in (7, 11, 13, 3, 1) if math.gcd(m, n) == 1)
-                moment = st["t"] + (((i * step) % n + 0.5) / n - 0.5) * look["shutter"] / self.fps
+                # (the moments come from their own sequence, base 5, so that time is tied neither to the lens offsets
+                # nor to the pixel offsets, which use bases 2 and 3; a fixed stride through the views was tried first
+                # and fell in step with the vertical pixel offset, which undid the blur for lines moving up or down)
+                moment = st["t"] + (halton(i + 1, 5) - 0.5) * look["shutter"] / self.fps
                 _, target, base, forward, right, up = camera_at(moment)
             eye = base + right * dx + up * dy
             # each view is moved by part of a pixel; a wider spread (aa_width) quietens very fine parallel lines

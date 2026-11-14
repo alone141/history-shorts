@@ -38,7 +38,7 @@ Captions are shown a few words at a time, in the larger size.
 | (pause) | The camera pulls back and the finished pyramid is held, whole. | |
 | 4 | On "quarried away" the casing goes dark and the house lights return: the staircase again. The readout drops back to 138.5 m when the casing is gone. The missing top stays lit, and the camera starts in towards it. | Relay click |
 | 5 | Close on the flat top with the missing top in light above it. The camera pulls back to the opening framing, a quarter-turn round, and the light goes out. | |
-| (hold) | Source line. The readout and legend stay up, so the loop is a plain cut. | |
+| (close) | The source line again, over the pull-back. The readout and legend stay up, so the loop is a plain cut. | |
 
 ## Files
 

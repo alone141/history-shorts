@@ -1,6 +1,6 @@
 # Credits: What did the Great Pyramid originally look like?
 
-## On screen (under the spoken title, and on the final hold)
+## On screen (under the spoken title, and over the closing pull-back)
 
 > Survey: Petrie 1883, pl. VIII and p. 43 · Synthetic voice
 

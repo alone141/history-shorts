@@ -50,9 +50,9 @@ FILM = {
         # highest stone, the second when it lands on the height as finished, and the first again when the casing is gone
         "label_after": {"text": "as finished · smooth, white, pointed", "first_from": MODEL["levels_m"][-1] - 0.04,
                         "above": MODEL["levels_m"][-1] + 0.04, "from": MODEL["original_height_m"] - 0.04,
-                        "until": "s4.chunk:1+1.0"},
+                        "until": "s4.chunk:1+0.8"},
         "figure": {"values": MODEL["levels_m"], "clip_top": MODEL["original_height_m"],
-                   "follow_clip_from": "s3", "follow_clip_until": "s4.chunk:1+1.0",
+                   "follow_clip_from": "s3", "follow_clip_until": "s4.chunk:1+0.8",
                    "unit": "m", "decimals": 1, "second": {"factor": 3.28084, "unit": "ft", "decimals": 0}},
         # the legend's words are "today" and "lost", not "white" and "light": the casing the voice calls white is drawn
         # in orange light, and a viewer with the sound off must not read "white" two ways
@@ -99,7 +99,7 @@ FILM = {
         "credit_in": "s5.end+0.2",
         # samples and shutter: fine parallel steps strobe when the camera moves fast, so each frame is the average of
         # more views, spread over the time the frame lasts
-        "render": {"scale_bar_bearing": 150, "north_mark_bearing": 0, "key_bearing": 112, "near": 4.0, "aperture_at": 200.0,
+        "render": {"scale_bar_bearing": 90, "north_mark_bearing": 0, "key_bearing": 112, "near": 4.0, "aperture_at": 200.0,
                    "view_offset_y": 60, "pick_gain": 0.55, "pick_decay": 7.0, "clip_band": 0.7, "clip_lead": 2.4,
                    "aa_width": 2.2, "spot_dark": 0.06, "rim_dark": 0.03, "samples": 20, "shutter": 1.0},
     },
