@@ -27,7 +27,7 @@ These are the corrections the fact check expects in the comments. Each reply is 
 - **"The flat top is at 137 m."** Yes: 137.4 m. The 138.5 m on screen is the highest block standing on it.
 - **"They found the capstone in 1991."** That one belongs to the satellite pyramid. See the pinned comment.
 - **"It had a gold capstone."** There is no evidence for gold on any capstone of that dynasty; the ones that survive are plain limestone.
-- **"An earthquake in 1303 shook the casing off."** No source from the time says so. A traveller in 1395 watched masons still prising the casing off one of the Giza pyramids for the buildings of Cairo.
+- **"An earthquake in 1303 shook the casing off."** It is often repeated, but the catalogue of the Arabic reports of that earthquake does not mention the pyramids. In 1395 French pilgrims watched masons still prising the casing off one of the Giza pyramids, stone for the buildings of Cairo.
 - **"Wikipedia says 2600 BC."** The heading says c. 2600-2500 BC: published dates for Khufu's reign run from 2633 to 2483 BC.
 
 ## Notes
