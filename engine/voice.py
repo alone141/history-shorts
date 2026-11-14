@@ -8,6 +8,11 @@ Cue times use the prefix-duration method: a cue named in a sentence's "cues"
 maps to a prefix of that sentence's text. The prefix is synthesised and trimmed
 the same way, and the cue time is sentence start + prefix duration - 0.08 s.
 
+A sentence may also list "chunks": the caption shown a few words at a time.
+Each chunk starts where the synthesised prefix before it ends (the same method
+as cues), moved to the nearest pause in the sentence's own audio when there is
+one within reach.
+
 Clips are cached under <out_dir>/cache, so a re-run with unchanged text is
 instant and bit-identical.
 
@@ -29,6 +34,8 @@ from engine.files import fresh, write_text as save_text
 
 CUE_METHOD = "sentence start + duration of synthesised prefix text - 0.08 s"
 CUE_OFFSET_S = -0.08
+PAUSE_REACH_S = 0.22       # a caption chunk may move this far to land on a pause
+PAUSE_DEPTH = 0.3          # ... if the level there is under this share of the clip's median level
 TRIM_PAD_S = 0.012
 FADE_S = 0.02
 # Bump when trimming or fading changes, so stale cache entries are not reused.
@@ -108,6 +115,34 @@ def _faded(clip: np.ndarray, sample_rate: int) -> np.ndarray:
     return out
 
 
+def _snap_to_pause(clip: np.ndarray, sample_rate: int, estimate: float, reach: float = PAUSE_REACH_S) -> float:
+    """Move a time inside a clip to the quietest moment within `reach`, if that moment is a real dip."""
+    hop = max(1, int(round(0.005 * sample_rate)))
+    width = max(hop, int(round(0.02 * sample_rate)))
+    if clip.size < 4 * width:
+        return estimate
+    power = np.convolve(clip.astype(np.float64) ** 2, np.ones(width) / width, mode="same")[::hop]
+    level = np.sqrt(power)
+    lo = max(0, int(round((estimate - reach) / 0.005)))
+    hi = min(level.size, int(round((estimate + reach) / 0.005)) + 1)
+    if hi - lo < 3:
+        return estimate
+    quietest = lo + int(np.argmin(level[lo:hi]))
+    if level[quietest] > PAUSE_DEPTH * float(np.median(level[level > 0.0])):
+        return estimate
+    return quietest * 0.005
+
+
+def _chunk_parts(item: dict) -> tuple[list[str], list[str]]:
+    """Caption text and spoken text of each chunk; a chunk is "words" or ["words", "as spoken"]."""
+    texts, says = [], []
+    for chunk in item["chunks"]:
+        text, say = (chunk, chunk) if isinstance(chunk, str) else (chunk[0], chunk[1] or chunk[0])
+        texts.append(text)
+        says.append(say)
+    return texts, says
+
+
 def _validate(script: list[dict]) -> None:
     ids = [s["id"] for s in script]
     if not script:
@@ -117,6 +152,10 @@ def _validate(script: list[dict]) -> None:
     for s in script:
         if not str(s.get("text", "")).strip():
             raise ValueError(f"sentence {s.get('id')!r} has no text")
+        if s.get("chunks"):
+            texts, says = _chunk_parts(s)
+            if " ".join(texts) != s["text"] or " ".join(says) != s.get("say", s["text"]):
+                raise ValueError(f"sentence {s['id']!r}: its chunks do not add up to its text and spoken text")
 
 
 def synthesise(script: list[dict], out_dir: str | Path, *, voice: str = "bm_fable",
@@ -162,6 +201,17 @@ def synthesise(script: list[dict], out_dir: str | Path, *, voice: str = "bm_fabl
             "end_s": round((start + clip.size) / sample_rate, 3),
             "cues": cues,
         }
+        if item.get("chunks"):
+            texts, says = _chunk_parts(item)
+            offsets = [0.0]
+            for count in range(1, len(says)):
+                prefix_clip, _ = _clip(" ".join(says[:count]), voice, lang, speed, cache_dir, models)
+                estimate = max(0.0, prefix_clip.size / sample_rate + CUE_OFFSET_S)
+                offsets.append(max(offsets[-1] + 0.1, _snap_to_pause(clip, sample_rate, estimate)))
+            edges = [round(start / sample_rate + o, 3) for o in offsets] + [entry["end_s"]]
+            entry["chunks"] = [{"text": text, "start_s": a, "end_s": b} for text, a, b in zip(texts, edges[:-1], edges[1:])]
+        if item.get("caption") is False:
+            entry["caption"] = False
         placed.append((entry, _faded(clip, sample_rate), start))
         cursor = start + clip.size
 

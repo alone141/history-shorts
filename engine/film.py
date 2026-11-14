@@ -49,7 +49,7 @@ def film_dir(film: dict) -> Path:
 
 def narrate(film: dict) -> dict:
     """Synthesise the script (cached per sentence) and return the narration clock."""
-    v = TOKENS["voice"]
+    v = {**TOKENS["voice"], **film.get("voice", {})}        # a film may tighten its own lead-in, gaps and tail
     return voice.synthesise(film["script"], build_dir(film) / "voice", voice=v["voice"], lang=v["lang"],
                             speed=v["speed"], fps=TOKENS["frame"]["fps"], lead_in=v["lead_in_s"], gap=v["gap_s"], tail=v["tail_s"])
 
@@ -63,8 +63,11 @@ def cues(film: dict, narration: dict) -> list[dict]:
             from engine.phase.render import pick_schedule
             desc = phase.describe(film, narration)
             pick = desc["timeline"]["pick"]
-            for t in pick_schedule(pick["t0"], pick["t1"], len(desc["model"]["pick_order"])):
-                out.append({"type": cue["type"], "t": round(t, 3), "gain_db": cue.get("gain_db", -4.0)})
+            times = pick_schedule(pick["t0"], pick["t1"], len(desc["model"]["pick_order"]))
+            every = int(cue.get("every", 1))             # a long count ticks on every n-th thing, ending on the last
+            for i, t in enumerate(times):
+                if (len(times) - 1 - i) % every == 0:
+                    out.append({"type": cue["type"], "t": round(t, 3), "gain_db": cue.get("gain_db", -4.0)})
             continue
         item = {"type": cue["type"], "t": round(resolve(cue["at"], narration), 3)}
         if "until" in cue:

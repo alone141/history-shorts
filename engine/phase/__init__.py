@@ -36,6 +36,7 @@ RENDER_DEFAULTS = {
     "key_bearing": 118, "key_elevation_deg": 46,
     "light_body": 0.42, "light_edge": 2.6, "light_edge_px": 3.2, "light_foot": 1.5, "light_pool": 0.05, "light_pulse": 0.5,
     "scale_bar_bearing": 180, "north_mark_bearing": 0,
+    "near": 20.0, "clip_band": 0.5, "clip_lead": 1.4, "pick_gain": 1.0, "pick_decay": 3.0, "aa_width": 1.0, "spot_dark": 0.5, "rim_dark": 0.12,
 }
 
 
@@ -53,12 +54,22 @@ def describe(film: dict, narration: dict, accent: str | None = None) -> dict:
     at = lambda expr: round(resolve(expr, narration), 4)
     model = film["model"]() if callable(film["model"]) else film["model"]
     model["pick_group"] = spec["pick"]["group"]
+    strikes = spec["strike"] if isinstance(spec["strike"], list) else [spec["strike"]]
+    figure = spec.get("figure")
     timeline = {
         "house": [[at(t), v] for t, v in spec["house"]],
         "projector": [[at(t), v] for t, v in spec["projector"]],
-        "strike": at(spec["strike"]),
+        "strikes": sorted(at(s) for s in strikes),
+        # optional: light volumes drawn only up to a rising level (0..1 of the tallest), and a readout in real units
+        "clip": [[at(t), v] for t, v in spec["clip"]] if spec.get("clip") else None,
+        "figure": {"values": figure["values"], "clip_top": figure["clip_top"],
+                   "follow_clip_from": at(figure["follow_clip_from"]),
+                   "follow_clip_until": at(figure["follow_clip_until"]) if figure.get("follow_clip_until") else None} if figure else None,
+        "label_after": {"t": at(spec["label_after"]["at"]),
+                        "until": at(spec["label_after"]["until"]) if spec["label_after"].get("until") else None} if spec.get("label_after") else None,
+        "light_levels": {name: [[at(t), v] for t, v in keys] for name, keys in spec.get("light_levels", {}).items()},
         "pick": {"t0": at(spec["pick"]["from"]), "t1": at(spec["pick"]["to"])},
-        "figure": {"in": at(spec["figure_in"]), "of_in": at(spec["of_in"])},
+        "figure_in": at(spec["figure_in"]), "of_in": at(spec["of_in"]) if "of_in" in spec else None,
         "legend": {key: at(value) for key, value in spec["legend"].items()},
         "reveal": [{"groups": r["groups"], "t": at(r["at"]), "spread": r["spread"],
                     "rise_after": r.get("rise_after", 0.45), "from_bearing": r.get("from_bearing", 0)}
@@ -72,8 +83,10 @@ def describe(film: dict, narration: dict, accent: str | None = None) -> dict:
         "tokens": TOKENS,
         "accent": accent_hex(accent),
         "text": {"eyebrow": film["eyebrow"], "hook": film["hook"], "label": spec["label"],
-                 "figure_total": spec["figure_total"], "legend_matter": spec["legend_matter"],
-                 "legend_light": spec["legend_light"], "credit": spec.get("credit", "")},
+                 "figure_total": spec.get("figure_total"), "legend_matter": spec["legend_matter"],
+                 "legend_light": spec["legend_light"], "credit": spec.get("credit", ""),
+                 "figure": {k: v for k, v in figure.items() if k not in ("values", "clip_top", "follow_clip_from", "follow_clip_until")} if figure else None,
+                 "label_after": spec["label_after"]["text"] if spec.get("label_after") else None},
         "narration": narration,
         "model": model,
         "timeline": timeline,
@@ -97,7 +110,7 @@ class Scene:
     def frame(self, n: int) -> np.ndarray:
         """Frame n as (H, W, 3) uint8. Pure function of n."""
         picture, state = self.renderer.picture(n)
-        return self.overlay.apply(picture, state["t"], state["count"])
+        return self.overlay.apply(picture, state["t"], state["count"], state["value"])
 
     def frame_at(self, when: str | float) -> int:
         n = int(round(resolve(when, self.narration) * self.narration["fps"]))

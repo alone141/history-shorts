@@ -56,6 +56,13 @@ A white model of what survives today, on a plate, on a plinth, in a dark room. A
 - **Depth of field and glow.** Slight depth of field about the centre of the model; glow only on the projected light.
 - **Readout.** One large figure, lower left, that counts with the picture, and a two-row legend (white, light).
 
+A film may also ask for these (all optional; see `topics/great_pyramid_original.py`):
+
+- **A readout in real units.** The figure shows a length that follows the count ("138 m  454 ft") in place of "17 of 30", with a label that can change once and change back.
+- **Light that rises.** Volumes are drawn only up to a level that climbs, with a bright front, so a casing can grow from the ground to its point. Groups of volumes can be dimmed separately.
+- **A first glimpse.** The projector may strike more than once, so the answer can flash in the first second and be earned afterwards.
+- **A close camera.** The near plane and the lens follow the camera in, so the picture can go from the whole model to a detail a few metres across.
+
 ### 3.2 Archive light table (the workhorse)
 
 Real public-domain scans on a cool backlit table. A loupe at a true, stated magnification. One accent mark. A caption plate.
@@ -102,6 +109,7 @@ Inter Display for display, Inter for text, JetBrains Mono for instruments and so
 | Figure unit ("of") | Inter Medium | 60 / 64 | Secondary colour |
 | Label | Inter Medium | 42 / 50 | Says what the figure counts |
 | Caption | Inter Medium | 40 / 51 | Never under 36 px, at most 2 lines |
+| Caption, a few words at a time | Inter SemiBold | 56 / 66 | One line; used when the script splits a sentence into chunks |
 | Plate reading | JetBrains Mono Bold | 64 / 68 | Light table only |
 | Plate text | Inter Medium | 30 / 38 | |
 | Legend, sources | JetBrains Mono Medium | 24 / 32 | |
@@ -139,17 +147,17 @@ Beat order that has worked: hook and subject in house light; the count; lights d
 
 | Element | Level | Notes |
 |---|---|---|
-| Voice | -16 LUFS integrated | Kokoro `bm_fable`, British English, speed 0.92. Peaks held to -1.5 dBTP by a limiter; its action is reported. |
+| Voice | -16 LUFS integrated | Kokoro `bm_fable`, British English, speed 1.05. Peaks held to -1.5 dBTP by a limiter; its action is reported. |
 | Room tone | -48 dBFS RMS | Low, steady, the whole film |
-| Cues | At least 12 dB under the voice | Made by code: tick, click, swell, thump, hum, lift. Few, and only on picture events. |
+| Cues | At least 12 dB under the voice | Made by code. In use: tick and click (the owner had swell, thump, hum and lift taken out of the films). Few, and only on picture events. A long count ticks on every n-th thing. |
 
 No music. A silent beat of about two seconds before the turn. `python -m engine.film <topic> sound` writes the mix and a levels report; the render refuses to run if the report fails. A person must still listen: numbers cannot hear a squashed consonant or a cue that lands on the wrong word.
 
-About 60 to 70 spoken words give 32 to 34 seconds at this pace. For a 30-second film write 55 to 60.
+At speed 1.05, about 64 spoken words give 25 seconds and about 77 give 36. A film may shorten its own lead-in, gaps and tail (`"voice"` in the topic).
 
 ## 9. Captions, credits and labels
 
-- **Captions** are burned in and are the narration, word for word, one sentence at a time. On dark grounds they sit directly on the picture with a soft shadow; on the light table they sit on a dark rounded box. Same face, size and position in both.
+- **Captions** are burned in and are the narration, word for word, one sentence at a time, or a few words at a time in the larger size when the script gives `"chunks"` (each chunk starts where the voice reaches it). A sentence that only repeats the hook on screen may go without a caption. On dark grounds they sit directly on the picture with a soft shadow; on the light table they sit on a dark rounded box. Same face, size and position in both.
 - **Sources on screen.** The source of the main number is on screen in mono while the number is: in the legend (phase model) or on the plate (light table).
 - **Credit line.** One or two lines at 22 px on the final hold: data source and licence, and "Synthetic voice".
 - **Post description.** The fuller credit from the film's `CREDITS.md`.
