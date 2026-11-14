@@ -571,8 +571,9 @@ class Renderer:
         if figure:                                    # the readout follows the count, then the rising light
             value = figure["values"][count - 1] if count else 0.0
             if clip is not None and t >= figure["follow_clip_from"]:
-                back = ease_in_out(ramp(t, figure["follow_clip_until"], figure["follow_clip_until"] + 0.6)) if figure.get("follow_clip_until") else 0.0
-                value += (max(value, clip * figure["clip_top"]) - value) * (1 - back)
+                # ... and returns to the count at once, so the number never sits beside the wrong label
+                if not figure.get("follow_clip_until") or t < figure["follow_clip_until"]:
+                    value = max(value, clip * figure["clip_top"])
         groups = {name: keyed(keys, t) for name, keys in (tl.get("light_levels") or {}).items()}
         return {"t": t, "house": house, "level": level * pulse, "pool": level, "glows": glows, "count": count,
                 "camera": camera, "clip": clip, "value": value, "groups": groups}

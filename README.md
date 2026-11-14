@@ -19,10 +19,13 @@ engine/            everything shared by all films
   phase/             look 1, the phase model: OpenGL picture (render.py, geometry.py) and text layer (overlay.py)
   table.py           look 2, the archive light table (Pillow)
 topics/            one data module per film, plus the site's sources
-  stonehenge_standing.py     "How much of Stonehenge is still standing?"  (phase model)
-  stonehenge_1740.py         "What did Stonehenge look like in 1740?"     (light table)
+  stonehenge_standing.py     "How much of Stonehenge is still standing?"         (phase model)
+  stonehenge_1740.py         "What did Stonehenge look like in 1740?"            (light table)
+  great_pyramid_original.py  "What did the Great Pyramid originally look like?"  (phase model)
   stonehenge/                the site: sources.json, refs.json, survey, plan digitising, model
     stones.json              the measured stone table the model is built from (kept in the repository)
+  giza/                      the site: sources.json, reading of Petrie's plate of course levels, model
+    courses.json             the level of every course of the Great Pyramid (kept in the repository)
 films/             one folder per film: MP4, README, FACTS, CREDITS, stills, contact sheet
 docs/              design guide
 assets/fonts/      Inter, Inter Display, JetBrains Mono (SIL Open Font License, licence files included)
@@ -69,9 +72,10 @@ python -m venv .venv
 .venv/Scripts/python -m engine.selftest_av                                  # voice, sound and MP4 checks, about 15 s
 ```
 
-That is enough to make both Stonehenge films: the phase model reads the stone
-table in `topics/stonehenge/stones.json`, and the light table reads the scans
-straight from the downloaded archive. The fonts are in `assets/fonts`.
+That is enough to make all three films: the Stonehenge phase model reads the stone
+table in `topics/stonehenge/stones.json`, the light table reads the scans straight
+from the downloaded archive, and the Great Pyramid model reads the course table in
+`topics/giza/courses.json`. The fonts are in `assets/fonts`.
 
 To rebuild the stone table from the raw open data (about 450 MB more):
 
@@ -83,17 +87,30 @@ To rebuild the stone table from the raw open data (about 450 MB more):
 .venv/Scripts/python -m topics.stonehenge.build_stones
 ```
 
+To rebuild the Great Pyramid's course table from Petrie's plate (2.5 MB):
+
+```
+.venv/Scripts/python -m engine.fetch topics/giza/sources.json
+.venv/Scripts/python -m topics.giza.plate_tiles       # cuts the plate into reading tiles
+.venv/Scripts/python -m topics.giza.build_courses     # readings -> courses.json, checked against the plate's own drawing
+```
+
+The readings themselves (`topics/giza/plate_readings.json`) were made by eye from the tiles, twice.
+
 ## Without a graphics card (Linux server or cloud container)
 
 The phase model also renders on Mesa's software OpenGL under a virtual display:
-prefix the `engine.film` commands with `xvfb-run -a`. On four cores the phase
-film takes about 13 minutes and the light table film about 9.
+prefix the `engine.film` commands with `xvfb-run -a`. On four cores a phase
+film takes 13 to 15 minutes and the light table film about 9.
 
 ## Where things stand
 
-Both films are rendered (vermilion accent) after two independent refutation
-passes; see each film's FACTS.md. Not posted. Account name: Measured Past. Not done:
-a code review of the pipeline, and the TikTok and Instagram labelling rules.
+The two Stonehenge films are rendered (vermilion accent) after two independent
+refutation passes; see each film's FACTS.md. The Great Pyramid film has its script,
+model, stills and documents, checked claim by claim (its FACTS.md has the record);
+its final render follows the last review. Nothing is posted. Account name: Measured
+Past. Not done: a code review of the whole pipeline (the changes made for the Great
+Pyramid film were reviewed), and the TikTok and Instagram labelling rules.
 
 ## This PC
 

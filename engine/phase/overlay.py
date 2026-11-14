@@ -304,11 +304,20 @@ class Overlay:
             right.blend(frame, ease_out(ramp(t, tl["of_in"], tl["of_in"] + 0.6)))
         label_in = ease_out(ramp(t, figure_in + 0.2, figure_in + 0.7))
         if self.label_after is not None:
-            turn = ease_in_out(ramp(t, tl["label_after"]["t"], tl["label_after"]["t"] + 0.35))
-            if tl["label_after"].get("until") is not None:
-                turn *= 1 - ease_in_out(ramp(t, tl["label_after"]["until"], tl["label_after"]["until"] + 0.35))
-            self.label.blend(frame, label_in * (1 - turn))
-            self.label_after.blend(frame, turn)
+            after = tl["label_after"]
+            if after.get("above") is not None:
+                # the label follows the number, frame for frame and with no cross-fade: the first label while the
+                # readout is at or under "above", the second once it has reached "from", and none while it runs between
+                live = after.get("until") is None or t < after["until"]
+                first = 0.0 if live and (value or 0.0) > after["above"] else 1.0
+                second = 1.0 if live and (value or 0.0) >= after["from"] else 0.0
+            else:
+                second = ease_in_out(ramp(t, after["t"], after["t"] + 0.35))
+                if after.get("until") is not None:
+                    second *= 1 - ease_in_out(ramp(t, after["until"], after["until"] + 0.35))
+                first = 1 - second
+            self.label.blend(frame, label_in * first)
+            self.label_after.blend(frame, label_in * second)
         else:
             self.label.blend(frame, label_in)
 

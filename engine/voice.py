@@ -9,9 +9,11 @@ maps to a prefix of that sentence's text. The prefix is synthesised and trimmed
 the same way, and the cue time is sentence start + prefix duration - 0.08 s.
 
 A sentence may also list "chunks": the caption shown a few words at a time.
-Each chunk starts where the synthesised prefix before it ends (the same method
-as cues), moved to the nearest pause in the sentence's own audio when there is
-one within reach.
+Each chunk starts where the voice reaches it. The words before the chunk are
+synthesised on their own and that clip is matched against the start of the
+sentence's audio (dynamic time warping on the two spectra), which follows the
+voice even where it says the same words faster or slower inside the sentence;
+the result is then moved to the nearest pause when there is one within reach.
 
 Clips are cached under <out_dir>/cache, so a re-run with unchanged text is
 instant and bit-identical.
@@ -34,8 +36,10 @@ from engine.files import fresh, write_text as save_text
 
 CUE_METHOD = "sentence start + duration of synthesised prefix text - 0.08 s"
 CUE_OFFSET_S = -0.08
-PAUSE_REACH_S = 0.22       # a caption chunk may move this far to land on a pause
+PAUSE_REACH_S = 0.12       # a caption chunk may move this far to land on a pause
 PAUSE_DEPTH = 0.3          # ... if the level there is under this share of the clip's median level
+ALIGN_HOP_S = 0.01         # spectra for matching a prefix against its sentence: one column every 10 ms
+ALIGN_BANDS = 32
 TRIM_PAD_S = 0.012
 FADE_S = 0.02
 # Bump when trimming or fading changes, so stale cache entries are not reused.
@@ -133,6 +137,51 @@ def _snap_to_pause(clip: np.ndarray, sample_rate: int, estimate: float, reach: f
     return quietest * 0.005
 
 
+def _spectrum(clip: np.ndarray, sample_rate: int) -> np.ndarray:
+    """Log energy in ALIGN_BANDS bands (rows are 10 ms steps), each band scaled to zero mean and unit spread."""
+    from scipy.signal import stft
+
+    hop = int(round(ALIGN_HOP_S * sample_rate))
+    window = int(round(0.025 * sample_rate))
+    freqs, _, z = stft(clip.astype(np.float64), fs=sample_rate, nperseg=window, noverlap=window - hop, padded=False, boundary=None)
+    power = np.abs(z) ** 2
+    edges = np.geomspace(90.0, min(7600.0, sample_rate / 2 - 1), ALIGN_BANDS + 1)
+    bands = np.stack([power[(freqs >= lo) & (freqs < hi)].sum(axis=0) for lo, hi in zip(edges[:-1], edges[1:])])
+    logs = np.log(bands + 1e-9).T
+    return (logs - logs.mean(axis=0)) / (logs.std(axis=0) + 1e-6)
+
+
+def _reach_of_prefix(sentence: np.ndarray, prefix: np.ndarray, sample_rate: int) -> float | None:
+    """Seconds into `sentence` at which the words of `prefix` (the same words, spoken alone) have been said.
+
+    Both clips start at the same word. The prefix is warped onto the opening of the sentence, the end of the
+    match left free; the best end is where the sentence has just finished saying the prefix.
+    """
+    a, b = _spectrum(prefix, sample_rate), _spectrum(sentence, sample_rate)
+    m, n = len(a), len(b)
+    if m < 5 or n < 5:
+        return None
+    # distance between every pair of columns
+    cost = np.sqrt(((a[:, None, :] - b[None, :, :]) ** 2).mean(axis=2))
+    total = np.full((m, n), np.inf)
+    total[0, 0] = cost[0, 0]
+    for j in range(1, n):
+        total[0, j] = total[0, j - 1] + cost[0, j]
+    for i in range(1, m):
+        row, above = total[i], total[i - 1]
+        row[0] = above[0] + cost[i, 0]
+        best = np.minimum(above[1:], above[:-1])           # from the column below-left or straight below
+        for j in range(1, n):
+            row[j] = cost[i, j] + min(best[j - 1], row[j - 1])
+    # a prefix spoken alone ends more slowly than inside the sentence, so look from 55 % to 115 % of its own length
+    lo, hi = max(1, int(0.55 * m)), min(n - 1, int(1.15 * m) + 1)
+    if hi <= lo:
+        return None
+    ends = np.arange(lo, hi + 1)
+    end = int(ends[np.argmin(total[m - 1, lo:hi + 1] / (m + ends))])
+    return (end + 1) * ALIGN_HOP_S
+
+
 def _chunk_parts(item: dict) -> tuple[list[str], list[str]]:
     """Caption text and spoken text of each chunk; a chunk is "words" or ["words", "as spoken"]."""
     texts, says = [], []
@@ -206,7 +255,9 @@ def synthesise(script: list[dict], out_dir: str | Path, *, voice: str = "bm_fabl
             offsets = [0.0]
             for count in range(1, len(says)):
                 prefix_clip, _ = _clip(" ".join(says[:count]), voice, lang, speed, cache_dir, models)
-                estimate = max(0.0, prefix_clip.size / sample_rate + CUE_OFFSET_S)
+                estimate = _reach_of_prefix(clip, prefix_clip, sample_rate)
+                if estimate is None:
+                    estimate = max(0.0, prefix_clip.size / sample_rate + CUE_OFFSET_S)
                 offsets.append(max(offsets[-1] + 0.1, _snap_to_pause(clip, sample_rate, estimate)))
             edges = [round(start / sample_rate + o, 3) for o in offsets] + [entry["end_s"]]
             entry["chunks"] = [{"text": text, "start_s": a, "end_s": b} for text, a, b in zip(texts, edges[:-1], edges[1:])]

@@ -34,9 +34,11 @@ SUMMIT = {"n": 224.5, "e": 214.1, "s": 215.0, "w": 217.6}    # the same planes f
 
 # Modelling choices (not measurements)
 STEP_BEVEL = 0.012             # model units: a hair of chamfer so each step edge catches the light
-# Courses 202 and 203 are a remnant of stones in the middle of the flat top. Petrie gives their levels (N.E. only)
-# but not their outline, so they are drawn as two small slabs at the centre: this share of the plane's width.
-SUMMIT_REMNANT = {202: 0.62, 203: 0.34}
+# Above the flat top Petrie enters two more levels (N.E. only) and says nothing of their extent. Later observers
+# describe a few blocks near the middle: Goyon (1978) one ruined course, its tallest block about a cubic metre;
+# Kawae (2024) 18 stones of the 202nd layer against 86 exposed in the 201st. They are drawn as one low slab of
+# about a sixth of the platform's area and one block about a metre across: schematic, not measured.
+SUMMIT_REMNANT = {202: 0.42, 203: 0.10}       # share of the platform's width
 
 
 def _unit(inches: float) -> float:
