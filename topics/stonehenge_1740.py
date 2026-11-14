@@ -14,6 +14,8 @@ from __future__ import annotations
 SCANS = "data/stonehenge/stukeley/b30448554_jp2.zip!b30448554_jp2/b30448554_{:04d}.jp2"
 
 SCRIPT = [
+    {"id": "s0", "beat": 1, "text": "What did Stonehenge look like in 1740?",
+     "say": "What did Stonehenge look like in seventeen forty?"},
     {"id": "s1", "beat": 1, "text": "William Stukeley surveyed Stonehenge in the 1720s.",
      "say": "William Stukeley surveyed Stonehenge in the seventeen twenties."},
     {"id": "s2", "beat": 2, "text": "His book of 1740 counts the outer circle:",
@@ -22,7 +24,7 @@ SCRIPT = [
     {"id": "s4", "beat": 3, "gap_before": 0.25, "text": "six lintels in place, two on the ground, twenty-two carried off."},
     {"id": "s5", "beat": 4, "gap_before": 0.6, "text": "A study published in 2022 gives the same four numbers.",
      "say": "A study published in twenty twenty-two gives the same four numbers."},
-    {"id": "s6", "beat": 5, "text": "In between, three stones fell and were put back, and more were straightened."},
+    {"id": "s6", "beat": 5, "text": "In the circle, three stones fell and were put back, and more were straightened."},
     {"id": "s7", "beat": 6, "text": "The scans are real. The mark and the lens are ours."},
 ]
 
@@ -65,17 +67,14 @@ FILM = {
         "in": {"at": "s5+0.1", "dur": 0.9}, "rise": 12,
         "leader": {"from": "seventeen", "at": "s5+0.5", "dur": 0.6},
     },
-    "camera": {"scale": [1.0, 1.05], "focus": [540, 880],
+    "camera": {"scale": [1.0, 1.045], "focus": [540, 880],
                "moves": [{"at": "s2", "dur": 3.0, "focus": [450, 850]}]},
     "credit": {"text": "Wellcome Collection, Public Domain Mark · Synthetic voice",
                "at": "s7.end+0.4", "dur": 0.6, "x": 60, "bottom": 1524},
     "stills": {"01_table": "s1+1.0", "02_loupe_arrives": "s2.end-0.3", "03_seventeen": "s3.end+0.2", "04_carried_off": "s4.end-0.1",
                "05_plate": "s5+2.0", "06_put_back": "s6+1.5", "07_ours": "s7+1.0", "08_hold": "end-0.6"},
     "sound": [
-        {"type": "swell", "at": "s2"},                 # the loupe arrives
         {"type": "tick", "at": "s3+1.05"},             # the underline closes
-        {"type": "swell", "at": "s4+0.2"},
-        {"type": "lift", "at": "s5+0.1"},              # the caption plate
     ],
 }
 

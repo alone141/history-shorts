@@ -10,17 +10,19 @@ from topics.stonehenge.model import build_model
 
 # "text" is the caption; "say" is what the voice reads when figures are written out
 SCRIPT = [
+    {"id": "s0", "beat": 1, "text": "How much of Stonehenge is still standing?"},
     {"id": "s1", "beat": 1, "text": "The great stones were raised about 4,500 years ago.",
      "say": "The great stones were raised about four and a half thousand years ago."},
     {"id": "s2", "beat": 2, "text": "The outer circle most likely had thirty uprights."},
-    {"id": "s3", "beat": 2, "text": "Seventeen still stand."},
+    {"id": "s3", "beat": 2, "text": "But of those thirty, only seventeen still stand.",
+     "cues": {"seventeen": "But of those thirty, only"}},
     {"id": "s4", "beat": 4, "gap_before": 2.0,
-     "text": "The light shows where the others stood, and the missing lintels.",
-     "cues": {"lintels": "The light shows where the others stood, and the missing"}},
-    {"id": "s5", "beat": 4, "text": "Thirteen of the seventeen were re-set or secured last century."},
-    {"id": "s6", "beat": 5, "text": "Inside, three of five trilithons are complete."},
-    {"id": "s7", "beat": 6, "text": "White is what survives today."},
-    {"id": "s8", "beat": 6, "text": "Light is what we infer."},
+     "text": "Here we show where the others stood, and the missing lintels.",
+     "cues": {"lintels": "Here we show where the others stood, and the missing"}},
+    {"id": "s5", "beat": 4, "text": "Last century, engineers re-set or secured thirteen of the seventeen."},
+    {"id": "s6", "beat": 5, "text": "Inside, three of the five trilithons still stand complete."},
+    {"id": "s7", "beat": 6, "text": "Here is what survives today."},
+    {"id": "s8", "beat": 6, "text": "And here is what we infer."},
 ]
 
 FILM = {
@@ -34,15 +36,15 @@ FILM = {
     "phase": {
         "label": "circle uprights still stand",
         "figure_total": 30,
-        "legend_matter": ["WHITE", "survives today · laser scan 2021"],
-        "legend_light": ["LIGHT", "inferred · built c. 2500 BC"],
+        "legend_matter": ["WHITE", "survives today · airborne laser scan 2021"],
+        "legend_light": ["LIGHT", "inferred · sarsens set up c. 2500 BC"],
         "credit": "Plan after Nash et al. 2021, CC BY 4.0 · Heights: Environment Agency LIDAR 2021, OGL v3.0 · Synthetic voice",
         # house lights: full for the count, cut for the projector, up for "white", down for "light"
         "house": [["start", 1.0], ["s3.end+0.45", 1.0], ["s3.end+0.72", 0.20], ["s5", 0.25],
                   ["s7-0.25", 0.27], ["s7+0.9", 0.80], ["s8-0.15", 0.80], ["s8+0.7", 0.25], ["end", 0.30]],
         "strike": "s3.end+1.1",
         "projector": [["start", 1.0], ["s7-0.25", 1.0], ["s7+0.9", 0.5], ["s8-0.15", 0.5], ["s8+0.55", 1.0], ["end", 1.0]],
-        "pick": {"group": "circle_upright", "from": "s2+0.55", "to": "s3+0.28"},
+        "pick": {"group": "circle_upright", "from": "s2+0.55", "to": "s3.cue:seventeen+0.28"},
         "figure_in": "s2+0.1",
         "of_in": "s4+0.9",
         "legend": {"matter_in": "s2+0.9", "light_in": "s4+0.9", "matter_pulse": "s7", "light_pulse": "s8"},
@@ -65,15 +67,11 @@ FILM = {
         "render": {"scale_bar_bearing": 128, "north_mark_bearing": 0, "key_bearing": 118},
     },
     # frames to show for approval and to keep with the film
-    "stills": {"01_house": "s1+1.5", "02_count": "s3+0.35", "03_strike": "s3.end+1.3", "04_light": "s4.end+0.3",
+    "stills": {"01_house": "s1+1.5", "02_count": "s3.cue:seventeen+0.35", "03_strike": "s3.end+1.3", "04_light": "s4.end+0.3",
                "05_reset": "s5+1.5", "06_trilithons": "s6.end+0.2", "07_white": "s7+1.3", "08_hold": "end-0.6"},
     # sound cues, on the narration clock (all made by code; see engine/sound.py)
     "sound": [
         {"type": "tick", "at": "pick"},                       # one soft tick per counted stone
         {"type": "click", "at": "s3.end+0.45"},               # house lights relay
-        {"type": "thump", "at": "s3.end+1.1"},                # projector strike
-        {"type": "hum", "at": "s3.end+1.1", "until": "end-0.3"},
-        {"type": "swell", "at": "s4.cue:lintels-0.2"},
-        {"type": "lift", "at": "s7"},
     ],
 }

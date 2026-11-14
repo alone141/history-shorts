@@ -1,0 +1,41 @@
+{
+ "voice_lufs_target": -16.0,
+ "voice_lufs": -16.02,
+ "voice_peak_dbfs": -1.76,
+ "voice_true_peak_dbtp": -1.75,
+ "voice_gain_db": 2.87,
+ "true_peak_guard_applied": true,
+ "true_peak_guard_mode": "limiter",
+ "true_peak_guard_db": 4.23,
+ "mix_guard_db": 0.0,
+ "mix_lufs": -16.02,
+ "mix_true_peak_dbtp": -1.66,
+ "room_rms_dbfs": -48.0,
+ "cue_margin_db": 12.0,
+ "duration_s": 34.23,
+ "sample_rate": 48000,
+ "cues": [
+  {
+   "type": "tick",
+   "t": 13.17,
+   "dur": 0.05,
+   "peak_dbfs": -15.86,
+   "margin_below_voice_peak_db": 14.1,
+   "short_term_lufs": -43.77,
+   "margin_below_voice_lufs_db": 27.74,
+   "scaled_for_loudness_db": 0.0,
+   "ok": true
+  }
+ ],
+ "checks": {
+  "voice_lufs_within_tolerance": true,
+  "true_peak_at_or_below_ceiling": true,
+  "room_rms_within_tolerance": true,
+  "cue_peak_margins": true,
+  "cue_loudness_margins": true,
+  "length_matches_narration": true,
+  "no_voice_peak_guard_needed": false,
+  "no_mix_peak_guard_needed": true
+ },
+ "ok": true
+}

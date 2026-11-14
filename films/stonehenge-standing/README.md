@@ -3,7 +3,7 @@
 Phase model. A white model of what survives today, on a plate in a dark room;
 a projector paints what is inferred as light.
 
-Status: **not rendered yet**. Script, stills and sound draft are awaiting approval.
+Status: **rendered** (12 November 2026, vermilion accent), after the second refutation pass. Not posted.
 
 ## The answer the film gives
 
@@ -11,16 +11,17 @@ Seventeen of the outer circle's thirty uprights stand. Six lintels are in place.
 Three of five trilithons are complete. Thirteen of the seventeen were re-set or
 secured in the twentieth century.
 
-## Script (62 spoken words, 33.9 s)
+## Script (77 spoken words, 36.9 s)
 
+0. How much of Stonehenge is still standing? (the title, spoken as the opening)
 1. The great stones were raised about 4,500 years ago.
 2. The outer circle most likely had thirty uprights.
-3. Seventeen still stand.
-4. The light shows where the others stood, and the missing lintels.
-5. Thirteen of the seventeen were re-set or secured last century.
-6. Inside, three of five trilithons are complete.
-7. White is what survives today.
-8. Light is what we infer.
+3. But of those thirty, only seventeen still stand.
+4. Here we show where the others stood, and the missing lintels.
+5. Last century, engineers re-set or secured thirteen of the seventeen.
+6. Inside, three of the five trilithons still stand complete.
+7. Here is what survives today.
+8. And here is what we infer.
 
 ## What happens when
 
@@ -28,15 +29,15 @@ secured in the twentieth century.
 |---|---|---|
 | 1 | House lights. The model turns slowly. | Room tone |
 | 2, 3 | Each standing upright is picked out once; the figure counts to 17 as the voice says it. | One soft tick per stone |
-| (pause) | House lights cut. The projector strikes with a flicker. | Relay click, low thump, faint hum |
-| 4 | Footprints of the missing uprights sweep round the circle, then the uprights rise; on "lintels" the missing lintels appear. "of 30" joins the figure. | Swell |
+| (pause) | House lights cut. The projector strikes with a flicker. | Relay click |
+| 4 | Footprints of the missing uprights sweep round the circle, then the uprights rise; on "lintels" the missing lintels appear. "of 30" joins the figure. | |
 | 5 | Hold; the camera keeps moving. | |
 | 6 | The two fallen trilithon uprights and their lintels appear in light; camera lowest and closest. | |
-| 7 | House lights rise; the white legend row brightens. | Lift |
+| 7 | House lights rise; the white legend row brightens. | |
 | 8 | House lights fall; the light pulses; the light legend row brightens. | |
 | (hold) | Credit line. | |
 
-## Files (after rendering)
+## Files
 
 - `stonehenge-standing.mp4`: the film, H.264, 1080 x 1920, 30 fps
 - `stills/`, `contact_sheet.jpg`: eight frames

@@ -1,0 +1,98 @@
+{
+ "voice": "bm_fable",
+ "lang": "en-gb",
+ "speed": 1.05,
+ "sample_rate": 24000,
+ "fps": 30,
+ "duration_s": 36.9,
+ "frames": 1107,
+ "word_count": 77,
+ "cue_method": "sentence start + duration of synthesised prefix text - 0.08 s",
+ "sentences": [
+  {
+   "id": "s0",
+   "beat": 1,
+   "text": "How much of Stonehenge is still standing?",
+   "say": "How much of Stonehenge is still standing?",
+   "start_s": 0.4,
+   "end_s": 3.129,
+   "cues": {}
+  },
+  {
+   "id": "s1",
+   "beat": 1,
+   "text": "The great stones were raised about 4,500 years ago.",
+   "say": "The great stones were raised about four and a half thousand years ago.",
+   "start_s": 3.509,
+   "end_s": 7.428,
+   "cues": {}
+  },
+  {
+   "id": "s2",
+   "beat": 2,
+   "text": "The outer circle most likely had thirty uprights.",
+   "say": "The outer circle most likely had thirty uprights.",
+   "start_s": 7.808,
+   "end_s": 11.008,
+   "cues": {}
+  },
+  {
+   "id": "s3",
+   "beat": 2,
+   "text": "But of those thirty, only seventeen still stand.",
+   "say": "But of those thirty, only seventeen still stand.",
+   "start_s": 11.388,
+   "end_s": 14.697,
+   "cues": {
+    "seventeen": 13.549
+   }
+  },
+  {
+   "id": "s4",
+   "beat": 4,
+   "text": "Here we show where the others stood, and the missing lintels.",
+   "say": "Here we show where the others stood, and the missing lintels.",
+   "start_s": 16.697,
+   "end_s": 20.081,
+   "cues": {
+    "lintels": 19.488
+   }
+  },
+  {
+   "id": "s5",
+   "beat": 4,
+   "text": "Last century, engineers re-set or secured thirteen of the seventeen.",
+   "say": "Last century, engineers re-set or secured thirteen of the seventeen.",
+   "start_s": 20.461,
+   "end_s": 25.048,
+   "cues": {}
+  },
+  {
+   "id": "s6",
+   "beat": 5,
+   "text": "Inside, three of the five trilithons still stand complete.",
+   "say": "Inside, three of the five trilithons still stand complete.",
+   "start_s": 25.428,
+   "end_s": 29.272,
+   "cues": {}
+  },
+  {
+   "id": "s7",
+   "beat": 6,
+   "text": "Here is what survives today.",
+   "say": "Here is what survives today.",
+   "start_s": 29.652,
+   "end_s": 31.936,
+   "cues": {}
+  },
+  {
+   "id": "s8",
+   "beat": 6,
+   "text": "And here is what we infer.",
+   "say": "And here is what we infer.",
+   "start_s": 32.316,
+   "end_s": 34.373,
+   "cues": {}
+  }
+ ]
+}
