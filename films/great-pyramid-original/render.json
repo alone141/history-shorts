@@ -1,7 +1,7 @@
 {
  "video": {
   "path": "/home/user/history-shorts/films/great-pyramid-original/great-pyramid-original.mp4",
-  "file_size": 19294365,
+  "file_size": 19360845,
   "top_level_atoms": [
    "ftyp",
    "moov",
@@ -10,7 +10,7 @@
   ],
   "faststart": true,
   "duration_s": 26.366667,
-  "container_bit_rate": 5854168,
+  "container_bit_rate": 5874339,
   "video": {
    "codec": "h264",
    "profile": "High",
@@ -20,7 +20,7 @@
    "fps": 30.0,
    "frames": 791,
    "duration_s": 26.366666666666667,
-   "bit_rate": 5645452,
+   "bit_rate": 5665618,
    "constant_frame_rate": true,
    "max_keyframe_interval": 60,
    "color_primaries": "bt709",
@@ -39,5 +39,5 @@
   "video_frames_written": 791,
   "audio_samples_written": 1265600
  },
- "seconds": 1917.0
+ "seconds": 1420.3
 }
