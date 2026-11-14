@@ -19,6 +19,8 @@ EYEBROW_Y, HOOK_Y = 200, 240
 FIGURE_Y, LABEL_Y = 1104, 1280
 LEGEND_Y = (1346, 1384)
 CAPTION_Y, CREDIT_Y = 1422, 1470
+CAPTION_BIG_Y = 1430          # captions shown a few words at a time, in the larger size
+CHUNK_FADE_S = 0.07
 
 
 def _rgb(hex_colour: str) -> tuple[int, int, int]:
@@ -151,6 +153,13 @@ class Overlay:
 
         self.label = self._sprite(self.W - x, 60, x, LABEL_Y,
                                   lambda d, im: self._draw(d, 0, 0, self.text["label"], "label", text_colour + (255,)))
+        self.label_after = None
+        if self.text.get("label_after"):
+            self.label_after = self._sprite(self.W - x, 60, x, LABEL_Y,
+                                            lambda d, im: self._draw(d, 0, 0, self.text["label_after"], "label", text_colour + (255,)))
+        for text in (self.text["label"], self.text.get("label_after") or ""):
+            if x + self._width(text, "label") > self.tokens["safe"]["lower_half_right"]:
+                self.problems.append(f"label {text!r} runs past x = {self.tokens['safe']['lower_half_right']}")
 
         def legend(row: list[str], swatch: tuple[int, int, int], glow: bool):
             def paint(draw, image):
@@ -173,7 +182,10 @@ class Overlay:
 
         # figure: "17" + "of" + "30", digits drawn once per value
         self.digits: dict[str, Sprite] = {}
-        self._figure_cache: dict[int, tuple[Sprite, float]] = {}
+        self._figure_cache: dict = {}
+        if self.text.get("figure"):
+            for value in list(self.tl["figure"]["values"]) + [self.tl["figure"]["clip_top"]]:
+                self._reading_fits(value)
 
         credit_lines = self.wrap(self.text.get("credit", ""), "credit", self.tokens["captions"]["max_width"])
         line = self.tokens["type"]["scale"]["credit"]["line"]
@@ -187,24 +199,46 @@ class Overlay:
         if CREDIT_Y + line * len(credit_lines) > self.tokens["safe"]["bottom"]:
             self.problems.append("credit runs below the safe area")
 
-        self.captions: dict[str, Sprite] = {}
+        # captions: (sprite, start, end, (fade in, fade out)). A sentence is shown whole, or, when the
+        # script splits it into chunks, a few words at a time in the larger size.
+        self.captions: list[tuple[Sprite, float, float, tuple[float, float]]] = []
+        caps = self.tokens["captions"]
         cap_line = self.tokens["type"]["scale"]["caption"]["line"]
-        for sentence in self.sentences:
-            lines = self.wrap(sentence["text"], "caption", self.tokens["captions"]["max_width"])
-            if len(lines) > self.tokens["captions"]["max_lines"]:
-                self.problems.append(f"caption {sentence['id']} needs {len(lines)} lines")
-            if CAPTION_Y + cap_line * len(lines) > self.tokens["captions"]["bottom"]:
-                self.problems.append(f"caption {sentence['id']} runs below y = {self.tokens['captions']['bottom']}")
+        big_line = self.tokens["type"]["scale"]["caption_big"]["line"]
 
-            def caption(draw, image, lines=lines):
+        def caption_sprite(lines: list[str], style: str, line: int, top: int) -> Sprite:
+            def paint(draw, image):
                 shadow = Image.new("RGBA", image.size, (0, 0, 0, 0))
                 sd = ImageDraw.Draw(shadow)
                 for i, text in enumerate(lines):
-                    self._draw(sd, 20, 20 + i * cap_line + 2, text, "caption", (0, 0, 0, 215))
+                    self._draw(sd, 20, 20 + i * line + 2, text, style, (0, 0, 0, 215))
                 image.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(6)))
                 for i, text in enumerate(lines):
-                    self._draw(draw, 20, 20 + i * cap_line, text, "caption", text_colour + (255,))
-            self.captions[sentence["id"]] = self._sprite(self.W - x + 20, cap_line * len(lines) + 44, x - 20, CAPTION_Y - 20, caption)
+                    self._draw(draw, 20, 20 + i * line, text, style, text_colour + (255,))
+            return self._sprite(self.W - x + 20, line * len(lines) + 44, x - 20, top - 20, paint)
+
+        for sentence in self.sentences:
+            if sentence.get("caption") is False:
+                continue
+            if sentence.get("chunks"):
+                last = len(sentence["chunks"]) - 1
+                for i, chunk in enumerate(sentence["chunks"]):
+                    if self._width(chunk["text"], "caption_big") > caps["max_width"]:
+                        self.problems.append(f"caption chunk {chunk['text']!r} is wider than {caps['max_width']} px")
+                    # one chunk gives way to the next on a single frame; only the sentence fades in and out
+                    self.captions.append((caption_sprite([chunk["text"]], "caption_big", big_line, CAPTION_BIG_Y),
+                                          chunk["start_s"], chunk["end_s"],
+                                          (CHUNK_FADE_S if i == 0 else 0.0, CHUNK_FADE_S if i == last else 0.0)))
+                if CAPTION_BIG_Y + big_line > caps["bottom"]:
+                    self.problems.append(f"caption {sentence['id']} runs below y = {caps['bottom']}")
+                continue
+            lines = self.wrap(sentence["text"], "caption", caps["max_width"])
+            if len(lines) > caps["max_lines"]:
+                self.problems.append(f"caption {sentence['id']} needs {len(lines)} lines")
+            if CAPTION_Y + cap_line * len(lines) > caps["bottom"]:
+                self.problems.append(f"caption {sentence['id']} runs below y = {caps['bottom']}")
+            self.captions.append((caption_sprite(lines, "caption", cap_line, CAPTION_Y),
+                                  sentence["start_s"], sentence["end_s"], (caps["fade_s"], caps["fade_s"])))
 
     def _figure(self, count: int) -> tuple[Sprite, Sprite]:
         """The big count, and the 'of 30' that joins it later."""
@@ -230,18 +264,91 @@ class Overlay:
             self._figure_cache[count] = (left, right)
         return self._figure_cache[count]
 
+    def _reading(self, value: float) -> Sprite:
+        """The readout in real units: the big number, its unit, and the same length in a second unit."""
+        spec = self.text["figure"]
+        number = f"{value:.{spec.get('decimals', 0)}f}"
+        second = spec.get("second")
+        # the second unit is worked from the number as printed, so the two always agree
+        other = f"{float(number) * second['factor']:.{second.get('decimals', 0)}f} {second['unit']}" if second else ""
+        key = (number, other)
+        if key not in self._figure_cache:
+            p = self.palette
+            text_colour = _rgb(p["text"])
+            end = self._width(number, "figure")
+            figure_font, figure_spec = self.font("figure")
+            unit_font, unit_spec = self.font("figure_unit")
+            asc_f, desc_f = figure_font.getmetrics()
+            baseline = (figure_spec["line"] - (asc_f + desc_f)) / 2 + asc_f
+            asc_u, desc_u = unit_font.getmetrics()
+            unit_top = baseline - asc_u - (unit_spec["line"] - (asc_u + desc_u)) / 2
+
+            def paint(draw, image):
+                # the lit model is often behind the readout, so it stands on the same soft shadow as the captions
+                shadow = Image.new("RGBA", image.size, (0, 0, 0, 0))
+                sd = ImageDraw.Draw(shadow)
+                after = self._draw(sd, end + 12, unit_top + 2, spec["unit"], "figure_unit", (0, 0, 0, 200))
+                self._draw(sd, 0, 2, number, "figure", (0, 0, 0, 150))
+                if other:
+                    self._draw(sd, after + 44, unit_top + 2, other, "figure_unit", (0, 0, 0, 215))
+                image.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(7)))
+                self._draw(draw, 0, 0, number, "figure", text_colour + (255,))
+                after = self._draw(draw, end + 12, unit_top, spec["unit"], "figure_unit", text_colour + (255,))
+                if other:
+                    self._draw(draw, after + 44, unit_top, other, "figure_unit", text_colour + (255,))
+            while len(self._figure_cache) >= 8:             # a frame needs one; a dropped one is redrawn the same
+                self._figure_cache.pop(next(iter(self._figure_cache)))
+            self._figure_cache[key] = self._sprite(self.W - self.x, 200, self.x - 8, FIGURE_Y, paint)
+        return self._figure_cache[key]
+
+    def _reading_fits(self, value: float) -> None:
+        """Layout test for one readout value; run for every value before any frame is drawn."""
+        spec = self.text["figure"]
+        number = f"{value:.{spec.get('decimals', 0)}f}"
+        second = spec.get("second")
+        other = f"{float(number) * second['factor']:.{second.get('decimals', 0)}f} {second['unit']}" if second else ""
+        width = (self._width(number, "figure") + 12 + self._width(spec["unit"], "figure_unit")
+                 + (44 + self._width(other, "figure_unit") if other else 0))
+        limit = self.tokens["safe"]["lower_half_right"]
+        if self.x - 8 + width > limit and not any("readout" in p for p in self.problems):
+            self.problems.append(f"readout {number} {spec['unit']} {other} runs past x = {limit}")
+
     # ---- per frame
-    def apply(self, picture: np.ndarray, t: float, count: int) -> np.ndarray:
+    def apply(self, picture: np.ndarray, t: float, count: int, value: float | None = None) -> np.ndarray:
         tl = self.tl
         frame = picture.astype(np.float32)
         frame += (self.shade_colour - frame) * self.shade
         self.head.blend(frame, 1.0)
 
-        figure_in = tl["figure"]["in"]
-        left, right = self._figure(count)
-        left.blend(frame, ease_out(ramp(t, figure_in, figure_in + 0.5)))
-        right.blend(frame, ease_out(ramp(t, tl["figure"]["of_in"], tl["figure"]["of_in"] + 0.6)))
-        self.label.blend(frame, ease_out(ramp(t, figure_in + 0.2, figure_in + 0.7)))
+        figure_in = tl["figure_in"]
+        shown = ease_out(ramp(t, figure_in, figure_in + 0.5))
+        if self.text.get("figure"):
+            self._reading(value or 0.0).blend(frame, shown)
+        else:
+            left, right = self._figure(count)
+            left.blend(frame, shown)
+            right.blend(frame, ease_out(ramp(t, tl["of_in"], tl["of_in"] + 0.6)))
+        label_in = ease_out(ramp(t, figure_in + 0.2, figure_in + 0.7))
+        if self.label_after is not None:
+            after = tl["label_after"]
+            if after.get("above") is not None:
+                # the label follows the number, frame for frame and with no cross-fade: the first label while the
+                # readout rests at "above" (or anywhere under it, unless "first_from" makes it wait for the count to
+                # land), the second once it has reached "from", and none while the number is running
+                live = after.get("until") is None or t < after["until"]
+                first = 0.0 if live and (value or 0.0) > after["above"] else 1.0
+                if after.get("first_from") is not None and (value or 0.0) < after["first_from"]:
+                    first = 0.0
+                second = 1.0 if live and (value or 0.0) >= after["from"] else 0.0
+            else:
+                second = ease_in_out(ramp(t, after["t"], after["t"] + 0.35))
+                if after.get("until") is not None:
+                    second *= 1 - ease_in_out(ramp(t, after["until"], after["until"] + 0.35))
+                first = 1 - second
+            self.label.blend(frame, label_in * first)
+            self.label_after.blend(frame, label_in * second)
+        else:
+            self.label.blend(frame, label_in)
 
         def emphasis(t0: float) -> float:
             d = t - t0
@@ -251,10 +358,13 @@ class Overlay:
             e = emphasis(pulse)
             sprite.blend(frame, ease_out(ramp(t, start, start + 0.5)) * (0.74 + 0.26 * e), 1 + 0.45 * e)
 
-        fade = self.tokens["captions"]["fade_s"]
-        for sentence in self.sentences:
-            if sentence["start_s"] - 0.001 <= t <= sentence["end_s"] + fade:
-                opacity = ramp(t, sentence["start_s"], sentence["start_s"] + fade) * (1 - ramp(t, sentence["end_s"], sentence["end_s"] + fade))
-                self.captions[sentence["id"]].blend(frame, opacity)
-        self.credit.blend(frame, ease_out(ramp(t, tl["credit_in"], tl["credit_in"] + 0.6)))
+        for sprite, start, end, (fade_in, fade_out) in self.captions:
+            # with no fade a caption is on screen for exactly [start, end), so two chunks never show together
+            if start - 0.001 <= t < end + max(fade_out, 1e-9):
+                sprite.blend(frame, ramp(t, start, start + fade_in) * (1 - ramp(t, end, end + fade_out)))
+        credit = ease_out(ramp(t, tl["credit_in"], tl["credit_in"] + 0.6))
+        if tl.get("credit_also"):
+            a, b = tl["credit_also"]
+            credit = max(credit, ease_out(ramp(t, a, a + 0.4)) * (1 - ease_in_out(ramp(t, b - 0.4, b))))
+        self.credit.blend(frame, credit)
         return np.clip(frame + 0.5, 0, 255).astype(np.uint8)

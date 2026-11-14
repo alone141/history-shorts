@@ -1,0 +1,183 @@
+{
+ "voice": "bm_fable",
+ "lang": "en-gb",
+ "speed": 1.05,
+ "sample_rate": 24000,
+ "fps": 30,
+ "duration_s": 26.3667,
+ "frames": 791,
+ "word_count": 75,
+ "cue_method": "sentence start + duration of synthesised prefix text - 0.08 s",
+ "sentences": [
+  {
+   "id": "s0",
+   "beat": 1,
+   "text": "What did the Great Pyramid originally look like?",
+   "say": "What did the Great Pyramid originally look like?",
+   "start_s": 0.15,
+   "end_s": 2.55,
+   "cues": {},
+   "caption": false
+  },
+  {
+   "id": "s1",
+   "beat": 2,
+   "text": "What stands today is a staircase: 203 courses of stone.",
+   "say": "What stands today is a staircase: two hundred and three courses of stone.",
+   "start_s": 2.9,
+   "end_s": 6.589,
+   "cues": {},
+   "chunks": [
+    {
+     "text": "What stands today",
+     "start_s": 2.9,
+     "end_s": 3.809,
+     "spread_s": 0.0,
+     "at_pause": true
+    },
+    {
+     "text": "is a staircase:",
+     "start_s": 3.809,
+     "end_s": 4.84,
+     "spread_s": 0.051,
+     "at_pause": false
+    },
+    {
+     "text": "203 courses of stone.",
+     "start_s": 4.84,
+     "end_s": 6.589,
+     "spread_s": 0.209,
+     "at_pause": true
+    }
+   ]
+  },
+  {
+   "id": "s2",
+   "beat": 2,
+   "text": "It ends in a flat top, about 11 metres across.",
+   "say": "It ends in a flat top, about eleven metres across.",
+   "start_s": 7.089,
+   "end_s": 9.956,
+   "cues": {},
+   "chunks": [
+    {
+     "text": "It ends in a flat top,",
+     "start_s": 7.089,
+     "end_s": 8.434,
+     "spread_s": 0.0,
+     "at_pause": true
+    },
+    {
+     "text": "about 11 metres across.",
+     "start_s": 8.434,
+     "end_s": 9.956,
+     "spread_s": 0.087,
+     "at_pause": true
+    }
+   ]
+  },
+  {
+   "id": "s3",
+   "beat": 3,
+   "text": "But it was finished smooth: cased in white limestone, rising to a point.",
+   "say": "But it was finished smooth: cased in white limestone, rising to a point.",
+   "start_s": 11.056,
+   "end_s": 14.917,
+   "cues": {},
+   "chunks": [
+    {
+     "text": "But it was finished smooth:",
+     "start_s": 11.056,
+     "end_s": 12.456,
+     "spread_s": 0.0,
+     "at_pause": true
+    },
+    {
+     "text": "cased in white limestone,",
+     "start_s": 12.456,
+     "end_s": 13.847,
+     "spread_s": 0.191,
+     "at_pause": true
+    },
+    {
+     "text": "rising to a point.",
+     "start_s": 13.847,
+     "end_s": 14.917,
+     "spread_s": 0.031,
+     "at_pause": false
+    }
+   ]
+  },
+  {
+   "id": "s4",
+   "beat": 4,
+   "text": "Almost all of that casing was quarried away in the Middle Ages, much of it to build Cairo.",
+   "say": "Almost all of that casing was quarried away in the Middle Ages, much of it to build Cairo.",
+   "start_s": 16.117,
+   "end_s": 20.861,
+   "cues": {},
+   "chunks": [
+    {
+     "text": "Almost all of that casing",
+     "start_s": 16.117,
+     "end_s": 17.491,
+     "spread_s": 0.0,
+     "at_pause": true
+    },
+    {
+     "text": "was quarried away",
+     "start_s": 17.491,
+     "end_s": 18.261,
+     "spread_s": 0.024,
+     "at_pause": false
+    },
+    {
+     "text": "in the Middle Ages,",
+     "start_s": 18.261,
+     "end_s": 19.512,
+     "spread_s": 0.024,
+     "at_pause": false
+    },
+    {
+     "text": "much of it to build Cairo.",
+     "start_s": 19.512,
+     "end_s": 20.861,
+     "spread_s": 0.074,
+     "at_pause": true
+    }
+   ]
+  },
+  {
+   "id": "s5",
+   "beat": 5,
+   "text": "The top is gone too, and its own capstone has never been found.",
+   "say": "The top is gone too, and its own capstone has never been found.",
+   "start_s": 21.361,
+   "end_s": 24.662,
+   "cues": {},
+   "chunks": [
+    {
+     "text": "The top is gone too,",
+     "start_s": 21.361,
+     "end_s": 22.551,
+     "spread_s": 0.0,
+     "at_pause": true
+    },
+    {
+     "text": "and its own capstone",
+     "start_s": 22.551,
+     "end_s": 23.552,
+     "spread_s": 0.131,
+     "at_pause": true
+    },
+    {
+     "text": "has never been found.",
+     "start_s": 23.552,
+     "end_s": 24.662,
+     "spread_s": 0.041,
+     "at_pause": false
+    }
+   ]
+  }
+ ]
+}

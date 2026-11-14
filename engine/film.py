@@ -49,9 +49,10 @@ def film_dir(film: dict) -> Path:
 
 def narrate(film: dict) -> dict:
     """Synthesise the script (cached per sentence) and return the narration clock."""
-    v = TOKENS["voice"]
+    v = {**TOKENS["voice"], **film.get("voice", {})}        # a film may tighten its own lead-in, gaps and tail
     return voice.synthesise(film["script"], build_dir(film) / "voice", voice=v["voice"], lang=v["lang"],
-                            speed=v["speed"], fps=TOKENS["frame"]["fps"], lead_in=v["lead_in_s"], gap=v["gap_s"], tail=v["tail_s"])
+                            speed=v["speed"], fps=TOKENS["frame"]["fps"], lead_in=v["lead_in_s"], gap=v["gap_s"], tail=v["tail_s"],
+                            tight=bool(v.get("tight", False)))
 
 
 def cues(film: dict, narration: dict) -> list[dict]:
@@ -63,8 +64,11 @@ def cues(film: dict, narration: dict) -> list[dict]:
             from engine.phase.render import pick_schedule
             desc = phase.describe(film, narration)
             pick = desc["timeline"]["pick"]
-            for t in pick_schedule(pick["t0"], pick["t1"], len(desc["model"]["pick_order"])):
-                out.append({"type": cue["type"], "t": round(t, 3), "gain_db": cue.get("gain_db", -4.0)})
+            times = pick_schedule(pick["t0"], pick["t1"], len(desc["model"]["pick_order"]))
+            every = int(cue.get("every", 1))             # a long count ticks on every n-th thing, ending on the last
+            for i, t in enumerate(times):
+                if (len(times) - 1 - i) % every == 0:
+                    out.append({"type": cue["type"], "t": round(t, 3), "gain_db": cue.get("gain_db", -4.0)})
             continue
         item = {"type": cue["type"], "t": round(resolve(cue["at"], narration), 3)}
         if "until" in cue:
@@ -83,15 +87,37 @@ def mix(film: dict, narration: dict) -> dict:
                      voice_lufs=s["voice_lufs"], room_rms_dbfs=s["room_rms_dbfs"], cue_margin_db=s["cue_margin_db"])
 
 
+SHORTEST_CHUNK_S = 0.33        # a caption chunk on screen for less than this cannot be read
+
+
+def timing_problems(narration: dict) -> list[str]:
+    """Caption chunks that are too short to read."""
+    out = []
+    for sentence in narration["sentences"]:
+        for chunk in sentence.get("chunks") or []:
+            if chunk["end_s"] - chunk["start_s"] < SHORTEST_CHUNK_S:
+                out.append(f"caption chunk {chunk['text']!r} in {sentence['id']} is on screen for only "
+                           f"{chunk['end_s'] - chunk['start_s']:.2f} s")
+    return out
+
+
+def timing_notes(narration: dict) -> list[str]:
+    """Caption chunks worth a look: no pause placed them, and the two ways of matching the voice disagree."""
+    return [f"caption chunk {chunk['text']!r} in {sentence['id']}: placed with no pause to go by, and the match from "
+            f"the start of the sentence differs by {chunk['spread_s']:.2f} s; check it against the voice"
+            for sentence in narration["sentences"] for chunk in sentence.get("chunks") or []
+            if not chunk.get("at_pause", True) and (chunk.get("spread_s") or 0) > 0.12]
+
+
 def check(film: dict, narration: dict) -> list[str]:
     if film["look"] == "phase":
         from engine import phase
         scene = phase.Scene(film, narration, samples=1)
         problems = scene.validate()
         scene.close()
-        return problems
+        return problems + timing_problems(narration)
     from engine import table
-    return table.validate(table.load(film, narration))
+    return table.validate(table.load(film, narration)) + timing_problems(narration)
 
 
 def stills(film: dict, narration: dict, out_dir: Path, *, accent: str | None = None, names: list[str] | None = None,
@@ -137,6 +163,8 @@ def render(film: dict, *, accent: str | None = None, samples: int | None = None,
     problems = check(film, narration)
     if problems:
         raise SystemExit("layout problems, not rendering:\n  " + "\n  ".join(problems))
+    for note in timing_notes(narration):
+        print("note:", note, flush=True)
     levels = mix(film, narration)
     if not levels.get("ok", False):
         raise SystemExit("sound levels are outside the limits: see " + str(build_dir(film) / "audio" / "mix.levels.json"))
@@ -177,6 +205,10 @@ def main() -> None:
         print(f"{narration['duration_s']} s, {narration['frames']} frames, {narration['word_count']} spoken words")
         for s in narration["sentences"]:
             print(f"  {s['id']:<4} {s['start_s']:6.2f} - {s['end_s']:6.2f}  {s['text']}")
+            for c in s.get("chunks") or []:
+                print(f"         {c['start_s']:6.2f} - {c['end_s']:6.2f}  {c['text']}")
+        for note in timing_notes(narration):
+            print("note:", note)
         print("voice:", build_dir(film) / "voice" / "voice.wav")
     elif args.step == "sound":
         levels = mix(film, narration)
@@ -187,6 +219,8 @@ def main() -> None:
     elif args.step == "check":
         problems = check(film, narration)
         print("\n".join(problems) if problems else "no layout problems")
+        for note in timing_notes(narration):
+            print("note:", note)
     elif args.step == "stills":
         paths = stills(film, narration, build_dir(film) / "look", accent=args.accent, names=args.only)
         contact_sheet(paths, build_dir(film) / "look" / "contact_sheet.jpg")

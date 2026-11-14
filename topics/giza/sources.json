@@ -1,0 +1,32 @@
+[
+  {
+    "name": "petrie-plate-viii-lower",
+    "url": "https://archive.org/download/cu31924012038927/cu31924012038927_jp2.zip/cu31924012038927_jp2%2Fcu31924012038927_0306.jp2",
+    "dest": "data/giza/petrie/cu31924012038927_0306.jp2",
+    "note": "Petrie, The Pyramids and Temples of Gizeh (London, 1883), Plate VIII 'Levels of the courses of the Great Pyramid', lower strip of the fold-out. Cornell University Library copy, Internet Archive cu31924012038927. Public domain (published 1883; Petrie died 1942)"
+  },
+  {
+    "name": "petrie-plate-viii-middle",
+    "url": "https://archive.org/download/cu31924012038927/cu31924012038927_jp2.zip/cu31924012038927_jp2%2Fcu31924012038927_0290.jp2",
+    "dest": "data/giza/petrie/cu31924012038927_0290.jp2",
+    "note": "Same plate, middle strip (levels from about 2,292 inches up), with the plate title"
+  },
+  {
+    "name": "petrie-plate-viii-upper",
+    "url": "https://archive.org/download/cu31924012038927/cu31924012038927_jp2.zip/cu31924012038927_jp2%2Fcu31924012038927_0291.jp2",
+    "dest": "data/giza/petrie/cu31924012038927_0291.jp2",
+    "note": "Same plate, upper strip (to the present top)"
+  },
+  {
+    "name": "petrie-text",
+    "url": "https://archive.org/download/cu31924012038927/cu31924012038927_djvu.txt",
+    "dest": "data/giza/petrie/cu31924012038927_djvu.txt",
+    "note": "Petrie 1883, text as read by the Internet Archive's character recognition (sections 20-26: base, levels, summit, height, casing). Check any figure against the page scans"
+  },
+  {
+    "name": "petrie-metadata",
+    "url": "https://archive.org/metadata/cu31924012038927",
+    "dest": "data/giza/petrie/cu31924012038927_metadata.json",
+    "note": "Internet Archive record for the scans (file list, contributor)"
+  }
+]

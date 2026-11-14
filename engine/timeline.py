@@ -7,6 +7,7 @@ with it.
     "s3"            start of sentence s3
     "s3.end"        end of sentence s3
     "s3.cue:name"   the moment inside s3 that the script marked as cue "name"
+    "s3.chunk:1"    the start of caption chunk 1 of s3 (chunks count from 0)
     "start", "end"  first and last frame of the film
     any of these followed by +0.4 or -0.25 (seconds)
 
@@ -18,7 +19,7 @@ from __future__ import annotations
 import math
 import re
 
-_EXPR = re.compile(r"^\s*([A-Za-z_][\w]*)(?:\.(end|cue:[\w-]+))?\s*([+-]\s*\d+(?:\.\d+)?)?\s*$")
+_EXPR = re.compile(r"^\s*([A-Za-z_][\w]*)(?:\.(end|cue:[\w-]+|chunk:\d+))?\s*([+-]\s*\d+(?:\.\d+)?)?\s*$")
 
 
 def resolve(expr: str | float | int, narration: dict) -> float:
@@ -41,6 +42,11 @@ def resolve(expr: str | float | int, narration: dict) -> float:
         return float(sentence["start_s"]) + shift
     if part == "end":
         return float(sentence["end_s"]) + shift
+    if part.startswith("chunk:"):
+        chunks, index = sentence.get("chunks") or [], int(part.split(":", 1)[1])
+        if index >= len(chunks):
+            raise KeyError(f"sentence {name!r} has no chunk {index} (expression {expr!r})")
+        return float(chunks[index]["start_s"]) + shift
     cue = part.split(":", 1)[1]
     if cue not in sentence.get("cues", {}):
         raise KeyError(f"sentence {name!r} has no cue {cue!r} (expression {expr!r})")

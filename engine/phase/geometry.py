@@ -32,8 +32,14 @@ def _chaikin(pts: np.ndarray) -> np.ndarray:
     return out
 
 
-def prism(poly: list[list[float]], base: float, top: float, taper: float = 1.0, bevel: float = 0.15) -> dict:
+def prism(poly: list[list[float]], base: float, top: float, taper: float = 1.0, bevel: float = 0.15,
+          hole: list[list[float]] | None = None, rings: tuple[bool, bool] = (True, True), cap: bool = True) -> dict:
     """A tapered prism with a small top bevel.
+
+    `hole` leaves out the part of the top face that another block stands on (a plan
+    polygon inside the top face), so a stack of blocks is not drawn many times over.
+    `rings` says whether the foot ring and the shoulder ring are among the edges drawn in light.
+    `cap=False` leaves the top open (for a volume that another volume continues).
 
     Sides shade smoothly round curves and stay crisp at real corners.
     Returns {"tris": (n, 6), "lines": (m, 3) line-segment endpoints for the
@@ -80,14 +86,16 @@ def prism(poly: list[list[float]], base: float, top: float, taper: float = 1.0, 
 
     cap_y, cap_s = levels[-1]
     cap_xz = centre + (ring - centre) * cap_s
-    cap = _triangulate(cap_xz)
-    tris.append(np.c_[cap[:, 0], np.full(len(cap), cap_y), cap[:, 1], np.zeros(len(cap)), np.ones(len(cap)), np.zeros(len(cap))])
+    if cap:
+        lid = _triangulate(cap_xz, _ring(hole) if hole else None)
+        tris.append(np.c_[lid[:, 0], np.full(len(lid), cap_y), lid[:, 1], np.zeros(len(lid)), np.ones(len(lid)), np.zeros(len(lid))])
 
     # edges to draw in light: foot ring, shoulder ring, and uprights at hard corners
     lines: list[np.ndarray] = []
-    for level in (levels[0], levels[1]):
-        p = at(level)
-        lines.append(np.stack([p, p[nxt]], axis=1).reshape(-1, 3))
+    for level, wanted in zip((levels[0], levels[1]), rings):
+        if wanted:
+            p = at(level)
+            lines.append(np.stack([p, p[nxt]], axis=1).reshape(-1, 3))
     hard = np.where(~smooth)[0]
     if len(hard):
         lo, hi = at(levels[0])[hard], at(levels[1])[hard]
@@ -96,15 +104,15 @@ def prism(poly: list[list[float]], base: float, top: float, taper: float = 1.0, 
     foot = _triangulate(ring)
     return {
         "tris": np.vstack(tris).astype("f4"),
-        "lines": np.vstack(lines).astype("f4"),
+        "lines": (np.vstack(lines) if lines else np.zeros((0, 3))).astype("f4"),
         "foot": np.c_[foot[:, 0], np.zeros(len(foot)), foot[:, 1]].astype("f4"),
         "centre": (float(centre[0]), float(centre[1])),
     }
 
 
-def _triangulate(ring_xz: np.ndarray) -> np.ndarray:
-    """Triangles (k*3, 2) filling a simple polygon."""
-    polygon = Polygon(ring_xz)
+def _triangulate(ring_xz: np.ndarray, hole_xz: np.ndarray | None = None) -> np.ndarray:
+    """Triangles (k*3, 2) filling a simple polygon, less an optional hole."""
+    polygon = Polygon(ring_xz, [hole_xz] if hole_xz is not None else None)
     if not polygon.is_valid:
         polygon = polygon.buffer(0)
     out = []

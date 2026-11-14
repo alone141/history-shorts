@@ -116,14 +116,17 @@ void main() { vWorld = in_pos; vN = in_nor; vSpan = in_span; vK = in_k; gl_Posit
 GLOW_FS = """
 #version 330
 uniform vec3 uCam; uniform vec3 uColor;
+uniform float uClipY; uniform float uBand; uniform float uLead;
 in vec3 vWorld; in vec3 vN; in vec2 vSpan; in float vK;
 out vec4 fragColor;
 void main() {
+    if (vWorld.y > uClipY) discard;                 // a volume still rising is drawn only up to its front
     vec3 n = normalize(vN), v = normalize(uCam - vWorld);
     float rim = pow(1.0 - abs(dot(n, v)), 2.0);
     float h = clamp((vWorld.y - vSpan.x) / max(vSpan.y - vSpan.x, 0.001), 0.0, 1.0);
     float topFace = smoothstep(0.6, 0.95, n.y);
-    float a = (mix(0.50, 0.26, h) + 0.95 * rim + 0.42 * topFace) * vK;
+    float lead = uLead * smoothstep(uClipY - uBand, uClipY, vWorld.y);
+    float a = (mix(0.50, 0.26, h) + 0.95 * rim + 0.42 * topFace + lead) * vK;
     fragColor = vec4(uColor * a, 1.0);
 }
 """
@@ -151,8 +154,9 @@ LINE_VS = """
 #version 330
 uniform mat4 uViewProj; uniform vec2 uViewport; uniform float uWidth;
 in vec3 in_pos; in vec3 in_other; in float in_side; in float in_k;
-out float vK; out float vSide;
+out float vK; out float vSide; out float vY;
 void main() {
+    vY = in_pos.y;
     vec4 p = uViewProj * vec4(in_pos, 1.0), q = uViewProj * vec4(in_other, 1.0);
     vec2 sp = p.xy / p.w * uViewport * 0.5, sq = q.xy / q.w * uViewport * 0.5;
     vec2 d = normalize(sq - sp + vec2(1e-6, 0.0));
@@ -162,10 +166,13 @@ void main() {
 """
 LINE_FS = """
 #version 330
-uniform vec3 uColor;
-in float vK; in float vSide;
+uniform vec3 uColor; uniform float uClipY;
+in float vK; in float vSide; in float vY;
 out vec4 fragColor;
-void main() { fragColor = vec4(uColor * vK * (1.0 - smoothstep(0.35, 1.0, abs(vSide))), 1.0); }
+void main() {
+    if (vY > uClipY) discard;
+    fragColor = vec4(uColor * vK * (1.0 - smoothstep(0.35, 1.0, abs(vSide))), 1.0);
+}
 """
 
 QUAD_VS = """
@@ -397,7 +404,9 @@ class Renderer:
         mid = size / 2
         rim = (R - 0.7) * k
         draw.ellipse([mid - rim, mid - rim, mid + rim, mid + rim], outline=ink, width=max(2, round(0.06 * k)))
-        font = ImageFont.truetype(str(ROOT / self.tokens["type"]["families"]["mono"]["medium"]), round(1.05 * k))
+        # the mono face has a marked zero, which closes up when the lettering is small on screen ("100" reads "188")
+        family = self.desc["model"]["plate"].get("label_family", "mono")
+        font = ImageFont.truetype(str(ROOT / self.tokens["type"]["families"][family]["medium"]), round(1.05 * k))
 
         def stamp(bearing: float, radius: float, turn: float, paint) -> None:
             """Draw upright in a tile, turn it anticlockwise by `turn` degrees, place it at a compass bearing."""
@@ -408,14 +417,15 @@ class Renderer:
             cx, cy = mid + radius * math.sin(b) * k, mid - radius * math.cos(b) * k
             image.alpha_composite(turned, (round(cx - turned.width / 2), round(cy - turned.height / 2)))
 
-        bar = self.desc["model"]["plate"]["scale_bar_m"]
+        bar_m = self.desc["model"]["plate"]["scale_bar_m"]
+        bar = bar_m / self.desc["model"]["plate"].get("unit_m", 1.0)       # length in model units
         width = max(3, round(0.11 * k))
 
         def scale_bar(d: ImageDraw.ImageDraw, cx: float, cy: float) -> None:
             d.line([cx - bar / 2 * k, cy, cx + bar / 2 * k, cy], fill=ink, width=width)
             for u in (-0.5, 0.0, 0.5):
                 d.line([cx + u * bar * k, cy - 0.36 * k, cx + u * bar * k, cy + 0.36 * k], fill=ink, width=width)
-            d.text((cx, cy - 0.62 * k), f"{bar} m", font=font, fill=ink, anchor="ms")
+            d.text((cx, cy - 0.62 * k), f"{bar_m} m", font=font, fill=ink, anchor="ms")
 
         def north(d: ImageDraw.ImageDraw, cx: float, cy: float) -> None:
             d.line([cx, cy + 0.9 * k, cx, cy - 0.7 * k], fill=ink, width=width)
@@ -438,7 +448,8 @@ class Renderer:
         for prism in model["matter"]:
             lintel = prism["base"] > 0
             built = geometry.prism(prism["poly"], prism["base"], prism["top"], prism["taper"],
-                                   0.07 if lintel else (0.16 if prism["top"] > 2 else 0.09))
+                                   prism.get("bevel", 0.07 if lintel else (0.16 if prism["top"] > 2 else 0.09)),
+                                   hole=prism.get("cap_hole"))
             if prism["id"] in model["pick_order"] and prism["group"] == model["pick_group"]:
                 self.pick_ranges[prism["id"]] = (cursor, len(built["tris"]))
             parts.append(built["tris"])
@@ -448,9 +459,12 @@ class Renderer:
 
         # projected light: every volume, edge and footprint in three buffers, with a per-vertex strength
         reveals = self.tl["reveal"]
+        self.light_top = max((prism["top"] for prism in model["light"]), default=1.0)
         self.lights, bodies, lines, feet = [], [], [], []
         for prism in model["light"]:
-            built = geometry.prism(prism["poly"], prism["base"], prism["top"], prism["taper"], 0.07 if prism["base"] > 0 else 0.16)
+            built = geometry.prism(prism["poly"], prism["base"], prism["top"], prism["taper"],
+                                   prism.get("bevel", 0.07 if prism["base"] > 0 else 0.16),
+                                   rings=tuple(prism.get("rings", (True, True))), cap=prism.get("cap", True))
             cx, cz = built["centre"]
             bearing = math.degrees(math.atan2(cx, -cz)) % 360
             reveal = next((r for r in reveals if prism["group"] in r["groups"]), None)
@@ -462,7 +476,7 @@ class Renderer:
             corners = [np.c_[a, b, plus], np.c_[a, b, minus], np.c_[b, a, minus],
                        np.c_[a, b, minus], np.c_[b, a, plus], np.c_[b, a, minus]]
             ribbon = np.stack(corners, axis=1).reshape(-1, 7)
-            self.lights.append({"reveal": reveal, "order": ((bearing - reveal["from_bearing"]) % 360) / 360 if reveal else 0.0,
+            self.lights.append({"group": prism["group"], "reveal": reveal, "order": ((bearing - reveal["from_bearing"]) % 360) / 360 if reveal else 0.0,
                                 "n_body": len(built["tris"]), "n_lines": len(ribbon), "n_foot": len(foot)})
             bodies.append(np.c_[built["tris"], span])
             lines.append(ribbon)
@@ -537,10 +551,12 @@ class Renderer:
         t, tl, look = frame / self.fps, self.tl, self.look
         house = keyed(tl["house"], t)
         strike = 0.0
-        if t >= tl["strike"]:
-            index = int(math.floor((t - tl["strike"]) * self.fps + 1e-6))
+        struck = [s for s in tl["strikes"] if t >= s]            # dark before the first strike; each strike flickers
+        if struck:
+            index = int(math.floor((t - struck[-1]) * self.fps + 1e-6))
             strike = FLICKER[index] if index < len(FLICKER) else 1.0
         level = strike * keyed(tl["projector"], t)
+        clip = keyed(tl["clip"], t) if tl.get("clip") else None
         pulse = 1.0
         if t >= tl["legend"]["light_pulse"]:
             pulse += look["light_pulse"] * math.exp(-(t - tl["legend"]["light_pulse"]) * 1.8)
@@ -549,9 +565,20 @@ class Renderer:
             d = t - when
             if d >= 0:
                 count += 1
-            glows[stone] = 0.0 if d < -0.12 else ease_in_out(1 + d / 0.12) if d < 0 else (math.exp(-d * 3.0) if d < 2.2 else 0.0)
+            glows[stone] = look["pick_gain"] * (0.0 if d < -0.12 else ease_in_out(1 + d / 0.12) if d < 0
+                                                else (math.exp(-d * look["pick_decay"]) if d < 2.2 else 0.0))
         camera = {field: spline(tl["camera"], field, t) for field in ("bearing", "elevation", "distance", "target_y")}
-        return {"t": t, "house": house, "level": level * pulse, "pool": level, "glows": glows, "count": count, "camera": camera}
+        value = None
+        figure = tl.get("figure")
+        if figure:                                    # the readout follows the count, then the rising light
+            value = figure["values"][count - 1] if count else 0.0
+            if clip is not None and t >= figure["follow_clip_from"]:
+                # ... and returns to the count at once, so the number never sits beside the wrong label
+                if not figure.get("follow_clip_until") or t < figure["follow_clip_until"]:
+                    value = max(value, clip * figure["clip_top"])
+        groups = {name: keyed(keys, t) for name, keys in (tl.get("light_levels") or {}).items()}
+        return {"t": t, "house": house, "level": level * pulse, "pool": level, "glows": glows, "count": count,
+                "camera": camera, "clip": clip, "value": value, "groups": groups}
 
     def _set(self, program: moderngl.Program, name: str, value) -> None:
         if name in program:
@@ -570,19 +597,21 @@ class Renderer:
         self._set(lit, "uKeyDir", self.key_dir)
         self._set(lit, "uKeyCol", srgb(p["key_light"]) * look["key"] * house)
         self._set(lit, "uRimDir", self.rim_dir)
-        self._set(lit, "uRimCol", srgb(p["rim_light"]) * look["rim"] * (0.12 + 0.88 * house))
+        self._set(lit, "uRimCol", srgb(p["rim_light"]) * look["rim"] * (look["rim_dark"] + (1 - look["rim_dark"]) * house))
         self._set(lit, "uFillCol", srgb(p["fill_light"]) * look["fill"] * (0.15 + 0.85 * house))
         hemi = look["hemi"] * (0.06 + 0.94 * house)
         self._set(lit, "uSky", srgb(p["fill_light"]) * hemi)
         self._set(lit, "uGround", srgb(p["ground_bounce"]) * hemi)
         self._set(lit, "uSpotPos", np.array([0.0, 120.0, 0.0]))
-        self._set(lit, "uSpotCol", srgb(p["rim_light"]) * look["floor_spot"] * (0.5 + 0.5 * house))
+        self._set(lit, "uSpotCol", srgb(p["rim_light"]) * look["floor_spot"] * (look["spot_dark"] + (1 - look["spot_dark"]) * house))
         self._set(lit, "uSpotCos", math.cos(math.radians(34)))
         self._set(lit, "uShadowTexel", 1.0 / SHADOW_SIZE)
         self._set(lit, "uPlateR", self.R)
         self._set(lit, "uEmissive", PICK_GLOW)
         if "uPoisson" in lit:
-            lit["uPoisson"].write(np.array(POISSON, dtype="f4").tobytes())
+            # a driver may report only the elements the shader reads (Mesa trims the array to 8)
+            taps = lit["uPoisson"].array_length
+            lit["uPoisson"].write(np.array(POISSON[:taps], dtype="f4").tobytes())
         self._set(lit, "uShadow", 0)
         self._set(lit, "uMap", 1)
 
@@ -598,8 +627,9 @@ class Renderer:
             f = b = 0.0
             if reveal is not None:
                 start = reveal["t"] + reveal["spread"] * item["order"]
-                f = ease_out(ramp(t, start, start + 0.4)) * level
-                b = ease_out(ramp(t, start + reveal["rise_after"], start + reveal["rise_after"] + 0.65)) * level
+                own = level * st["groups"].get(item["group"], 1.0)       # a group of volumes may be dimmed on its own
+                f = ease_out(ramp(t, start, start + 0.4)) * own
+                b = ease_out(ramp(t, start + reveal["rise_after"], start + reveal["rise_after"] + 0.65)) * own
             body.append(np.full(item["n_body"], b, dtype="f4"))
             edge.append(np.full(item["n_lines"], b, dtype="f4"))
             foot.append(np.full(item["n_foot"], f, dtype="f4"))
@@ -609,6 +639,15 @@ class Renderer:
             self.k_foot.write(np.concatenate(foot).tobytes())
         self._set(self.glow, "uColor", self.accent * look["light_body"])
         self._set(self.flat, "uPlateR", self.R)
+        clip = st.get("clip")
+        rising = clip is not None and clip < 1.0
+        clip_y = clip * self.light_top if rising else 1e9
+        self._set(self.glow, "uClipY", clip_y)
+        self._set(self.glow, "uBand", look["clip_band"])
+        # the bright front fades out over its own height as it reaches the top, so it does not vanish on one frame
+        lead = look["clip_lead"] * min(1.0, (1.0 - clip) * self.light_top / look["clip_band"]) if rising else 0.0
+        self._set(self.glow, "uLead", lead)
+        self._set(self.line, "uClipY", clip_y)
 
     def _draw(self, view_proj: np.ndarray, eye: np.ndarray, forward: np.ndarray, st: dict) -> None:
         ctx, look, lit = self.ctx, self.look, self.lit
@@ -652,14 +691,21 @@ class Renderer:
         """The 3D picture for this frame as (H, W, 3) uint8, plus the frame's state."""
         ctx, look, W, H = self.ctx, self.look, self.W, self.H
         st = self.state(frame)
-        cam = st["camera"]
-        target = np.array([0.0, cam["target_y"], 0.0])
-        base = target + bearing_vector(cam["bearing"], cam["elevation"]) * cam["distance"]
-        forward = (target - base) / np.linalg.norm(target - base)
-        right = np.cross(forward, [0.0, 1.0, 0.0])
-        right /= np.linalg.norm(right)
-        up = np.cross(right, forward)
         room = srgb(self.palette["room"])
+
+        def camera_at(moment: float):
+            """Where the camera is and looks at a moment (seconds): a pure function of time."""
+            c = {field: spline(self.tl["camera"], field, moment) for field in ("bearing", "elevation", "distance", "target_y")}
+            aim = np.array([0.0, c["target_y"], 0.0])
+            eye0 = aim + bearing_vector(c["bearing"], c["elevation"]) * c["distance"]
+            ahead = (aim - eye0) / np.linalg.norm(aim - eye0)
+            side = np.cross(ahead, [0.0, 1.0, 0.0])
+            side /= np.linalg.norm(side)
+            return c, aim, eye0, ahead, side, np.cross(side, ahead)
+
+        cam, target, base, forward, right, up = camera_at(st["t"])
+        # a film that moves in close keeps the same depth of field by scaling the lens with the distance
+        aperture = look["aperture"] * (cam["distance"] / look["aperture_at"] if look.get("aperture_at") else 1.0)
         self._prepare(st)
 
         self.accum.use()
@@ -669,12 +715,22 @@ class Renderer:
             # jittered views: depth of field about the focus point, and edge smoothing
             if n > 1:
                 radius, angle = math.sqrt((i + 0.5) / n), i * 2.39996323
-                dx, dy = radius * math.cos(angle) * look["aperture"], radius * math.sin(angle) * look["aperture"]
+                dx, dy = radius * math.cos(angle) * aperture, radius * math.sin(angle) * aperture
             else:
                 dx = dy = 0.0
+            if look["shutter"] > 0 and n > 1:
+                # the shutter stays open for part of the frame: each view sees the camera where it is at its own
+                # moment, so fine lines that move far between frames blur along their path and do not strobe
+                # (the moments come from their own sequence, base 5, so that time is tied neither to the lens offsets
+                # nor to the pixel offsets, which use bases 2 and 3; a fixed stride through the views was tried first
+                # and fell in step with the vertical pixel offset, which undid the blur for lines moving up or down)
+                moment = st["t"] + (halton(i + 1, 5) - 0.5) * look["shutter"] / self.fps
+                _, target, base, forward, right, up = camera_at(moment)
             eye = base + right * dx + up * dy
-            shift = (2 * (halton(i + 1, 2) - 0.5) / W, 2 * (look["view_offset_y"] + halton(i + 1, 3) - 0.5) / H)
-            view_proj = perspective(look["fov"], W / H, 20.0, 700.0, shift) @ look_at(eye, target)
+            # each view is moved by part of a pixel; a wider spread (aa_width) quietens very fine parallel lines
+            jx, jy = (halton(i + 1, 2) - 0.5) * look["aa_width"], (halton(i + 1, 3) - 0.5) * look["aa_width"]
+            shift = (2 * jx / W, 2 * (look["view_offset_y"] + jy) / H)
+            view_proj = perspective(look["fov"], W / H, look["near"], 700.0, shift) @ look_at(eye, target)
             self.msaa.use()
             self.msaa.clear(float(room[0]), float(room[1]), float(room[2]), 1.0, depth=1.0)
             ctx.enable(moderngl.DEPTH_TEST)

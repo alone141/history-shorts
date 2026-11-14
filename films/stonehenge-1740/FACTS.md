@@ -3,7 +3,7 @@
 Every spoken and on-screen claim, its source, and the wording or the measurement
 behind it.
 
-Status: revised after the first independent refutation pass (12 November 2026);
+Status: revised after two independent refutation passes (12 November 2026);
 see "Refutation record" at the end. Not final until the film is approved.
 
 ## Sources
@@ -25,7 +25,7 @@ see "Refutation record" at the end. Not final until the film is approved.
 | 3 | "seventeen uprights left standing," | Stukeley 1740, p. 19 | "there are more than half the uprights, viz. 17 left ſtanding." |
 | 4 | "six lintels in place, two on the ground, twenty-two carried off." | Stukeley 1740, p. 19 | "five impoſts upon them" (on the eleven uprights by the entrance), then "There is but one impoſt more in its proper place. And but two lying upon the ground, ſo that 22 are carried off." Five plus one is six, and 30 - 6 - 2 = 22. The paragraph is about the outer circle only ("30 uprights and 30 impoſts"). |
 | 5 | "A study published in 2022 gives the same four numbers." | Darvill 2022 p. 320; Nash 2021 Fig 1B | Darvill, describing the monument today: "Seventeen of the uprights are still standing"; "Six lintels remain in place ... two fallen examples lie on the ground; 22 are missing." Nash's independent plan shows the same 17, 6 and 2, so Darvill is not repeating Stukeley. |
-| 6 | "In between, three stones fell and were put back, and more were straightened." | Britannica 1911; EH Conservation; EH Research fn 9; Hansard 1964 | Fell and put back: stone 22 and its lintel 122, blown down 31 December 1900, put back in 1958-59; stone 23, fell 10 March 1963, re-erected 1964. Straightened: stones 6 and 7 in 1919, with their lintel taken down and replaced; stones 29, 30, 1 and 2 in 1919-20; stones 21, 4, 5, 27 and 28 in 1958-1964 (EH Research fn 9; Hansard 1964 for stone 27). |
+| 6 | "In the circle, three stones fell and were put back, and more were straightened." | Britannica 1911; EH Conservation; EH Research fn 9; Hansard 1964 | Fell and put back: stone 22 and its lintel 122, blown down 31 December 1900, put back in 1958-59; stone 23, fell 10 March 1963, re-erected 1964. Straightened: stones 6 and 7 in 1919, with their lintel taken down and replaced; stones 29, 30, 1 and 2 in 1919-20; stones 21, 4, 5, 27 and 28 in 1958-1964 (EH Research fn 9; Hansard 1964 for stone 27). |
 | 7 | "The scans are real. The mark and the lens are ours." | the film's own code | The three sheets are the Wellcome scans 0057, 0035 and 0067. Nothing in them is redrawn or generated. What we add: the underline, the loupe (with a slight vignette and highlight on the glass), the caption plate, the subtitles, the table and its shadows, a small tilt of each sheet, and one uniform levels curve (gain 1.06, lift 6) applied to all scan pixels, on the table and in the lens alike. |
 
 ## On screen
@@ -62,3 +62,11 @@ First pass, 12 November 2026, by an independent agent instructed to refute every
 | Darvill counts cited to p. 321 | p. 320 | Wrong page. |
 
 Still open: the identity of Stukeley's leaning south-west upright.
+
+Second pass, 12 November 2026, by a fresh independent agent on the revised wording. It read page 19 itself, confirmed the four numbers in both sources, and found no wrong number. The Darvill counts were then confirmed on printed page 320 of the article PDF. Changes made because of it:
+
+| Was | Now | Why |
+|---|---|---|
+| "In between, three stones fell and were put back, and more were straightened." | "In the circle, three stones fell and were put back, and more were straightened." | A trilithon also fell (1797) and was re-erected (1958); the count of three is true of the outer circle only. |
+
+Noted and left as is: Stukeley's 17 standing are not claimed to be today's 17 (his 24 visible are 17 standing, one leaning and six fallen; Darvill's are 17 standing and seven fallen). "Carried off" is Stukeley's phrase and his inference.
