@@ -23,10 +23,11 @@ PLATE_CROP = [110, 50, 2900, 1680]          # the leaf, without the book's edge 
 
 SCRIPT = [
     {"id": "s0", "beat": 1, "text": "For about 1,500 years, the Sphinx was buried up to its neck.",
-     "say": "For about fifteen hundred years, the Sphinx was buried up to its neck."},
+     "say": "For about fifteen hundred years, the Sphinx was buried up to its neck!"},
     {"id": "s1", "beat": 2, "text": "A traveller drew it like this in 1737.",
      "say": "A traveller drew it like this in seventeen thirty-seven."},
-    {"id": "s2", "beat": 2, "gap_before": 0.2, "text": "Look at the rider. He barely reaches its chest."},
+    {"id": "s2", "beat": 2, "gap_before": 0.2, "text": "Look at the rider. He barely reaches its chest.",
+     "say": "Look at the rider. He barely reaches its chest!"},
     {"id": "s3", "beat": 3, "gap_before": 0.3, "text": "A photograph from the early 1850s. Still buried.",
      "say": "A photograph from the early eighteen fifties. Still buried."},
     {"id": "s4", "beat": 4, "gap_before": 0.3, "text": "The sand hid a lion's body. Whole, it is 73 metres long.",
@@ -47,6 +48,7 @@ FILM = {
     "look": "table",
     "title": "The Sphinx was buried up to its neck",
     "script": SCRIPT,
+    "voice": {"voice": "af_heart", "lang": "en-us", "speed": 1.15},   # livelier than the house voice; owner's choice, 15 Nov 2026
     "hook": {"lines": ["The Sphinx was buried to its", "neck for about 1,500 years."], "x": 60, "y": 200},
     "objects": [
         {"id": "profile", "scan": D + "norden1755_pl47_profil_sphinx.jp2", "rotate": 270, "crop": PLATE_CROP,
