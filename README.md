@@ -22,7 +22,7 @@ topics/            one data module per film, plus the site's sources
   stonehenge_standing.py     "How much of Stonehenge is still standing?"         (phase model)
   stonehenge_1740.py         "What did Stonehenge look like in 1740?"            (light table)
   great_pyramid_original.py  "What did the Great Pyramid originally look like?"  (phase model)
-  sphinx_nose.py             "Napoleon did not shoot the nose off the Sphinx"     (light table)
+  sphinx_buried.py           "The Sphinx was buried to its neck for about 1,500 years"  (light table)
   stonehenge/                the site: sources.json, refs.json, survey, plan digitising, model
     stones.json              the measured stone table the model is built from (kept in the repository)
   sphinx/                    the scans' sources.json and research.md (claims, quotes, what not to say)
@@ -110,10 +110,11 @@ film takes 13 to 15 minutes and the light table film about 9.
 All three films are rendered (vermilion accent). The two Stonehenge films went through
 two independent refutation passes. The Great Pyramid film went through a claim-by-claim
 fact check and a review of a candidate render (facts, picture, code); its FACTS.md has
-the record of what was changed and why. The Sphinx film (14 November 2026) is rendered: its script went through one
-independent hostile fact check, whose wording changes were applied before the render; the
-reproduction of the Gerome painting has weak provenance on Wikimedia Commons and should be
-compared with a museum image before posting (see its FACTS.md). Nothing is posted. Account name: Measured Past.
+the record of what was changed and why. The Sphinx film (15 November 2026) is rendered: its script went through one
+independent hostile fact check, whose wording changes were applied before the render. An
+earlier cut built on the Napoleon legend was dropped as too familiar; its research stays in
+topics/sphinx/research.md. Light-table objects can now enter the table one after another
+("enter" in the object spec), so a film moves from its first frame. Nothing is posted. Account name: Measured Past.
 Not done: nobody has yet watched the films in motion or listened to the mixes (the
 checks so far are on decoded frames, measured sound levels and timing); a code review
 of the whole pipeline (the changes made for the Great Pyramid film were reviewed); and
