@@ -4,9 +4,9 @@
  "speed": 1.15,
  "sample_rate": 24000,
  "fps": 30,
- "duration_s": 23.8,
- "frames": 714,
- "word_count": 70,
+ "duration_s": 26.5,
+ "frames": 795,
+ "word_count": 69,
  "cue_method": "sentence start + duration of synthesised prefix text - 0.08 s",
  "sentences": [
   {
@@ -23,8 +23,8 @@
    "beat": 2,
    "text": "A traveller drew it like this in 1737.",
    "say": "A traveller drew it like this in seventeen thirty-seven.",
-   "start_s": 4.175,
-   "end_s": 6.897,
+   "start_s": 4.495,
+   "end_s": 7.217,
    "cues": {}
   },
   {
@@ -32,44 +32,62 @@
    "beat": 2,
    "text": "Look at the rider. He barely reaches its chest.",
    "say": "Look at the rider. He barely reaches its chest!",
-   "start_s": 7.097,
-   "end_s": 9.356,
+   "start_s": 7.597,
+   "end_s": 9.856,
    "cues": {}
   },
   {
    "id": "s3",
    "beat": 3,
-   "text": "A photograph from the early 1850s. Still buried.",
-   "say": "A photograph from the early eighteen fifties. Still buried.",
-   "start_s": 9.656,
-   "end_s": 12.638,
+   "text": "A photograph from the early 1850s.",
+   "say": "A photograph from the early eighteen fifties.",
+   "start_s": 10.356,
+   "end_s": 12.382,
    "cues": {}
   },
   {
    "id": "s4",
-   "beat": 4,
-   "text": "The sand hid a lion's body. Whole, it is 73 metres long.",
-   "say": "The sand hid a lion's body. Whole, it is seventy-three metres long.",
-   "start_s": 12.938,
-   "end_s": 16.586,
+   "beat": 3,
+   "text": "Still buried.",
+   "say": "Still buried.",
+   "start_s": 12.982,
+   "end_s": 13.71,
    "cues": {}
   },
   {
    "id": "s5",
-   "beat": 5,
-   "text": "It was fully dug out again only in the 1930s.",
-   "say": "It was fully dug out again only in the nineteen thirties.",
-   "start_s": 16.966,
-   "end_s": 19.728,
+   "beat": 4,
+   "text": "And under the sand?",
+   "say": "And under the sand?",
+   "start_s": 14.51,
+   "end_s": 15.377,
    "cues": {}
   },
   {
    "id": "s6",
+   "beat": 4,
+   "text": "A lion's body. The whole statue is 73 metres long.",
+   "say": "A lion's body. The whole statue is seventy-three metres long.",
+   "start_s": 15.977,
+   "end_s": 19.297,
+   "cues": {}
+  },
+  {
+   "id": "s7",
+   "beat": 5,
+   "text": "It was only fully cleared again in the 1930s.",
+   "say": "It was only fully cleared again in the nineteen thirties.",
+   "start_s": 19.677,
+   "end_s": 22.021,
+   "cues": {}
+  },
+  {
+   "id": "s8",
    "beat": 6,
-   "text": "Did you know it had a body?",
-   "say": "Did you know it had a body?",
-   "start_s": 20.108,
-   "end_s": 21.291,
+   "text": "Would you have recognised it?",
+   "say": "Would you have recognised it?",
+   "start_s": 22.721,
+   "end_s": 23.982,
    "cues": {}
   }
  ]
