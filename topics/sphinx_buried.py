@@ -30,7 +30,7 @@ SCRIPT = [
     {"id": "s3", "beat": 2, "gap_before": 0.5, "text": "He almost reaches its chest.", "say": "He almost reaches its chest!"},
     {"id": "s4", "beat": 3, "gap_before": 0.5, "text": "This photograph is from the early 1850s.",
      "say": "This photograph is from the early eighteen fifties."},
-    {"id": "s5", "beat": 3, "gap_before": 0.5, "text": "Look at the sand line. Do you see it?"},
+    {"id": "s5", "beat": 3, "gap_before": 0.5, "text": "Look at the sand line."},
     {"id": "s6", "beat": 4, "gap_before": 0.8, "text": "And what about under the sand?"},
     {"id": "s7", "beat": 4, "gap_before": 0.6, "text": "A lion's body, stretching 73 metres.",
      "say": "A lion's body, stretching seventy-three metres."},
