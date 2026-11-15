@@ -82,3 +82,14 @@ have recognised it?"; the readout line reads "Until then, mostly hidden under
 the sand." so that it does not describe the photograph of the cleared body.
 Pauses were added between sentences. These lines were not sent to a second
 fact check.
+
+## Script revision 2, 15 November 2026
+
+The narration now points at what is on screen: "These two drawings show it in
+1737." (plates XLVII and XLVI, both from Norden's 1737 stay), "See the man on
+the donkey?" (plate XLVI, ringed), "This photograph is from the early 1850s."
+(Teynard), "Look at the sand line. Still buried." (underlined), "This. A
+lion's body." and "Those are its paws." (Matson photograph, boxed). No new
+factual claim beyond naming what the pictures show; "Those are its paws" rests
+on our reading of the Matson photograph. Not sent to a second fact check.
+The rows above quote the wording as it was at the fact check.

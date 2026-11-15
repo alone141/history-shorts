@@ -24,19 +24,20 @@ PLATE_CROP = [110, 50, 2900, 1680]          # the leaf, without the book's edge 
 SCRIPT = [
     {"id": "s0", "beat": 1, "text": "For about 1,500 years, the Sphinx was buried up to its neck.",
      "say": "For about fifteen hundred years, the Sphinx was buried up to its neck!"},
-    {"id": "s1", "beat": 2, "gap_before": 0.7, "text": "A traveller drew it like this in 1737.",
-     "say": "A traveller drew it like this in seventeen thirty-seven."},
-    {"id": "s2", "beat": 2, "text": "Look at the rider. He barely reaches its chest.",
-     "say": "Look at the rider. He barely reaches its chest!"},
-    {"id": "s3", "beat": 3, "gap_before": 0.5, "text": "A photograph from the early 1850s.",
-     "say": "A photograph from the early eighteen fifties."},
-    {"id": "s4", "beat": 3, "gap_before": 0.6, "text": "Still buried."},
+    {"id": "s1", "beat": 2, "gap_before": 0.7, "text": "These two drawings show it in 1737.",
+     "say": "These two drawings show it in seventeen thirty-seven."},
+    {"id": "s2", "beat": 2, "text": "See the man on the donkey? He barely reaches its chest.",
+     "say": "See the man on the donkey? He barely reaches its chest!"},
+    {"id": "s3", "beat": 3, "gap_before": 0.5, "text": "This photograph is from the early 1850s.",
+     "say": "This photograph is from the early eighteen fifties."},
+    {"id": "s4", "beat": 3, "gap_before": 0.5, "text": "Look at the sand line. Still buried."},
     {"id": "s5", "beat": 4, "gap_before": 0.8, "text": "And under the sand?"},
-    {"id": "s6", "beat": 4, "gap_before": 0.6, "text": "A lion's body. The whole statue is 73 metres long.",
-     "say": "A lion's body. The whole statue is seventy-three metres long."},
-    {"id": "s7", "beat": 5, "text": "It was only fully cleared again in the 1930s.",
+    {"id": "s6", "beat": 4, "gap_before": 0.6, "text": "This. A lion's body. The whole statue is 73 metres long.",
+     "say": "This. A lion's body. The whole statue is seventy-three metres long."},
+    {"id": "s7", "beat": 5, "text": "Those are its paws."},
+    {"id": "s8", "beat": 5, "text": "It was only fully cleared again in the 1930s.",
      "say": "It was only fully cleared again in the nineteen thirties."},
-    {"id": "s8", "beat": 6, "gap_before": 0.7, "text": "Would you have recognised it?"},
+    {"id": "s9", "beat": 6, "gap_before": 0.7, "text": "Would you have recognised it?"},
 ]
 
 RIDER_BOX = [1270, 960, 1480, 1240]         # plate XLVI: the man on a donkey in front of the chest
@@ -78,9 +79,9 @@ FILM = {
     "marks": [
         {"id": "rider", "type": "ellipse", "object": "front", "box": RIDER_BOX, "draw": "s2+0.5", "dur": 0.7,
          "fade": {"at": "s3-0.15", "dur": 0.2}, "width": 2.6},
-        {"id": "sand", "type": "underline", "object": "photo", "box": SAND_BOX, "draw": "s4", "dur": 0.6,
+        {"id": "sand", "type": "underline", "object": "photo", "box": SAND_BOX, "draw": "s4+0.1", "dur": 0.7,
          "fade": {"at": "s6-0.3", "dur": 0.2}, "width": 2.6},
-        {"id": "paws", "type": "box", "object": "dug", "box": PAWS_BOX, "draw": "s6+1.0", "dur": 0.9, "width": 2.6},
+        {"id": "paws", "type": "box", "object": "dug", "box": PAWS_BOX, "draw": "s7", "dur": 0.8, "width": 2.6},
     ],
     "plate": {
         "label": "GREAT SPHINX · CLEARED BY THE 1930s",
@@ -90,16 +91,16 @@ FILM = {
         "ours": "The marks and the 3x loupe are ours.",
         "x": 60, "y": 1098, "width": 820,
         "in": {"at": "s6+1.4", "dur": 0.9}, "rise": 12,
-        "leader": {"from": "paws", "at": "s6+1.9", "dur": 0.6},
+        "leader": {"from": "paws", "at": "s7+0.9", "dur": 0.6},
     },
     "camera": {"scale": [1.0, 1.05], "focus": [540, 860],
                "moves": [{"at": "s1", "dur": 3.0, "focus": [560, 800]}]},
     "credit": {"text": "Getty · The Met · Library of Congress · Synthetic voice",
-               "at": "s8.end+0.3", "dur": 0.6, "x": 60, "bottom": 1524},
+               "at": "s9.end+0.3", "dur": 0.6, "x": 60, "bottom": 1524},
     "stills": {"01_landing": 0.75, "02_plates": "s1+0.6", "03_rider": "s2.end-0.3", "04_photo": "s4.end+0.3",
-               "05_body": "s6+0.9", "06_plate": "s7+1.5", "07_question": "s8+0.6", "08_hold": "end-0.3"},
+               "05_body": "s6+0.9", "06_plate": "s8+1.5", "07_question": "s9+0.6", "08_hold": "end-0.3"},
     "sound": [
         {"type": "tick", "at": "s2+1.2"},              # the ring round the rider closes
-        {"type": "tick", "at": "s6+1.9"},              # the box round the paws closes
+        {"type": "tick", "at": "s7+0.8"},              # the box round the paws closes
     ],
 }
