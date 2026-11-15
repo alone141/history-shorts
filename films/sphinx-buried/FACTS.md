@@ -113,3 +113,10 @@ body, stretching 73 metres": 73 m is the monument's length from paws to tail.
 "He almost reaches its chest" is our reading of plate XLVI. Pauses were added
 inside two lines ("See the man on the donkey?" / "He almost reaches its
 chest."; "This." / "A lion's body..."). Not sent to a second fact check.
+
+## Script revision 4 (the owner's), 15 November 2026
+
+"This." and "Those are its paws." were cut. The box round the paws is replaced
+by an accent line under the statue, from rump to paws, tied to the "73 m long"
+readout; the line marks the statue's extent in the photograph and is not a
+measured scale.

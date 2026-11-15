@@ -32,22 +32,20 @@ SCRIPT = [
      "say": "This photograph is from the early eighteen fifties."},
     {"id": "s5", "beat": 3, "gap_before": 0.5, "text": "Look at the sand line. Do you see it?"},
     {"id": "s6", "beat": 4, "gap_before": 0.8, "text": "And what about under the sand?"},
-    {"id": "s7", "beat": 4, "gap_before": 0.6, "text": "This."},
-    {"id": "s8", "beat": 4, "gap_before": 0.5, "text": "A lion's body, stretching 73 metres.",
+    {"id": "s7", "beat": 4, "gap_before": 0.6, "text": "A lion's body, stretching 73 metres.",
      "say": "A lion's body, stretching seventy-three metres."},
-    {"id": "s9", "beat": 5, "text": "Those are its paws."},
-    {"id": "s10", "beat": 5, "text": "It was only fully cleared again in the 1930s,",
+    {"id": "s8", "beat": 5, "text": "It was only fully cleared again in the 1930s,",
      "say": "It was only fully cleared again in the nineteen thirties,"},
-    {"id": "s11", "beat": 5, "gap_before": 0.15, "text": "by Émile Baraize and Selim Hassan.",
+    {"id": "s9", "beat": 5, "gap_before": 0.15, "text": "by Émile Baraize and Selim Hassan.",
      "say": "by Emeel Barrez and Seleem Hassan."},
-    {"id": "s12", "beat": 6, "gap_before": 0.7, "text": "Would you have recognised it?"},
+    {"id": "s10", "beat": 6, "gap_before": 0.7, "text": "Would you have recognised it?"},
 ]
 
 RIDER_BOX = [1270, 960, 1480, 1240]         # plate XLVI: the man on a donkey in front of the chest
 RIDER_AT = [1375, 1090]
 SAND_BOX = [2050, 2400, 2960, 2610]         # Teynard: where the sand meets the chest
 HEAD_AT = [2400, 1750]                      # Teynard: head and neck
-PAWS_BOX = [1750, 2450, 4150, 2950]         # Matson: the forepaws
+PAWS_BOX = [560, 1100, 4150, 2950]         # Matson: the statue from rump to paws; drawn as a line under it
 
 FILM = {
     "id": "sphinx-buried",
@@ -84,7 +82,7 @@ FILM = {
          "fade": {"at": "s4-0.15", "dur": 0.2}, "width": 2.6},
         {"id": "sand", "type": "underline", "object": "photo", "box": SAND_BOX, "draw": "s5+0.1", "dur": 0.7,
          "fade": {"at": "s7-0.3", "dur": 0.2}, "width": 2.6},
-        {"id": "paws", "type": "box", "object": "dug", "box": PAWS_BOX, "draw": "s9", "dur": 0.8, "width": 2.6},
+        {"id": "paws", "type": "underline", "object": "dug", "box": PAWS_BOX, "draw": "s7+0.8", "dur": 0.8, "width": 2.6},
     ],
     "plate": {
         "label": "GREAT SPHINX · CLEARED BY THE 1930s",
@@ -93,20 +91,20 @@ FILM = {
         "source": "Hassan 1949 · Norden 1755 · Teynard 1851-52 · LoC",
         "ours": "The marks and the 3x loupe are ours.",
         "x": 60, "y": 1098, "width": 820,
-        "in": {"at": "s8+0.6", "dur": 0.9}, "rise": 12,
-        "leader": {"from": "paws", "at": "s9+0.9", "dur": 0.6},
+        "in": {"at": "s7+1.0", "dur": 0.9}, "rise": 12,
+        "leader": {"from": "paws", "at": "s7+1.7", "dur": 0.6},
     },
     "camera": {"scale": [1.0, 1.05], "focus": [540, 860],
                "moves": [{"at": "s1", "dur": 3.0, "focus": [560, 800]}]},
     "credit": {"text": "Getty · The Met · Library of Congress · Synthetic voice",
-               "at": "s12.end+0.3", "dur": 0.6, "x": 60, "bottom": 1524},
+               "at": "s10.end+0.3", "dur": 0.6, "x": 60, "bottom": 1524},
     "stills": {"01_landing": 0.75, "02_plates": "s1+0.6", "03_rider": "s3.end-0.2", "04_photo": "s5.end+0.3",
-               "05_body": "s8+0.9", "06_plate": "s10+1.5", "07_question": "s12+0.6", "08_hold": "end-0.3"},
+               "05_body": "s7+0.9", "06_plate": "s8+1.5", "07_question": "s10+0.6", "08_hold": "end-0.3"},
     # "Desert City" by Kevin MacLeod (incompetech.com), CC BY 4.0: the credit must go in every post
     "music": {"file": "data/music/desert_city_kevin_macleod.mp3", "start": 0.0, "lufs": -30.0,
               "fade_in": 0.3, "fade_out": 1.5},
     "sound": [
         {"type": "tick", "at": "s2+1.2"},              # the ring round the rider closes
-        {"type": "tick", "at": "s9+0.8"},              # the box round the paws closes
+        {"type": "tick", "at": "s7+1.6"},              # the box round the paws closes
     ],
 }

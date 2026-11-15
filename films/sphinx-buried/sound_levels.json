@@ -3,16 +3,16 @@
  "voice_lufs": -16.01,
  "voice_peak_dbfs": -1.76,
  "voice_true_peak_dbtp": -1.75,
- "voice_gain_db": 3.55,
+ "voice_gain_db": 3.56,
  "true_peak_guard_applied": true,
  "true_peak_guard_mode": "limiter",
- "true_peak_guard_db": 0.82,
- "mix_guard_db": 0.46,
- "mix_lufs": -16.43,
+ "true_peak_guard_db": 0.83,
+ "mix_guard_db": 0.43,
+ "mix_lufs": -16.42,
  "mix_true_peak_dbtp": -1.5,
  "room_rms_dbfs": -48.0,
  "cue_margin_db": 12.0,
- "duration_s": 32.07,
+ "duration_s": 29.83,
  "sample_rate": 48000,
  "cues": [
   {
@@ -22,18 +22,18 @@
    "peak_dbfs": -15.86,
    "margin_below_voice_peak_db": 14.1,
    "short_term_lufs": -43.77,
-   "margin_below_voice_lufs_db": 27.75,
+   "margin_below_voice_lufs_db": 27.76,
    "scaled_for_loudness_db": 0.0,
    "ok": true
   },
   {
    "type": "tick",
-   "t": 22.88,
+   "t": 19.92,
    "dur": 0.05,
    "peak_dbfs": -15.86,
    "margin_below_voice_peak_db": 14.1,
    "short_term_lufs": -43.77,
-   "margin_below_voice_lufs_db": 27.75,
+   "margin_below_voice_lufs_db": 27.76,
    "scaled_for_loudness_db": 0.0,
    "ok": true
   }
@@ -42,7 +42,7 @@
   "file": "data/music/desert_city_kevin_macleod.mp3",
   "start_s": 0.0,
   "lufs_target": -30.0,
-  "lufs": -30.09,
+  "lufs": -30.15,
   "covers_film": true
  },
  "checks": {
