@@ -99,8 +99,8 @@ FILM = {
                "at": "s9.end+0.3", "dur": 0.6, "x": 60, "bottom": 1524},
     "stills": {"01_landing": 0.75, "02_plates": "s1+0.6", "03_rider": "s2.end-0.3", "04_photo": "s4.end+0.3",
                "05_body": "s6+0.9", "06_plate": "s8+1.5", "07_question": "s9+0.6", "08_hold": "end-0.3"},
-    # "Investigations" by Kevin MacLeod (incompetech.com), CC BY 4.0: the credit must go in every post
-    "music": {"file": "data/music/investigations_kevin_macleod.mp3", "start": 0.0, "lufs": -30.0,
+    # "Desert City" by Kevin MacLeod (incompetech.com), CC BY 4.0: the credit must go in every post
+    "music": {"file": "data/music/desert_city_kevin_macleod.mp3", "start": 0.0, "lufs": -30.0,
               "fade_in": 0.3, "fade_out": 1.5},
     "sound": [
         {"type": "tick", "at": "s2+1.2"},              # the ring round the rider closes

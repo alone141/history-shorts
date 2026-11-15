@@ -47,4 +47,4 @@ Norden, F. L. 1755. *Voyage d'Egypte et de Nubie*. Copenhagen: Imprimerie de la 
 
 ## Music
 
-Music: "Investigations" by Kevin MacLeod (incompetech.com), licensed under Creative Commons: By Attribution 4.0, https://creativecommons.org/licenses/by/4.0/. Downloaded from https://incompetech.com/music/royalty-free/mp3-royaltyfree/Investigations.mp3 on 15 November 2026. Used from its start, unedited apart from level (about -30 LUFS under the voice) and fades. The licence terms were taken from the publisher's standing statement for its catalogue, not re-read on the track's own page: check that page before posting.
+Music: "Desert City" by Kevin MacLeod (incompetech.com), licensed under Creative Commons: By Attribution 4.0, https://creativecommons.org/licenses/by/4.0/. Downloaded from https://incompetech.com/music/royalty-free/mp3-royaltyfree/Desert%20City.mp3 on 15 November 2026. Used from its start, unedited apart from level (about -30 LUFS under the voice) and fades. The licence terms were taken from the publisher's standing statement for its catalogue, not re-read on the track's own page: check that page before posting.
