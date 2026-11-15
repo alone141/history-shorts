@@ -70,5 +70,5 @@ An independent hostile check was made on 15 November 2026. Its points and the an
 8. **"The Matson picture is from 1936."** The Library of Congress gives "between 1934 and 1939" for matpc.17957. Do not caption a single year.
 9. **"The stele says 'neck'."** It does not. It says "The sands ... have reached me". "Neck" is Lehner's inference.
 10. **"Sources differ on the sand line: shoulders or neck?"** Yes. Hassan says "to the neck" and NOVA "to its neck"; Smithsonian and Wikipedia say "to its shoulders" (research.md A5, 4). The film uses Hassan's word and shows the chest in the pictures.
-11. **"The clearance dates differ."** Yes. Caviglia 1816 or 1817; Baraize 1925 or 1926, ending 1934, 1936 or 1937. The film uses "1930s" and "from 1925 or 1926" is not on screen.
+11. **"The clearance dates differ."** Yes. Caviglia 1816 or 1817; Baraize 1925 or 1926, ending 1934, 1936 or 1937. The film says only "1930s", which matches the sources' span.
 12. **"Medieval accounts are first-hand."** No. They are second-hand, as quoted by Hassan. The film does not use them.
