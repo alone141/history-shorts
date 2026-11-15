@@ -34,7 +34,11 @@ scale 1; "scan px" are pixels of the upright scan, i.e. after ``rotate``)::
                    "rotate": 90,                   # counter-clockwise quarter turns, degrees (0/90/180/270)
                    "crop": [x0, y0, x1, y1],       # optional, scan px
                    "centre": [x, y], "width": 440, # table px; height follows the crop aspect
-                   "tilt": -4.0, "z": 1}],         # degrees, positive = counter-clockwise; stacking order
+                   "tilt": -4.0, "z": 1,           # degrees, positive = counter-clockwise; stacking order
+                   "enter": {"at": "s1", "dur": 0.6,     # optional entrance; without it the object lies there from frame 0
+                             "from": [0, 260],           # table px offset it starts from (default [0, 260])
+                             "tilt_from": 4,             # extra degrees at the start (default 4)
+                             "scale_from": 1.12}}],      # optional, starts larger as if being put down
       "loupe":  {"radius": 230, "magnification": 2.5,   # lens px per on-table px, whole film
                  "fade_in": {"at": "s3", "dur": 0.4}, "fade_out": {"at": "s5", "dur": 0.7},
                  "enter": [x, y],                  # optional table px start point
@@ -54,6 +58,13 @@ scale 1; "scan px" are pixels of the upright scan, i.e. after ``rotate``)::
                  "moves": [{"at": "s5", "dur": 3.0, "focus": [400, 820]}]},
       "credit": {"text": "...", "at": "end-2.2", "dur": 0.6, "x": 60, "bottom": 1524}
     }
+
+Entrance: before "at" (default 0) the object, its shadow and its aura are not drawn.  From "at" to
+"at"+"dur" (default 0.6 s) it moves from the offset to its place with a cubic ease-out, turning from
+tilt+tilt_from to tilt and shrinking from scale_from to 1, fading in over the first 40 % of the move.  After
+that it is the same pixels as an object without "enter".  The sheet is not resampled: the cached layer is
+placed with a different affine.  Marks, loupe stops and layout checks use the FINAL position; validate()
+reports a mark drawn, or a loupe stop arriving, on an object before its entrance has finished.
 
 Subtitles are the narration sentences, one at a time, with 0.15 s fades, styled
 from tokens.json ("captions").  The accent colour is used only for marks, the
@@ -324,10 +335,13 @@ def render_layer(layer: Layer, t0, px0, vs: float, bounds: tuple[int, int]):
     return x0, y0, layer.im.transform((x1 - x0, y1 - y0), Image.AFFINE, coeffs, Image.BICUBIC)
 
 
-def paste_layer(canvas: Image.Image, layer: Layer, t0, px0, vs: float) -> None:
+def paste_layer(canvas: Image.Image, layer: Layer, t0, px0, vs: float, opacity: float = 1.0) -> None:
     res = render_layer(layer, t0, px0, vs, canvas.size)
     if res is not None:
         x, y, im = res
+        if opacity < 1.0:
+            r, g, b, a = im.split()
+            im = Image.merge("RGBA", (r, g, b, a.point(_opacity_lut(opacity))))
         canvas.paste(im, (x, y), im)
 
 
@@ -345,6 +359,7 @@ class ObjectLayer:
     sheet: Layer
     lens_sheet: Layer
     aura: Layer
+    enter: "Enter | None" = None
 
     def to_table(self, scan_pts: np.ndarray) -> np.ndarray:
         cx0, cy0, cx1, cy1 = self.crop
@@ -355,6 +370,20 @@ class ObjectLayer:
         loc = np.array([[-self.w / 2, -self.h / 2], [self.w / 2, -self.h / 2],
                         [self.w / 2, self.h / 2], [-self.w / 2, self.h / 2]])
         return self.centre + loc @ _rot(self.theta).T
+
+
+@dataclass
+class Enter:
+    """Entrance of an object: it arrives from ``offset`` over [t0, t0 + dur]."""
+    t0: float
+    dur: float
+    offset: np.ndarray             # table px it starts away from its place
+    tilt: float                    # extra radians at the start
+    scale: float                   # scale at the start
+
+    @property
+    def t1(self) -> float:
+        return self.t0 + self.dur
 
 
 @dataclass
@@ -378,6 +407,7 @@ class Stop:
     arrive: float
     control: np.ndarray
     start: np.ndarray
+    object: str = ""
 
 
 @dataclass
@@ -580,7 +610,15 @@ def build_aura(quad: np.ndarray) -> Layer:
     return Layer(im, 1.0, (0.0, 0.0), (float(x0), float(y0)), 0.0)
 
 
-def build_object(spec: dict, mag: float, smax: float, lut: list[int]) -> ObjectLayer:
+def build_enter(spec: dict | None, narration: dict | None) -> Enter | None:
+    if not spec:
+        return None
+    t0 = tl.resolve(spec.get("at", 0.0), narration or {})
+    return Enter(t0, float(spec.get("dur", 0.6)), np.array(spec.get("from", (0.0, 260.0)), float),
+                 math.radians(float(spec.get("tilt_from", 4.0))), float(spec.get("scale_from", 1.0)))
+
+
+def build_object(spec: dict, mag: float, smax: float, lut: list[int], narration: dict | None = None) -> ObjectLayer:
     im = _open_scan(spec["scan"])
     rot = int(spec.get("rotate", 0)) % 360
     if rot:
@@ -600,9 +638,47 @@ def build_object(spec: dict, mag: float, smax: float, lut: list[int]) -> ObjectL
         return Layer(_master(im, wm, hm, lut), wm / w, pivot_for(wm, hm), (centre[0], centre[1]), theta)
 
     obj = ObjectLayer(spec["id"], centre, theta, k, crop, w, h, int(spec.get("z", 0)),
-                      make(smax), make(smax * mag), None)  # type: ignore[arg-type]
+                      make(smax), make(smax * mag), None,  # type: ignore[arg-type]
+                      build_enter(spec.get("enter"), narration))
     obj.aura = build_aura(obj.quad())
     return obj
+
+
+# --------------------------------------------------------------------------- entrances
+ENTER_FADE = 0.4            # share of the entrance over which the object fades in
+
+
+def _moved(layer: Layer, centre: np.ndarray, off: np.ndarray, dth: float, sc: float) -> Layer:
+    """The same cached raster, turned by dth and scaled by sc about the object's centre, then shifted by off.
+
+    Valid for any layer whose table placement is (pivot -> p0, theta, res), sheets and aura alike."""
+    p0 = centre + off + sc * (_rot(dth) @ (np.array(layer.p0) - centre))
+    return Layer(layer.im, layer.res / sc, layer.pivot, (float(p0[0]), float(p0[1])), layer.theta + dth)
+
+
+def enter_pose(obj: ObjectLayer, t: float):
+    """None: not drawn yet.  (1.0, None): in its place.  Else (opacity, (offset, dtheta, scale))."""
+    e = obj.enter
+    if e is None or t >= e.t1:
+        return 1.0, None
+    if t < e.t0:
+        return None
+    left = 1 - tl.ease_out(tl.ramp(t, e.t0, e.t1))          # 1 at the start, 0 when it has landed
+    return (tl.ease_in_out(tl.ramp(t, e.t0, e.t0 + ENTER_FADE * e.dur)),
+            (e.offset * left, e.tilt * left, 1 + (e.scale - 1) * left))
+
+
+def object_layers(obj: ObjectLayer, t: float, lens: bool = False):
+    """(aura, sheet, opacity) to draw at time t, or None.  Cached layers themselves once it is in place."""
+    pose = enter_pose(obj, t)
+    sheet = obj.lens_sheet if lens else obj.sheet
+    if pose is None:
+        return None
+    op, move = pose
+    if move is None:
+        return obj.aura, sheet, 1.0
+    off, dth, sc = move
+    return (_moved(obj.aura, obj.centre, off, dth, sc), _moved(sheet, obj.centre, off, dth, sc), op)
 
 
 # --------------------------------------------------------------------------- marks
@@ -767,7 +843,7 @@ def build_loupe(spec: dict, narration: dict, objs: dict[str, ObjectLayer]) -> Lo
         normal = np.array([-chord[1], chord[0]]) / length
         bulge = float(s.get("bulge", 0.2)) * (1 if i % 2 == 0 else -1)
         control = (prev + p) / 2 + normal * bulge * length
-        stops.append(Stop(p, arrive - float(s["travel"]), arrive, control, prev.copy()))
+        stops.append(Stop(p, arrive - float(s["travel"]), arrive, control, prev.copy(), s["object"]))
         prev = p
     enter = stops[0].start
     return LoupeSpec(R, mag, stops, enter,
@@ -836,9 +912,11 @@ def render_lens(scene: Scene, ls: LoupeState, t: float, s: float) -> Image.Image
                                  Image.BICUBIC)
     reach = R / vs * 1.02
     for obj in sorted(scene.objects, key=lambda o: o.z):
-        if _circle_hits_object(obj, ls.table, reach):
-            paste_layer(lens, obj.aura, t0, px0, vs)
-            paste_layer(lens, obj.lens_sheet, t0, px0, vs)
+        if obj.enter is not None and t < obj.enter.t1 or _circle_hits_object(obj, ls.table, reach):
+            lay = object_layers(obj, t, lens=True)
+            if lay is not None:
+                paste_layer(lens, lay[0], t0, px0, vs, lay[2])
+                paste_layer(lens, lay[1], t0, px0, vs, lay[2])
     for m in scene.marks:
         p, a = mark_state(m, t)
         if p > 0 and a > 0.001:
@@ -1041,12 +1119,22 @@ def load(film: dict, narration: dict, *, accent: str | None = None) -> Scene:
     sizes: list[tuple[str, int, int]] = []
     problems: list[str] = []
 
-    objs = [build_object(o, mag, smax, lut) for o in film["objects"]]
+    objs = [build_object(o, mag, smax, lut, narration) for o in film["objects"]]
     by_id = {o.id: o for o in objs}
     marks = [build_mark(m, by_id, narration) for m in film.get("marks", [])]
     loupe = build_loupe(film["loupe"], narration, by_id) if film.get("loupe") else None
     if loupe:
         sizes.append(("loupe tag", style("mono_small").size, tokens()["type"]["minimum_px"]))
+    for m in marks:
+        if m.obj.enter is not None and m.t0 < m.obj.enter.t1 - 1e-6:
+            problems.append(f"mark {m.id} starts drawing at {m.t0:.2f}s, before {m.obj.id!r} has finished "
+                            f"entering ({m.obj.enter.t1:.2f}s); marks use the final position")
+    if loupe:
+        for st in loupe.stops:
+            o = by_id[st.object]
+            if o.enter is not None and st.arrive < o.enter.t1 - 1e-6:
+                problems.append(f"loupe arrives on {o.id!r} at {st.arrive:.2f}s, before it has finished "
+                                f"entering ({o.enter.t1:.2f}s); stops use the final position")
     plate = build_plate(film["plate"], narration, acc, sizes, problems) if film.get("plate") else None
     hook, hook_boxes = build_hook(film["hook"], acc, sizes)
     subs = build_subs(narration, sizes, problems)
@@ -1066,8 +1154,10 @@ def render_table(scene: Scene, cam: tuple[float, float, float], t: float) -> Ima
                                 _layer_affine(Layer(scene.under, 1.0, (0.0, 0.0), (0.0, 0.0)), (fx, fy), (fx, fy), s, (0, 0)),
                                 Image.BICUBIC)
     for obj in sorted(scene.objects, key=lambda o: o.z):
-        paste_layer(img, obj.aura, (fx, fy), (fx, fy), s)
-        paste_layer(img, obj.sheet, (fx, fy), (fx, fy), s)
+        lay = object_layers(obj, t)
+        if lay is not None:
+            paste_layer(img, lay[0], (fx, fy), (fx, fy), s, lay[2])
+            paste_layer(img, lay[1], (fx, fy), (fx, fy), s, lay[2])
     for m in scene.marks:
         p, a = mark_state(m, t)
         if p > 0 and a > 0.001:
@@ -1240,6 +1330,8 @@ def validate(scene: Scene) -> list[str]:
         # text sitting on a scan
         s = cam[0]
         for obj in scene.objects:
+            if obj.enter is not None and t < obj.enter.t0:
+                continue                                    # not on the table yet; checked at its final place
             quad = np.array(cam[1:]) + (obj.quad() - np.array(cam[1:])) * s
             for g in ("hook", "plate"):
                 if g in whole and _quad_hits_box(quad, whole[g]):

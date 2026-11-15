@@ -84,7 +84,8 @@ def mix(film: dict, narration: dict) -> dict:
     audio = build_dir(film) / "audio"
     audio.mkdir(parents=True, exist_ok=True)
     return sound.mix(narration, build_dir(film) / "voice" / "voice.wav", cues(film, narration), audio / "mix.wav",
-                     voice_lufs=s["voice_lufs"], room_rms_dbfs=s["room_rms_dbfs"], cue_margin_db=s["cue_margin_db"])
+                     voice_lufs=s["voice_lufs"], room_rms_dbfs=s["room_rms_dbfs"], cue_margin_db=s["cue_margin_db"],
+                     music=film.get("music"))
 
 
 SHORTEST_CHUNK_S = 0.33        # a caption chunk on screen for less than this cannot be read
