@@ -93,3 +93,12 @@ lion's body." and "Those are its paws." (Matson photograph, boxed). No new
 factual claim beyond naming what the pictures show; "Those are its paws" rests
 on our reading of the Matson photograph. Not sent to a second fact check.
 The rows above quote the wording as it was at the fact check.
+
+## Script revision 3, 15 November 2026 (the owner's edit)
+
+- "He almost reaches its chest." (was "barely reaches"). On plate XLVI the rider's head is about half-way up the block of upper chest, so "almost" understates slightly; kept as the owner's wording.
+- "Look at the sand line. Do you see it?" and "And what about under the sand?": no claim.
+- "A lion's body, stretching 73 metres.": 73 m is the monument's length from the front paws to the tail (Rigano 2014, as cited by Wikipedia), which is the length of the lion's body.
+- "by Émile Baraize and Selim Hassan": Hassan 1949, pp. 23-25 ("in 1925 M. Baraize was entrusted ..."; "M. Baraize certainly freed the Sphinx from all sides, but instead of clearing the sand away altogether, he constructed huge, barrage-like walls to hold it back"), and Hassan's own clearance of the court in 1936-38 (Hassan, preface and p. 24; Lehner p. 64). Baraize's work began in 1925 or 1926, so "in the 1930s" describes when the clearing was completed, not when it began.
+- Music: "Desert City" by Kevin MacLeod (see CREDITS.md).
+Not sent to a second fact check.
