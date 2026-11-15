@@ -58,5 +58,41 @@
     "url": "https://archive.org/download/02_20230830_202308/01_djvu.txt",
     "dest": "data/sphinx/maqrizi_khitat_vol1_djvu.txt",
     "note": "Arabic OCR text of al-Maqrizi, al-Mawa'iz wa-l-i'tibar (Khitat), vol. 1, Madbouli ed. 1998, Internet Archive 02_20230830_202308; the passage 'wa-fi zamaninaa kana shakhs yu'raf bi-l-shaykh Muhammad Sa'im al-Dahr' is under 'dhikr al-sanam alladhi yuqal lahu Abu al-Hawl'. Reference text only, not a film image. 2.4 MB"
+  },
+  {
+    "name": "teynard-1851-sphinx-chest",
+    "url": "https://images.metmuseum.org/CRDImages/ph/original/DP139899.jpg",
+    "dest": "data/sphinx/teynard_1851_met_261882_sphinx_chest.jpg",
+    "note": "Felix Teynard, 'Djizeh (Necropole de Memphis), Sphinx et Pyramides', calotype 1851-52, printed 1853-54 (Blanquart-Evrard / Goupil, Paris). Metropolitan Museum of Art 1976.607.8, https://www.metmuseum.org/art/collection/search/261882 , Open Access (isPublicDomain true; CC0). 3764x3025 JPEG, the Met 'original' size. Sphinx buried to the chest, sand to the lower chest, no people, Khafre's pyramid behind. Rotation not needed"
+  },
+  {
+    "name": "ducamp-1849-le-sphinx",
+    "url": "https://images.metmuseum.org/CRDImages/ph/original/DP-2597-215.jpg",
+    "dest": "data/sphinx/ducamp_1849_met_700111_le_sphinx.jpg",
+    "note": "Maxime Du Camp, 'Egypte Moyenne, Le Sphinx', negative December 1849, printed 1852 (Blanquart-Evrard, Lille; plate 11). Metropolitan Museum of Art 2015.778.35, https://www.metmuseum.org/art/collection/search/700111 , Open Access (CC0). 3808x2658 JPEG; the photo is only about 40% of the sheet (the rest is the mount). Sphinx head and chest standing in a hollow of sand"
+  },
+  {
+    "name": "greene-1853-excavations-near-sphinx",
+    "url": "https://images.metmuseum.org/CRDImages/ph/original/DP138841.jpg",
+    "dest": "data/sphinx/greene_1853_met_286665_excavations_near_sphinx.jpg",
+    "note": "John Beasley Greene, '[Excavations near the Sphinx]', 1853, salted paper print. Metropolitan Museum of Art 2005.100.276, https://www.metmuseum.org/art/collection/search/286665 , Open Access (CC0). 3984x3089 JPEG. Optional: the Sphinx head is a small shape on the skyline with a flag; the men in front are at a dig in the foreground, NOT next to the Sphinx, so they give no scale for it"
+  },
+  {
+    "name": "matson-17964-sphinx-profile",
+    "url": "https://tile.loc.gov/storage-services/master/pnp/matpc/17900/17964u.tif",
+    "dest": "data/sphinx/matson_1934-39_loc_17964_sphinx_profile.jpg",
+    "note": "G. Eric and Edith Matson Photograph Collection, Library of Congress, matpc.17964 (catalog record mpc2010003453), 'Egypt. Sphinx & pyramids. Sphinx (profile, rather close view)', 'between 1934 and 1939'. Library of Congress: 'No known restrictions on publication'. The url is the 16 MB greyscale master TIFF (4617x3459); the saved file is that TIFF converted to RGB JPEG quality 92 with Pillow. Fully excavated body in side view; paws are NOT in the frame. The service jpg is https://tile.loc.gov/storage-services/service/pnp/matpc/17900/17964v.jpg . loc.gov pages answer a Cloudflare challenge to curl, tile.loc.gov does not. Commons mirror (File:Egypt. Sphinx & pyramids. Sphinx (profile, rather close view) LOC matpc.17964.jpg) is rate limited (429)"
+  },
+  {
+    "name": "matson-17957-sphinx-paws",
+    "url": "https://tile.loc.gov/storage-services/master/pnp/matpc/17900/17957u.tif",
+    "dest": "data/sphinx/matson_1934-39_loc_17957_sphinx_paws.jpg",
+    "note": "Matson Photograph Collection, Library of Congress, matpc.17957 (record mpc2010003446), 'Egypt. Sphinx & pyramids. Gen[eral] view with pyramid in background', 'between 1934 and 1939'. 'No known restrictions on publication'. Master TIFF 4624x3479 converted to JPEG q92. Three-quarter side view of the whole cleared body with both paws (brick-like Roman casing) in the foreground right, Khufu's pyramid behind. Service jpg: https://tile.loc.gov/storage-services/service/pnp/matpc/17900/17957v.jpg"
+  },
+  {
+    "name": "hassan-1949-the-sphinx-text",
+    "url": "https://archive.org/download/in.ernet.dli.2015.515700/2015.515700.The-Sphinx_djvu.txt",
+    "dest": "data/sphinx/hassan1949_the_sphinx_djvu.txt",
+    "note": "OCR text of Selim Hassan, The Sphinx: Its History in the Light of Recent Excavations (Cairo, Government Press, 1949), Internet Archive in.ernet.dli.2015.515700 (Digital Library of India scan; the first two dli hits for the title, 2015.506341 and 2015.547035, are a different English text and a Hindi/Arabic-script volume). OCR with errors; check any quote against the scan. Reference text only. The page numbers in research.md are read from the running heads in this OCR (give or take one page)"
   }
 ]

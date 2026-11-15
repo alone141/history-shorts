@@ -143,3 +143,122 @@ Previews with the boxes drawn: `data/sphinx/preview/boxcheck.jpg`, `boxcheck_tit
 - "The nose was shot off by cannon / Napoleon's soldiers never fired": say only what the dates show (the nose was missing before he was born, in a drawing made 32 years before).
 - "Pococke's 1743 plate is an independent view": it is a copy of de Bruijn with changes.
 - Any exact day for Norden's Giza visit.
+
+## Angle 2: only a head
+
+Checked 15 November 2026. New angle: "For most of its history, the Great Sphinx was just a head sticking out of the sand." Verdicts: verified (read in the source), uncertain, false. Sources read: Selim Hassan, *The Sphinx: Its History in the Light of Recent Excavations* (Cairo, Government Press, 1949), OCR at https://archive.org/details/in.ernet.dli.2015.515700 (saved as `data/sphinx/hassan1949_the_sphinx_djvu.txt`); Mark Lehner, *The Complete Pyramids* (Thames & Hudson, 1997), read only as an OCR of a PDF upload on archive.org (`the-complete-pyramids-mark-lehner-5-pdf-free`, not saved), so its page numbers are approximate and must be checked in the book; the PBS NOVA transcript; Smithsonian Magazine and Wikipedia via a page-extract tool. **Not reachable:** Britannica (403), ARCE/AERA pages (403), loc.gov pages (Cloudflare), Lehner's dissertation, Hawass (no quotable passage found). Hassan page numbers come from the running heads in the OCR, give or take one page.
+
+### A1. What the sand covered, and Norden's plates
+
+What I see in the previews (`data/sphinx/preview/pl45_sphinx_pyramides_upright.jpg`, `pl46_sphinx_face_upright.jpg`, `pl47_upright.jpg`):
+
+- **XLVII (profile):** sand reaches the foot of the neck, just under the lappet of the headdress. Only the head and a column of neck stone show. The standing man at the neck has his head at about mid-neck, well below the chin: he is about a quarter of the head's height (crown to chin). The other figures are on the sand far off.
+- **XLVI (front):** the head, the neck and a stepped block of upper chest/shoulder stone show; the sand rises round it. A rider on a donkey at the left of the base reaches roughly the lower neck; four seated or standing men at the right are about level with the stepped block. The head is about three times a man's height.
+- **XLV (with the three pyramids):** the small figures at the base reach about the foot of the neck block. Scale between figures is not reliable here (some are far off).
+
+So the plates show: sand to the neck or upper shoulders, a visible block of upper chest in XLV/XLVI, people about as tall as one quarter to one third of the head. They agree with the scholarly statements below. They do **not** prove "to the neck" for any other century.
+
+| # | Claim | Verdict | Exact quote | Source, page / URL |
+|---|---|---|---|---|
+| 1 | After antiquity the Sphinx was buried to the neck and stayed so until the modern clearances | **verified** (Hassan) | "Thereafter, we hear little of the statue, which, neglected, was soon buried up to the neck in the sand, in which state it remained until recent times." ("Thereafter" = after the end of paganism, "the IVth Century A.D.") | Hassan 1949, p. 9 (chapter "Excavation of the Sphinx in ancient times"); OCR https://archive.org/download/in.ernet.dli.2015.515700/2015.515700.The-Sphinx_djvu.txt |
+| 2 | Medieval Arab writers describe a head out of the ground | **verified** (as quoted by Hassan; I did not read the Arabic) | Abd al-Latif al-Baghdadi: "Near to one of the Pyramids is a colossal head emerging from the ground. It is called Abul-Hol. It is said that its body is buried in the ground ..." Al-Quda'i (as spelled "Al-Kodai"): "... a large idol, situated between the two pyramids, and only the head is visible." "The Wonders of Building": "At the Pyramids is a very huge head and neck protruding from the earth." | Hassan 1949, pp. 81-82 ("The opinions of the Arab historians"). Abd al-Latif wrote about AD 1200 (not stated in the OCR page I read; standard date) |
+| 3 | The Dream Stele (Thutmose IV) shows sand over the Sphinx | **verified** | The stele text, in Hassan's translation: "The sands of the Sanctuary, upon which I am, have reached me; turn to me in order to do what I desire." Hassan's comment: "We know from the text of the stela of Thothmes IV that in his time the Sphinx was wholly encumbered with sand." The stele does **not** say "neck". | Hassan 1949, p. 196 (translation), p. 73 (comment) |
+| 4 | "Neck" is an inference from the dream story | **verified** | Lehner: the prince "fell asleep in the shadow of the statue's head — indicating that sand then lay up to its neck." Lehner dates the stele to "the first year of his reign, 1401 BC", and the oldest restoration to "about 1,100 years after Khafre". | Lehner, *Complete Pyramids* (1997), the "Great Sphinx" chapter, about pp. 132-133 (OCR; page unconfirmed) |
+| 5 | Sand reburied it again and again | **verified** (as Maspero's argument, reported by Hassan) | "... if the Sphinx itself was repeatedly buried by the sand, how much more rapid would be the burial of its pedestal?" Hassan on the clearances: "The next interval between the clearances of the Sphinx was, so far as we know, the shortest one, and in 1925 M. Baraize was entrusted ..." | Hassan 1949, p. 17 and pp. 23-24 |
+| 6 | Popular statement: sand up to its neck / shoulders | **verified as said, thin sourcing** | NOVA narrator: "desert sands have swallowed the Sphinx up to its neck." Smithsonian (Hadingham, Feb 2010): "For thousands of years, sand buried the colossus up to its shoulders." Both are popular sources and neither says "most of its history". | https://www.pbs.org/wgbh/nova/transcripts/3703_sphinx.html ; https://www.smithsonianmag.com/history/uncovering-secrets-of-the-sphinx-5053442/ (read through an extract tool, not the page itself) |
+| 7 | Norden's plates are consistent with sand to the neck | **verified by eye** | See the description above. | `norden1755_pl45/46/47` previews |
+
+### A2. Dated timeline of clearances
+
+| Date | Event | Verdict | Source, page |
+|---|---|---|---|
+| c. 2500 BC | Carved for Khafre | verified as a scholarly estimate | Lehner caption: "sculpted in about 2500 BC". Smithsonian: Lehner says work began "some 4,500 years ago" |
+| c. 1401 BC (year 1 of Thutmose IV) | Thutmose IV clears the sand, builds the stele between the paws (Lehner: restoration blocks match "the Sphinx's paws and chest") | verified as Lehner's date; Hassan gives his reign as "1420-1411 B.C." (older chronology) | Lehner, about p. 133; Hassan about p. 75 (page uncertain). Say "about 1400 BC" |
+| 2nd to 3rd century AD | Roman work: pavement restored under Marcus Aurelius (161-180) and Septimius Severus (193-211); retaining walls reinforced; "the ugly, outer casing of its paws was probably made during the Roman Period"; the cult lasted "until the end of Paganism (IVth Century A.D.)" | verified (Hassan, inscriptions found near the Sphinx; his emperor names are OCR-garbled for the walls) | Hassan 1949, pp. 8-9 |
+| after 4th century AD | Neglected and "soon buried up to the neck" | verified (Hassan); the "soon" is his guess | Hassan p. 9 |
+| 1816 (some say 1817) | Giovanni Battista Caviglia digs from the north towards the shoulder, then from the front with "between sixty to one hundred workmen" from March to end of June. Finds a beard fragment, the uraeus, the Thutmose IV stele and two Ramesses II stelae in a small chapel between the paws, the granite altar, a Roman staircase of 30 steps. Sand kept pouring back into the trench. | verified for 1816 (Hassan: "In 1816, Captain Caviglia commenced to excavate"; Lehner "excavated by Caviglia in 1816"). **1817** (Wikipedia, "uncovered the Sphinx's chest completely") is not in Hassan or Lehner; Lehner has Caviglia at Giza 1816-19. Say "1816" or "in the 1810s" | Hassan pp. 10-13; Lehner pp. 48-49 and about p. 133 |
+| 1853 / 1863 | Mariette examines the Sphinx. **Dates conflict:** Hassan: "In the year 1863, Mariette began to examine the Sphinx, but he did not make a thorough clearance". Lehner dates Mariette's Valley Temple work at Giza to 1853-58 (not the Sphinx). Wikipedia: 1857 for the Inventory Stele. | uncertain; do not give a year | Hassan p. 14; Lehner about p. 55 |
+| Dec 1885 - 1886 | Maspero's clearance: "the last days of December 1885, and the first trench was opened in the second week of January 1886", Brugsch Bey in charge; moved the work "beneath the chin of the Sphinx", re-exposed the stele and the paw chapel; then Grebaut abandoned it; the problem "remained practically as Maspero had found it" | verified | Hassan pp. 15-23 |
+| 1925 (Lehner also 1926) to 1934 / 1936 / 1937 | Emile Baraize for the Antiquities Service. Hassan: "M. Baraize certainly freed the Sphinx from all sides, but instead of clearing the sand away altogether, he constructed huge, barrage-like walls to hold it back"; he also found the neck "worn ... to such a degree of thinness" that a storm might topple the head, and repaired it. Lehner: "excavated by the Antiquities Service under Emile Baraize from 1925 to 1934" (p. 64) but "Major excavations were begun in 1926 ... his 11 years of work were never published" (about p. 130), i.e. to 1937. Dates conflict. | verified that he freed it; end date uncertain (1934 / 1936) | Hassan pp. 23-25; Lehner p. 64 and p. 130 (OCR) |
+| 1936-38 | Selim Hassan (Cairo University) clears the rest of the amphitheatre and the court ("the removal of over a quarter of a million cubic metres of sand"), demolishes Baraize's retaining walls in 1936-37 | verified | Hassan, preface and p. 24; Lehner p. 64 "from 1936 to 1938" |
+
+**Which date is defensible for "the body was fully uncovered"?** Say "in the 1930s". The body and paws were freed by Baraize, whose work ran from 1925 or 1926 into the 1930s (the end year varies by source); Hassan finished the court in 1936-38. The Matson photos (1934-39) show the whole body, paws and floor free of sand. The Smithsonian says "freed the statue from the sand in the late 1930s" (Hassan). Do **not** say "1925" as the date of completion, or "1936" as "Baraize finished".
+
+### A3. Is "for most of its history it was buried to the neck/shoulders" defensible?
+
+**No scholar I found says it.** What can be said, with sources:
+
+- Hassan (1949, p. 9): after the 4th century AD it was "soon buried up to the neck in the sand, in which state it remained until recent times." That is the closest scholarly sentence, and it covers about 1,500 years (4th century AD to 1816 or 1925).
+- Lehner: sand "then lay up to its neck" at the time of Thutmose IV, about 1,100 years after it was carved.
+- Smithsonian (popular): "For thousands of years, sand buried the colossus up to its shoulders."
+
+My arithmetic (not a scholar's): carved about 2500 BC, so about 4,500 years old in 2026 (about 4,525). If it was already sand-covered from soon after Khafre until Thutmose IV (about 1,100 years, an inference; no text says so) and again from the 4th century AD to 1816-1925 (about 1,500 to 1,600 years), then about 2,600 to 2,700 of 4,500 years, about 58 to 60 per cent. Without that Old Kingdom assumption the documented figure is only about 1,500 to 1,600 years (about a third). "Most" therefore depends on an unproven first millennium. Safer lines: "For well over a thousand years, only its head showed." / "Sand buried it, people dug it out, and it was buried again." / "It has been dug out repeatedly (Thutmose IV about 1400 BC, Caviglia 1816, Maspero 1885-86, Baraize from 1925, Hassan 1936-38; Roman work is documented as repairs, not clearly as a dig)." The interval between clearances shrank (Hassan p. 23), so "reburied within decades" is supported only loosely: Caviglia 1816, Maspero 1885-86, Baraize 1925 (70 and 39 years apart).
+
+### A4. Dimensions
+
+| Measurement | Value | Verdict | Source |
+|---|---|---|---|
+| Height | about 20 m (66 ft) | verified | Lehner caption: "Towering 20 m (66 ft) above the spectator"; Hassan p. 77, footnote quoting Baedeker 1929: "height; 66 feet"; Smithsonian: "Approximately 66 feet tall and 240 feet long" |
+| Length | about 73 m (240 ft) | verified in Smithsonian and Wikipedia (citing Rigano 2014, *Pyramids of the Giza Plateau*, p. 148: "73 m (240 ft) long from paw to tail", "20 m (66 ft) high", "19 m (62 ft) wide at its rear haunches"). NOVA narrator: "nearly 240 feet long ... almost 70 feet tall". The Baedeker length in Hassan's footnote is OCR-garbled. I did not see a length in Lehner's text. |
+| Face width | about 4 m (13 ft 8 in) | uncertain | Hassan p. 77 footnote, from Baedeker 1929: "ear : 4 feet 6 inches, nose : 5 feet 7 inches, mouth 7 feet 7 inches, extreme breadth of face : [1]3 feet 8 inches" (the first digit is garbled in the OCR) |
+| Head height (crown to chin) | **no source found** | uncertain | Estimate: the Matson profile (matpc.17964) gives crown to chin about 780 px against about 2,170 px from crown to base, about a third of the height, so about 7 m. A rough photographic estimate. Norden's plate XLVII (head about four men tall) agrees with about 7 m. Do not state it as a measurement |
+
+How much was hidden: if sand stood at the base of the neck (Norden), the part above the sand is about the head and neck, perhaps a third of the 20 m height (my estimate); nearly all of the 73 m body and all four legs and paws were under the sand. Say "everything but the head" if the film means the view from the east.
+
+### A5. Hostile commenter list
+
+1. **"The stele says 'neck'."** It does not. It says "The sands of the Sanctuary ... have reached me". "Neck" is Lehner's inference from a prince sleeping "in the shadow of the statue's head". Hassan reads "wholly encumbered".
+2. **"Most of its history" is arithmetic, not a finding.** About 60 per cent only if it was buried from Khafre's time to Thutmose IV, which no text states (A3). Without that, about one third.
+3. **"It was cleared in antiquity."** True: Thutmose IV, then Roman repairs, with a cult until the 4th century AD. In those centuries people could stand in front of it, and the paws were visible. Do not draw the 1,500 years as a single burial from Khafre to Napoleon.
+4. **Shoulders or neck?** Sources vary: Hassan "to the neck", NOVA "to its neck", Smithsonian and Wikipedia "to its shoulders". The 19th-century photographs show the sand at the chest (Teynard) or in a hollow round the chest (Du Camp). "Head, neck and chest" is exact.
+5. **"Only the head" is wrong for the 19th century.** Teynard 1851-52 shows head, neck and upper chest. Du Camp 1849 and Frith 1857-58 show pits dug round it. "Head and neck" fits Norden 1737 better than 1850.
+6. **Dates.** Caviglia 1816 or 1817; Mariette 1853, 1857 or 1863; Baraize 1925 or 1926, ending 1934, 1936 or 1937. Use decades or round ranges ("1925 to the late 1930s").
+7. **Matson date is a range.** The Library of Congress says "between 1934 and 1939"; do not caption "1936".
+8. **Sand did not stop.** Baraize built barrier walls "to hold it back" (Hassan); the Sphinx is not kept clear by nature. Hassan says he demolished those walls in 1936-37 when he cleared the court.
+9. **Medieval accounts are second-hand.** I read Abd al-Latif, al-Quda'i and "The Wonders of Building" only as quoted by Hassan, in English translation. Abd al-Latif also says the body "should have been 70 cubits in length", which is a guess.
+10. **Norden plates.** Engraved after his death (see section 6 above); the sand level and the people were drawn or redrawn by Tuscher; do not claim the figures are measurements.
+11. **Greene 1853 "excavations near the Sphinx".** The men in the foreground are at a dig well in front of the Sphinx; they give no scale for it.
+12. **Hawass/ARCE.** I found no quote from them for sand burial; do not attribute the angle to them.
+
+### Images (new, in `data/sphinx/`, previews in `data/sphinx/preview/`)
+
+All opened with `/home/user/history-shorts/.venv/bin/python` (Pillow) and were looked at. Boxes are [x0, y0, x1, y1] in pixels of the full-resolution file, read off a gridded 1400 px preview, so accurate to about 30 px of full size.
+
+| File (pixels) | What I see | Holder, identifier | Date | Licence |
+|---|---|---|---|---|
+| `teynard_1851_met_261882_sphinx_chest.jpg` (3764x3025) | Pale salted-paper print: the Sphinx's head, neck and the top of the chest rise out of smooth sand; Khafre's pyramid behind; no people, no paws. **Use for "just a head".** | Metropolitan Museum of Art, 1976.607.8, Felix Teynard, "Djizeh (Necropole de Memphis), Sphinx et Pyramides" (https://www.metmuseum.org/art/collection/search/261882) | 1851-52, printed 1853-54 | Met Open Access, CC0 |
+| `ducamp_1849_met_700111_le_sphinx.jpg` (3808x2658) | Head and chest of the Sphinx standing in a hollow of sand with a pit on the left; pyramids of Menkaure far off; photo sits in a large mount (about 40% of the sheet) with the caption "Le Sphinx" | Met, 2015.778.35, Maxime Du Camp, "Egypte Moyenne, Le Sphinx", plate 11 (https://www.metmuseum.org/art/collection/search/700111) | negative December 1849, printed 1852 | Met Open Access, CC0 |
+| `greene_1853_met_286665_excavations_near_sphinx.jpg` (3984x3089) | A dig with men on its walls in the foreground; the Sphinx head is a small shape on the horizon between two pyramids, with a flag. Optional. | Met, 2005.100.276, John Beasley Greene (https://www.metmuseum.org/art/collection/search/286665) | 1853 | Met Open Access, CC0 |
+| `matson_1934-39_loc_17964_sphinx_profile.jpg` (4617x3459) | Black-and-white glass-negative scan in its film border: whole Sphinx in profile looking left; body, back and rump cut from the rock, empty pit around it; no paws in frame; no people. **Use for "fully uncovered, side view".** | Library of Congress, Matson Collection, matpc.17964, catalog record mpc2010003453, https://hdl.loc.gov/loc.pnp/matpc.17964 | between 1934 and 1939 | LoC: "No known restrictions on publication"; Commons {{PD-Matson}} |
+| `matson_1934-39_loc_17957_sphinx_paws.jpg` (4624x3479) | Three-quarter side view of the cleared Sphinx; both paws with their brick-like casing run out to the right; Khufu's pyramid behind; no clear people. **Use for the paws.** | Library of Congress, Matson Collection, matpc.17957, catalog record mpc2010003446, https://hdl.loc.gov/loc.pnp/matpc.17957 | between 1934 and 1939 | same |
+
+The Matson files were converted from the 16 MB master TIFFs (greyscale) to RGB JPEG q92; the TIFF links are in `sources.json`. The negatives show a black film border; crop it before use (usable picture about x 330-4290, y 290-3280 for 17964, and x 330-4280, y 320-3250 for 17957).
+
+**Pixel boxes**
+
+| File | Head | Sand line | People for scale | Paws |
+|---|---|---|---|---|
+| Teynard | [1990, 1305, 2770, 1800] | where the sand meets the chest: [1980, 2420, 3000, 2620]; visible Sphinx [1980, 1300, 3000, 2620] | none | not visible (buried) |
+| Du Camp | [2026, 966, 2543, 1265] | [1900, 1400, 2600, 1650] (the rim of the hollow, about) ; pit on the left [1480, 1380, 2000, 1780] | none | not visible |
+| Greene | [1963, 384, 2410, 618] | the ridge line under the head, about y 610 | men at [1670, 690, 1790, 950] and [2680, 780, 2900, 1060], but they stand in front of the Sphinx, not at it | not visible |
+| Matson 17964 | [1765, 850, 3000, 1630] | no sand line; the cleared floor meets the base at about y 2750-3020 for x 1400-2500; whole body [1420, 850, 4320, 3020] | none | not in frame (they lie to the left, under the paving and the temple wall) |
+| Matson 17957 | [2000, 1105, 2680, 1500] | none (floor cleared); body [560, 1100, 3000, 2900] | none | [1750, 2450, 4150, 2950] |
+
+**Norden plates (from the existing files; boxes of the upright 3000x2048 images, from a 1400 px preview, approximate)**
+
+| Plate | Head | Sand line at the neck | Figure(s) for scale |
+|---|---|---|---|
+| XLVII profile | [921, 274, 1768, 911] | [1071, 1221, 1607, 1264] | man at the neck [1311, 1082, 1393, 1247]; head to chin about 290 px of preview against about 73 px for the man (4:1) |
+| XLVI front | [986, 246, 1972, 825] | [1071, 1070, 1778, 1168] | rider on donkey [1286, 975, 1468, 1221]; men at the right [1864, 1039, 2143, 1211] |
+| XLV with pyramids | [1532, 782, 1961, 1082] | [1500, 1150, 2000, 1215] | figure at the base [1735, 1114, 1790, 1232]; group at the right [1885, 1093, 2036, 1190] |
+
+### Do not say (Angle 2)
+
+- "The Sphinx was buried to the neck for most of its history" as a fact; or "for 4,000 years". Say "for well over a thousand years" or "again and again".
+- "The Dream Stele says the Sphinx was buried to its neck" (it says "The sands ... have reached me").
+- "Caviglia uncovered it in 1817" (use 1816 or "the 1810s"); a year for Mariette; "Baraize finished in 1936" or "1925 to 1936" as a fixed range (sources differ: 1934, 1936, 1937).
+- "Fully uncovered in 1925" or "in 1936". Say "in the 1930s".
+- "Only the head showed in the 1850s". The photographs show head, neck and chest.
+- A head height or "70 per cent hidden" as sourced figures; no source gives a head height.
+- Any quote from Lehner or Hawass for burial depth beyond the Lehner sentence above; none from Hawass was found.
+- That the Matson photos are from "1936" (only the range 1934-39).
