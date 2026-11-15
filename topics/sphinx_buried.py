@@ -38,7 +38,7 @@ SCRIPT = [
      "say": "It was only fully cleared again in the nineteen thirties,"},
     {"id": "s9", "beat": 5, "gap_before": 0.15, "text": "by Émile Baraize and Selim Hassan.",
      "say": "by Emeel Barrez and Seleem Hassan."},
-    {"id": "s10", "beat": 6, "gap_before": 0.7, "text": "Would you have recognised it?"},
+    {"id": "s10", "beat": 6, "gap_before": 0.7, "text": "Bet you wouldn't have recognised it."},
 ]
 
 RIDER_BOX = [1270, 960, 1480, 1240]         # plate XLVI: the man on a donkey in front of the chest

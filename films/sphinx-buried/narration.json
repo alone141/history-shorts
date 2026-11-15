@@ -4,9 +4,9 @@
  "speed": 1.15,
  "sample_rate": 24000,
  "fps": 30,
- "duration_s": 29.1,
- "frames": 873,
- "word_count": 78,
+ "duration_s": 29.3,
+ "frames": 879,
+ "word_count": 79,
  "cue_method": "sentence start + duration of synthesised prefix text - 0.08 s",
  "sentences": [
   {
@@ -102,10 +102,10 @@
   {
    "id": "s10",
    "beat": 6,
-   "text": "Would you have recognised it?",
-   "say": "Would you have recognised it?",
+   "text": "Bet you wouldn't have recognised it.",
+   "say": "Bet you wouldn't have recognised it.",
    "start_s": 25.329,
-   "end_s": 26.59,
+   "end_s": 26.798,
    "cues": {}
   }
  ]
