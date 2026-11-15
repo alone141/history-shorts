@@ -44,3 +44,7 @@ Norden, F. L. 1755. *Voyage d'Egypte et de Nubie*. Copenhagen: Imprimerie de la 
 
 - Whether the Getty Research Institute, the Metropolitan Museum of Art or the Library of Congress asks for its credit line as a requirement or a courtesy. research.md does not say, and the holders' policy pages were not checked.
 - Whether the narration voice settings in this film's render match those above. They are copied from the Stonehenge credits; check them against the render's narration file once it exists.
+
+## Music
+
+Music: "Investigations" by Kevin MacLeod (incompetech.com), licensed under Creative Commons: By Attribution 4.0, https://creativecommons.org/licenses/by/4.0/. Downloaded from https://incompetech.com/music/royalty-free/mp3-royaltyfree/Investigations.mp3 on 15 November 2026. Used from its start, unedited apart from level (about -30 LUFS under the voice) and fades. The licence terms were taken from the publisher's standing statement for its catalogue, not re-read on the track's own page: check that page before posting.

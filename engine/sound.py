@@ -301,6 +301,40 @@ def _cue_stem(cue: dict, index: int, length: int, sr: int, seed: int, voice_peak
 
 # ----------------------------------------------------------------------- mix
 
+def _music_stem(spec: dict, length: int, sr: int) -> tuple[np.ndarray, dict]:
+    """A recorded music bed: decode, resample, cut from `start`, set to `lufs`, fade the ends.
+
+    spec: {"file": path, "start": seconds into the track (default 0), "lufs": integrated
+    loudness of the bed (default -30), "fade_in": 0.4, "fade_out": 1.2}.  If the track is
+    shorter than the film it is not looped: the bed simply ends.
+    """
+    import av
+    path = Path(spec["file"])
+    path = path if path.is_absolute() else Path(__file__).resolve().parents[1] / path
+    resampler = av.AudioResampler(format="fltp", layout="stereo", rate=sr)
+    chunks = []
+    with av.open(str(path)) as container:
+        for frame in container.decode(audio=0):
+            for out in resampler.resample(frame):
+                chunks.append(out.to_ndarray())
+        for out in resampler.resample(None):
+            chunks.append(out.to_ndarray())
+    track = np.concatenate(chunks, axis=1).T.astype(np.float64)
+    first = int(round(float(spec.get("start", 0.0)) * sr))
+    cut = track[first:first + length]
+    stem = np.zeros((length, 2))
+    stem[:cut.shape[0]] = cut
+    target = float(spec.get("lufs", -30.0))
+    stem *= db_to_lin(target - integrated_lufs(stem, sr))
+    n_in, n_out = int(float(spec.get("fade_in", 0.4)) * sr), int(float(spec.get("fade_out", 1.2)) * sr)
+    if n_in:
+        stem[:n_in] *= np.linspace(0, 1, n_in)[:, None]
+    if n_out:
+        stem[-n_out:] *= np.linspace(1, 0, n_out)[:, None]
+    return stem, {"file": str(spec["file"]), "start_s": float(spec.get("start", 0.0)), "lufs_target": target,
+                  "lufs": integrated_lufs(stem, sr), "covers_film": cut.shape[0] == length}
+
+
 def _rounded(value):
     if isinstance(value, float):
         return round(value, 2)
@@ -313,7 +347,7 @@ def _rounded(value):
 
 def mix(narration: dict | str | Path, voice_wav: str | Path, cues: list[dict], out_wav: str | Path, *,
         voice_lufs: float = -16.0, room_rms_dbfs: float = -48.0, cue_margin_db: float = 12.0,
-        sample_rate: int = 48000, seed: int = 7, peak_guard: str = "limit") -> dict:
+        sample_rate: int = 48000, seed: int = 7, peak_guard: str = "limit", music: dict | None = None) -> dict:
     """Mix voice, room tone and cues into out_wav; write and return the levels report.
 
     `peak_guard` ("limit" or "attenuate") chooses what happens when the voice at the
@@ -343,6 +377,10 @@ def mix(narration: dict | str | Path, voice_wav: str | Path, cues: list[dict], o
         rows.append(row)
 
     mixed = voice + room + bus
+    music_info = None
+    if music:                                    # optional recorded bed under everything (see _music_stem)
+        bed, music_info = _music_stem(music, length, sample_rate)
+        mixed = mixed + bed
     mix_guard_db = 0.0
     mix_true_peak = true_peak_dbtp(mixed)
     if mix_true_peak > TRUE_PEAK_CEILING_DBTP:
@@ -384,6 +422,7 @@ def mix(narration: dict | str | Path, voice_wav: str | Path, cues: list[dict], o
         "duration_s": length / sample_rate,
         "sample_rate": sample_rate,
         "cues": rows,
+        "music": music_info,
         "checks": checks,
     }
     # The two "no_*_guard_needed" checks are advisory: a guard that acted is

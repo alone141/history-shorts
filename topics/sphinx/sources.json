@@ -94,5 +94,11 @@
     "url": "https://archive.org/download/in.ernet.dli.2015.515700/2015.515700.The-Sphinx_djvu.txt",
     "dest": "data/sphinx/hassan1949_the_sphinx_djvu.txt",
     "note": "OCR text of Selim Hassan, The Sphinx: Its History in the Light of Recent Excavations (Cairo, Government Press, 1949), Internet Archive in.ernet.dli.2015.515700 (Digital Library of India scan; the first two dli hits for the title, 2015.506341 and 2015.547035, are a different English text and a Hindi/Arabic-script volume). OCR with errors; check any quote against the scan. Reference text only. The page numbers in research.md are read from the running heads in this OCR (give or take one page)"
+  },
+  {
+    "name": "music-investigations",
+    "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Investigations.mp3",
+    "dest": "data/music/investigations_kevin_macleod.mp3",
+    "note": "'Investigations' by Kevin MacLeod (incompetech.com), licensed under Creative Commons Attribution 4.0 (https://creativecommons.org/licenses/by/4.0/). Background music of the buried-Sphinx film; attribution is required wherever the film is posted"
   }
 ]
