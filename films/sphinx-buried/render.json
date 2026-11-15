@@ -1,7 +1,7 @@
 {
  "video": {
   "path": "/home/user/history-shorts/films/sphinx-buried/sphinx-buried.mp4",
-  "file_size": 23944331,
+  "file_size": 24534691,
   "top_level_atoms": [
    "ftyp",
    "moov",
@@ -9,8 +9,8 @@
    "mdat"
   ],
   "faststart": true,
-  "duration_s": 31.333333,
-  "container_bit_rate": 6113446,
+  "duration_s": 32.066667,
+  "container_bit_rate": 6120920,
   "video": {
    "codec": "h264",
    "profile": "High",
@@ -18,9 +18,9 @@
    "width": 1080,
    "height": 1920,
    "fps": 30.0,
-   "frames": 940,
-   "duration_s": 31.333333333333332,
-   "bit_rate": 5905907,
+   "frames": 962,
+   "duration_s": 32.06666666666667,
+   "bit_rate": 5912629,
    "constant_frame_rate": true,
    "max_keyframe_interval": 60,
    "color_primaries": "bt709",
@@ -33,11 +33,11 @@
    "profile": "LC",
    "sample_rate": 48000,
    "channels": 2,
-   "duration_s": 31.333333333333332,
-   "bit_rate": 199648
+   "duration_s": 32.06666666666667,
+   "bit_rate": 200391
   },
-  "video_frames_written": 940,
-  "audio_samples_written": 1504000
+  "video_frames_written": 962,
+  "audio_samples_written": 1539200
  },
- "seconds": 195.3
+ "seconds": 208.0
 }

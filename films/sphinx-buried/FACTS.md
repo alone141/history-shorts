@@ -102,3 +102,14 @@ The rows above quote the wording as it was at the fact check.
 - "by Émile Baraize and Selim Hassan": Hassan 1949, pp. 23-25 ("in 1925 M. Baraize was entrusted ..."; "M. Baraize certainly freed the Sphinx from all sides, but instead of clearing the sand away altogether, he constructed huge, barrage-like walls to hold it back"), and Hassan's own clearance of the court in 1936-38 (Hassan, preface and p. 24; Lehner p. 64). Baraize's work began in 1925 or 1926, so "in the 1930s" describes when the clearing was completed, not when it began.
 - Music: "Desert City" by Kevin MacLeod (see CREDITS.md).
 Not sent to a second fact check.
+
+## Script revision 3 (the owner's), 15 November 2026
+
+The owner rewrote several lines; grammar only was corrected ("stretching",
+"Do you see it?"). New factual content: "by Émile Baraize and Selim Hassan"
+(research.md, clearance timeline: Baraize for the Antiquities Service from
+1925 or 1926 into the 1930s; Hassan finished the court in 1936-38). "A lion's
+body, stretching 73 metres": 73 m is the monument's length from paws to tail.
+"He almost reaches its chest" is our reading of plate XLVI. Pauses were added
+inside two lines ("See the man on the donkey?" / "He almost reaches its
+chest."; "This." / "A lion's body..."). Not sent to a second fact check.
