@@ -12,106 +12,99 @@
   {
    "id": "s0",
    "beat": 1,
-   "text": "Did you know people made most of the Colosseum's holes?",
-   "say": "Did you know people made most of the Colosseum's holes?",
+   "text": "Did you know most of the Colosseum's holes are man-made?",
+   "say": "Did you know most of the Colosseum's holes are man-made?",
    "start_s": 0.4,
-   "end_s": 3.011,
+   "end_s": 3.017,
    "cues": {},
    "words": [
     {
      "text": "Did",
-     "start_s": 0.374,
-     "end_s": 0.474,
-     "stress_s": 0.398
+     "start_s": 0.4,
+     "end_s": 0.475,
+     "stress_s": 0.4
     },
     {
      "text": "you",
-     "start_s": 0.523,
-     "end_s": 0.599,
-     "stress_s": 0.523
+     "start_s": 0.525,
+     "end_s": 0.6,
+     "stress_s": 0.525
     },
     {
      "text": "know",
-     "start_s": 0.674,
-     "end_s": 0.848,
-     "stress_s": 0.698
-    },
-    {
-     "text": "people",
-     "start_s": 0.898,
-     "end_s": 1.224,
-     "stress_s": 0.948
-    },
-    {
-     "text": "made",
-     "start_s": 1.274,
-     "end_s": 1.474,
-     "stress_s": 1.299
+     "start_s": 0.65,
+     "end_s": 0.825,
+     "stress_s": 0.675
     },
     {
      "text": "most",
-     "start_s": 1.524,
-     "end_s": 1.774,
-     "stress_s": 1.549
+     "start_s": 0.875,
+     "end_s": 1.125,
+     "stress_s": 0.9
     },
     {
      "text": "of",
-     "start_s": 1.799,
-     "end_s": 1.849,
-     "stress_s": 1.799
+     "start_s": 1.15,
+     "end_s": 1.2,
+     "stress_s": 1.15
     },
     {
      "text": "the",
-     "start_s": 1.874,
-     "end_s": 1.924,
-     "stress_s": 1.874
+     "start_s": 1.225,
+     "end_s": 1.275,
+     "stress_s": 1.225
     },
     {
      "text": "Colosseum's",
-     "start_s": 1.974,
-     "end_s": 2.549,
-     "stress_s": 2.324
+     "start_s": 1.325,
+     "end_s": 1.9,
+     "stress_s": 1.675
     },
     {
-     "text": "holes?",
-     "start_s": 2.599,
-     "end_s": 3.324,
-     "stress_s": 2.624
+     "text": "holes",
+     "start_s": 1.95,
+     "end_s": 2.3,
+     "stress_s": 1.975
+    },
+    {
+     "text": "are",
+     "start_s": 2.35,
+     "end_s": 2.425,
+     "stress_s": 2.35
+    },
+    {
+     "text": "man-made?",
+     "start_s": 2.475,
+     "end_s": 3.017,
+     "stress_s": 2.75
     }
    ],
    "pitch": {
     "plan": {
-     "focus": [
-      "people"
-     ],
+     "focus": [],
      "ends": null,
      "range": 1.4,
      "level": 0.0
     },
-    "median_hz": 177.6,
-    "range_st": 11.72,
-    "model_range_st": 12.68,
-    "followed": 0.69,
+    "median_hz": 195.4,
+    "range_st": 11.25,
+    "model_range_st": 9.75,
+    "followed": 0.71,
     "phrases": [
      {
       "end": "rise",
       "mark": "?",
-      "on": "holes?",
+      "on": "man-made?",
       "asked_st": 7.0,
-      "got_st": 7.23,
-      "end_level_st": 6.16,
-      "voiced": 0.79,
+      "got_st": 6.39,
+      "end_level_st": 4.86,
+      "voiced": 0.95,
+      "glide_ms": 275,
+      "glide_st": 7.01,
       "ok": true
      }
     ],
-    "focus": [
-     {
-      "word": "people",
-      "asked_st": 4.0,
-      "got_st": 3.96,
-      "ok": true
-     }
-    ],
+    "focus": [],
     "ok": true
    }
   },
@@ -120,39 +113,39 @@
    "beat": 2,
    "text": "Can you see the piers?",
    "say": "Can you see the piers?",
-   "start_s": 3.511,
-   "end_s": 4.586,
+   "start_s": 3.517,
+   "end_s": 4.592,
    "cues": {},
    "words": [
     {
      "text": "Can",
-     "start_s": 3.496,
-     "end_s": 3.621,
-     "stress_s": 3.496
+     "start_s": 3.517,
+     "end_s": 3.627,
+     "stress_s": 3.517
     },
     {
      "text": "you",
-     "start_s": 3.671,
-     "end_s": 3.771,
-     "stress_s": 3.671
+     "start_s": 3.677,
+     "end_s": 3.777,
+     "stress_s": 3.677
     },
     {
      "text": "see",
-     "start_s": 3.846,
-     "end_s": 3.971,
-     "stress_s": 3.896
+     "start_s": 3.852,
+     "end_s": 3.977,
+     "stress_s": 3.902
     },
     {
      "text": "the",
-     "start_s": 3.996,
-     "end_s": 4.046,
-     "stress_s": 3.996
+     "start_s": 4.002,
+     "end_s": 4.052,
+     "stress_s": 4.002
     },
     {
      "text": "piers?",
-     "start_s": 4.096,
-     "end_s": 4.896,
-     "stress_s": 4.146
+     "start_s": 4.102,
+     "end_s": 4.592,
+     "stress_s": 4.152
     }
    ],
    "pitch": {
@@ -175,6 +168,8 @@
       "got_st": 7.56,
       "end_level_st": 4.12,
       "voiced": 0.81,
+      "glide_ms": 288,
+      "glide_st": 8.08,
       "ok": true
      }
     ],
@@ -187,39 +182,39 @@
    "beat": 2,
    "text": "Those dark dots are holes!",
    "say": "Those dark dots are holes!",
-   "start_s": 4.786,
-   "end_s": 6.188,
+   "start_s": 4.792,
+   "end_s": 6.195,
    "cues": {},
    "words": [
     {
      "text": "Those",
-     "start_s": 4.761,
-     "end_s": 4.986,
-     "stress_s": 4.761
+     "start_s": 4.792,
+     "end_s": 4.992,
+     "stress_s": 4.792
     },
     {
      "text": "dark",
-     "start_s": 5.036,
-     "end_s": 5.261,
-     "stress_s": 5.061
+     "start_s": 5.042,
+     "end_s": 5.267,
+     "stress_s": 5.067
     },
     {
      "text": "dots",
-     "start_s": 5.311,
-     "end_s": 5.611,
-     "stress_s": 5.361
+     "start_s": 5.317,
+     "end_s": 5.617,
+     "stress_s": 5.367
     },
     {
      "text": "are",
-     "start_s": 5.636,
-     "end_s": 5.711,
-     "stress_s": 5.636
+     "start_s": 5.642,
+     "end_s": 5.717,
+     "stress_s": 5.642
     },
     {
      "text": "holes!",
-     "start_s": 5.761,
-     "end_s": 6.461,
-     "stress_s": 5.786
+     "start_s": 5.767,
+     "end_s": 6.195,
+     "stress_s": 5.792
     }
    ],
    "pitch": {
@@ -231,26 +226,26 @@
      "range": 1.4,
      "level": 0.0
     },
-    "median_hz": 220.5,
-    "range_st": 11.26,
+    "median_hz": 213.2,
+    "range_st": 11.4,
     "model_range_st": 13.05,
-    "followed": 0.63,
+    "followed": 0.61,
     "phrases": [
      {
       "end": "fall",
       "mark": "!",
       "on": "holes!",
       "asked_st": -4.0,
-      "got_st": -7.8,
+      "set_st": -8.84,
       "ok": true,
-      "note": "ends in a creak: the level is the one set, not one heard"
+      "note": "ends in a creak, as the model does by itself: set, not heard"
      }
     ],
     "focus": [
      {
       "word": "holes!",
       "asked_st": 4.0,
-      "got_st": 4.54,
+      "got_st": 4.47,
       "ok": true
      }
     ],
@@ -262,69 +257,69 @@
    "beat": 3,
    "text": "In 1651, this page weighed barbarians against market stalls.",
    "say": "In sixteen fifty-one, this page weighed barbarians against market stalls.",
-   "start_s": 6.888,
-   "end_s": 10.933,
+   "start_s": 6.895,
+   "end_s": 10.94,
    "cues": {},
    "words": [
     {
      "text": "In",
-     "start_s": 6.867,
-     "end_s": 6.967,
-     "stress_s": 6.867
+     "start_s": 6.895,
+     "end_s": 6.974,
+     "stress_s": 6.895
     },
     {
      "text": "sixteen",
-     "start_s": 7.042,
-     "end_s": 7.417,
-     "stress_s": 7.067
+     "start_s": 7.049,
+     "end_s": 7.424,
+     "stress_s": 7.074
     },
     {
      "text": "fifty-one,",
-     "start_s": 7.467,
-     "end_s": 8.242,
-     "stress_s": 7.492
+     "start_s": 7.474,
+     "end_s": 8.174,
+     "stress_s": 7.499
     },
     {
      "text": "this",
-     "start_s": 8.292,
-     "end_s": 8.442,
-     "stress_s": 8.292
+     "start_s": 8.299,
+     "end_s": 8.449,
+     "stress_s": 8.299
     },
     {
      "text": "page",
-     "start_s": 8.492,
-     "end_s": 8.842,
-     "stress_s": 8.542
+     "start_s": 8.499,
+     "end_s": 8.849,
+     "stress_s": 8.549
     },
     {
      "text": "weighed",
-     "start_s": 8.892,
-     "end_s": 9.092,
-     "stress_s": 8.917
+     "start_s": 8.899,
+     "end_s": 9.099,
+     "stress_s": 8.924
     },
     {
      "text": "barbarians",
-     "start_s": 9.142,
-     "end_s": 9.717,
-     "stress_s": 9.342
+     "start_s": 9.149,
+     "end_s": 9.724,
+     "stress_s": 9.349
     },
     {
      "text": "against",
-     "start_s": 9.767,
-     "end_s": 10.067,
-     "stress_s": 9.867
+     "start_s": 9.774,
+     "end_s": 10.074,
+     "stress_s": 9.874
     },
     {
      "text": "market",
-     "start_s": 10.117,
-     "end_s": 10.417,
-     "stress_s": 10.142
+     "start_s": 10.124,
+     "end_s": 10.424,
+     "stress_s": 10.149
     },
     {
      "text": "stalls.",
-     "start_s": 10.467,
-     "end_s": 11.242,
-     "stress_s": 10.567
+     "start_s": 10.474,
+     "end_s": 10.94,
+     "stress_s": 10.574
     }
    ],
    "pitch": {
@@ -337,10 +332,10 @@
      "range": 1.4,
      "level": 0.0
     },
-    "median_hz": 207.2,
-    "range_st": 11.56,
+    "median_hz": 199.0,
+    "range_st": 11.76,
     "model_range_st": 11.14,
-    "followed": 0.64,
+    "followed": 0.65,
     "phrases": [
      {
       "end": "keep",
@@ -354,22 +349,22 @@
       "mark": ".",
       "on": "market",
       "asked_st": -4.0,
-      "got_st": -7.81,
+      "set_st": -10.45,
       "ok": true,
-      "note": "ends in a creak: the level is the one set, not one heard"
+      "note": "ends in a creak, as the model does by itself: set, not heard"
      }
     ],
     "focus": [
      {
       "word": "barbarians",
       "asked_st": 4.0,
-      "got_st": 3.78,
+      "got_st": 3.91,
       "ok": true
      },
      {
       "word": "market",
       "asked_st": 4.0,
-      "got_st": 3.28,
+      "got_st": 3.67,
       "ok": true
      }
     ],
@@ -381,45 +376,45 @@
    "beat": 4,
    "text": "So what is the accepted answer?",
    "say": "So what is the accepted answer?",
-   "start_s": 11.233,
-   "end_s": 12.736,
+   "start_s": 11.24,
+   "end_s": 12.741,
    "cues": {},
    "words": [
     {
      "text": "So",
-     "start_s": 11.255,
-     "end_s": 11.405,
-     "stress_s": 11.305
+     "start_s": 11.261,
+     "end_s": 11.411,
+     "stress_s": 11.311
     },
     {
      "text": "what",
-     "start_s": 11.455,
-     "end_s": 11.555,
-     "stress_s": 11.455
+     "start_s": 11.461,
+     "end_s": 11.561,
+     "stress_s": 11.461
     },
     {
      "text": "is",
-     "start_s": 11.605,
-     "end_s": 11.68,
-     "stress_s": 11.605
+     "start_s": 11.611,
+     "end_s": 11.686,
+     "stress_s": 11.611
     },
     {
      "text": "the",
-     "start_s": 11.705,
-     "end_s": 11.78,
-     "stress_s": 11.705
+     "start_s": 11.711,
+     "end_s": 11.786,
+     "stress_s": 11.711
     },
     {
      "text": "accepted",
-     "start_s": 11.83,
-     "end_s": 12.255,
-     "stress_s": 11.98
+     "start_s": 11.836,
+     "end_s": 12.261,
+     "stress_s": 11.986
     },
     {
      "text": "answer?",
-     "start_s": 12.305,
-     "end_s": 13.055,
-     "stress_s": 12.305
+     "start_s": 12.311,
+     "end_s": 12.742,
+     "stress_s": 12.311
     }
    ],
    "pitch": {
@@ -429,19 +424,19 @@
      "range": 1.4,
      "level": 0.0
     },
-    "median_hz": 216.1,
-    "range_st": 13.98,
+    "median_hz": 215.3,
+    "range_st": 13.8,
     "model_range_st": 9.84,
-    "followed": 0.66,
+    "followed": 0.67,
     "phrases": [
      {
       "end": "fall",
       "mark": "?",
       "on": "answer?",
       "asked_st": -4.0,
-      "got_st": -5.82,
+      "set_st": -6.3,
       "ok": true,
-      "note": "ends in a creak: the level is the one set, not one heard"
+      "note": "ends in a creak, as the model does by itself: set, not heard"
      }
     ],
     "focus": [],
@@ -453,57 +448,57 @@
    "beat": 4,
    "text": "Iron clamps tied each block to the next.",
    "say": "Iron clamps tied each block to the next.",
-   "start_s": 13.536,
-   "end_s": 15.552,
+   "start_s": 13.541,
+   "end_s": 15.557,
    "cues": {},
    "words": [
     {
      "text": "Iron",
-     "start_s": 13.525,
-     "end_s": 13.8,
-     "stress_s": 13.525
+     "start_s": 13.541,
+     "end_s": 13.805,
+     "stress_s": 13.541
     },
     {
      "text": "clamps",
-     "start_s": 13.85,
-     "end_s": 14.125,
-     "stress_s": 13.925
+     "start_s": 13.855,
+     "end_s": 14.13,
+     "stress_s": 13.93
     },
     {
      "text": "tied",
-     "start_s": 14.175,
-     "end_s": 14.45,
-     "stress_s": 14.225
+     "start_s": 14.18,
+     "end_s": 14.455,
+     "stress_s": 14.23
     },
     {
      "text": "each",
-     "start_s": 14.5,
-     "end_s": 14.65,
-     "stress_s": 14.5
+     "start_s": 14.505,
+     "end_s": 14.655,
+     "stress_s": 14.505
     },
     {
      "text": "block",
-     "start_s": 14.7,
-     "end_s": 14.9,
-     "stress_s": 14.75
+     "start_s": 14.705,
+     "end_s": 14.905,
+     "stress_s": 14.755
     },
     {
      "text": "to",
-     "start_s": 14.95,
-     "end_s": 15.0,
-     "stress_s": 14.95
+     "start_s": 14.955,
+     "end_s": 15.005,
+     "stress_s": 14.955
     },
     {
      "text": "the",
-     "start_s": 15.025,
-     "end_s": 15.075,
-     "stress_s": 15.025
+     "start_s": 15.03,
+     "end_s": 15.08,
+     "stress_s": 15.03
     },
     {
      "text": "next.",
-     "start_s": 15.125,
-     "end_s": 15.875,
-     "stress_s": 15.175
+     "start_s": 15.13,
+     "end_s": 15.557,
+     "stress_s": 15.18
     }
    ],
    "pitch": {
@@ -515,8 +510,8 @@
      "range": 1.4,
      "level": 0.0
     },
-    "median_hz": 207.0,
-    "range_st": 13.57,
+    "median_hz": 204.8,
+    "range_st": 13.54,
     "model_range_st": 10.85,
     "followed": 0.64,
     "phrases": [
@@ -525,16 +520,16 @@
       "mark": ".",
       "on": "Iron",
       "asked_st": -4.0,
-      "got_st": -4.95,
+      "set_st": -4.95,
       "ok": true,
-      "note": "ends in a creak: the level is the one set, not one heard"
+      "note": "ends in a creak, as the model does by itself: set, not heard"
      }
     ],
     "focus": [
      {
       "word": "Iron",
       "asked_st": 4.0,
-      "got_st": 9.78,
+      "got_st": 9.25,
       "ok": true
      }
     ],
@@ -546,45 +541,45 @@
    "beat": 5,
    "text": "In the centuries after Rome fell,",
    "say": "In the centuries after Rome fell,",
-   "start_s": 16.052,
-   "end_s": 17.674,
+   "start_s": 16.057,
+   "end_s": 17.677,
    "cues": {},
    "words": [
     {
      "text": "In",
-     "start_s": 16.031,
-     "end_s": 16.131,
-     "stress_s": 16.031
+     "start_s": 16.057,
+     "end_s": 16.136,
+     "stress_s": 16.057
     },
     {
      "text": "the",
-     "start_s": 16.131,
-     "end_s": 16.181,
-     "stress_s": 16.131
+     "start_s": 16.136,
+     "end_s": 16.186,
+     "stress_s": 16.136
     },
     {
      "text": "centuries",
-     "start_s": 16.231,
-     "end_s": 16.781,
-     "stress_s": 16.281
+     "start_s": 16.236,
+     "end_s": 16.786,
+     "stress_s": 16.286
     },
     {
      "text": "after",
-     "start_s": 16.831,
-     "end_s": 17.081,
-     "stress_s": 16.831
+     "start_s": 16.836,
+     "end_s": 17.086,
+     "stress_s": 16.836
     },
     {
      "text": "Rome",
-     "start_s": 17.131,
-     "end_s": 17.356,
-     "stress_s": 17.156
+     "start_s": 17.136,
+     "end_s": 17.361,
+     "stress_s": 17.161
     },
     {
      "text": "fell,",
-     "start_s": 17.406,
-     "end_s": 18.031,
-     "stress_s": 17.456
+     "start_s": 17.411,
+     "end_s": 17.677,
+     "stress_s": 17.461
     }
    ],
    "pitch": {
@@ -598,8 +593,8 @@
      "range": 1.4,
      "level": 0.0
     },
-    "median_hz": 196.4,
-    "range_st": 12.46,
+    "median_hz": 197.3,
+    "range_st": 12.62,
     "model_range_st": 15.62,
     "followed": 0.71,
     "phrases": [
@@ -608,8 +603,8 @@
       "mark": ",",
       "on": "fell,",
       "asked_st": 3.0,
-      "got_st": 2.9,
-      "end_level_st": 0.25,
+      "got_st": 3.14,
+      "end_level_st": 0.31,
       "ok": true
      }
     ],
@@ -628,57 +623,57 @@
    "beat": 5,
    "text": "people dug the metal out, clamp by clamp.",
    "say": "people dug the metal out, clamp by clamp.",
-   "start_s": 17.974,
-   "end_s": 20.051,
+   "start_s": 17.977,
+   "end_s": 20.054,
    "cues": {},
    "words": [
     {
      "text": "people",
-     "start_s": 17.956,
-     "end_s": 18.281,
-     "stress_s": 18.006
+     "start_s": 17.977,
+     "end_s": 18.284,
+     "stress_s": 18.009
     },
     {
      "text": "dug",
-     "start_s": 18.331,
-     "end_s": 18.481,
-     "stress_s": 18.356
+     "start_s": 18.334,
+     "end_s": 18.485,
+     "stress_s": 18.36
     },
     {
      "text": "the",
-     "start_s": 18.506,
-     "end_s": 18.556,
-     "stress_s": 18.506
+     "start_s": 18.509,
+     "end_s": 18.559,
+     "stress_s": 18.509
     },
     {
      "text": "metal",
-     "start_s": 18.581,
-     "end_s": 18.756,
-     "stress_s": 18.606
+     "start_s": 18.584,
+     "end_s": 18.759,
+     "stress_s": 18.61
     },
     {
      "text": "out,",
-     "start_s": 18.806,
-     "end_s": 19.206,
-     "stress_s": 18.806
+     "start_s": 18.809,
+     "end_s": 19.134,
+     "stress_s": 18.809
     },
     {
      "text": "clamp",
-     "start_s": 19.256,
-     "end_s": 19.456,
-     "stress_s": 19.331
+     "start_s": 19.259,
+     "end_s": 19.459,
+     "stress_s": 19.334
     },
     {
      "text": "by",
-     "start_s": 19.481,
-     "end_s": 19.631,
-     "stress_s": 19.481
+     "start_s": 19.485,
+     "end_s": 19.634,
+     "stress_s": 19.485
     },
     {
      "text": "clamp.",
-     "start_s": 19.681,
-     "end_s": 20.356,
-     "stress_s": 19.781
+     "start_s": 19.684,
+     "end_s": 20.054,
+     "stress_s": 19.784
     }
    ],
    "pitch": {
@@ -690,8 +685,8 @@
      "range": 1.4,
      "level": 0.0
     },
-    "median_hz": 202.0,
-    "range_st": 15.62,
+    "median_hz": 203.6,
+    "range_st": 15.41,
     "model_range_st": 11.87,
     "followed": 0.73,
     "phrases": [
@@ -707,15 +702,16 @@
       "mark": ".",
       "on": "clamp.",
       "asked_st": -4.0,
-      "got_st": -7.31,
-      "ok": true
+      "set_st": -7.98,
+      "ok": true,
+      "note": "ends in a creak, as the model does by itself: set, not heard"
      }
     ],
     "focus": [
      {
       "word": "dug",
       "asked_st": 4.0,
-      "got_st": 4.11,
+      "got_st": 5.71,
       "ok": true
      }
     ],
@@ -727,87 +723,87 @@
    "beat": 6,
    "text": "One estimate says about 300 tons of metal went into the building.",
    "say": "One estimate says about three hundred tons of metal went into the building.",
-   "start_s": 20.551,
-   "end_s": 24.27,
+   "start_s": 20.554,
+   "end_s": 24.274,
    "cues": {},
    "words": [
     {
      "text": "One",
-     "start_s": 20.533,
-     "end_s": 20.733,
-     "stress_s": 20.583
+     "start_s": 20.554,
+     "end_s": 20.737,
+     "stress_s": 20.587
     },
     {
      "text": "estimate",
-     "start_s": 20.783,
-     "end_s": 21.183,
-     "stress_s": 20.783
+     "start_s": 20.787,
+     "end_s": 21.187,
+     "stress_s": 20.787
     },
     {
      "text": "says",
-     "start_s": 21.233,
-     "end_s": 21.533,
-     "stress_s": 21.283
+     "start_s": 21.237,
+     "end_s": 21.537,
+     "stress_s": 21.287
     },
     {
      "text": "about",
-     "start_s": 21.583,
-     "end_s": 21.858,
-     "stress_s": 21.658
+     "start_s": 21.587,
+     "end_s": 21.862,
+     "stress_s": 21.662
     },
     {
      "text": "three",
-     "start_s": 21.933,
-     "end_s": 22.108,
-     "stress_s": 22.008
+     "start_s": 21.937,
+     "end_s": 22.112,
+     "stress_s": 22.012
     },
     {
      "text": "hundred",
-     "start_s": 22.158,
-     "end_s": 22.408,
-     "stress_s": 22.183
+     "start_s": 22.162,
+     "end_s": 22.412,
+     "stress_s": 22.187
     },
     {
      "text": "tons",
-     "start_s": 22.458,
-     "end_s": 22.708,
-     "stress_s": 22.508
+     "start_s": 22.462,
+     "end_s": 22.712,
+     "stress_s": 22.512
     },
     {
      "text": "of",
-     "start_s": 22.733,
-     "end_s": 22.808,
-     "stress_s": 22.733
+     "start_s": 22.737,
+     "end_s": 22.812,
+     "stress_s": 22.737
     },
     {
      "text": "metal",
-     "start_s": 22.858,
-     "end_s": 23.358,
-     "stress_s": 22.883
+     "start_s": 22.862,
+     "end_s": 23.362,
+     "stress_s": 22.887
     },
     {
      "text": "went",
-     "start_s": 23.458,
-     "end_s": 23.583,
-     "stress_s": 23.458
+     "start_s": 23.462,
+     "end_s": 23.587,
+     "stress_s": 23.462
     },
     {
      "text": "into",
-     "start_s": 23.608,
-     "end_s": 23.758,
-     "stress_s": 23.608
+     "start_s": 23.612,
+     "end_s": 23.762,
+     "stress_s": 23.612
     },
     {
      "text": "the",
-     "start_s": 23.783,
-     "end_s": 23.833,
-     "stress_s": 23.783
+     "start_s": 23.787,
+     "end_s": 23.837,
+     "stress_s": 23.787
     },
     {
      "text": "building.",
-     "start_s": 23.883,
-     "end_s": 24.633,
-     "stress_s": 23.908
+     "start_s": 23.887,
+     "end_s": 24.274,
+     "stress_s": 23.912
     }
    ],
    "pitch": {
@@ -820,7 +816,7 @@
      "level": 0.0
     },
     "median_hz": 195.5,
-    "range_st": 12.52,
+    "range_st": 12.27,
     "model_range_st": 9.34,
     "followed": 0.69,
     "phrases": [
@@ -829,7 +825,8 @@
       "mark": ".",
       "on": "hundred",
       "asked_st": -4.0,
-      "got_st": -3.78,
+      "set_st": -6.95,
+      "got_st": -3.63,
       "ok": true
      }
     ],
@@ -837,7 +834,7 @@
      {
       "word": "hundred",
       "asked_st": 4.0,
-      "got_st": 6.23,
+      "got_st": 8.17,
       "ok": true
      }
     ],
@@ -849,45 +846,45 @@
    "beat": 6,
    "text": "The clamps went. The holes stayed.",
    "say": "The clamps went. The holes stayed.",
-   "start_s": 24.97,
-   "end_s": 26.6,
+   "start_s": 24.974,
+   "end_s": 26.605,
    "cues": {},
    "words": [
     {
      "text": "The",
-     "start_s": 24.958,
-     "end_s": 25.008,
-     "stress_s": 24.958
+     "start_s": 24.974,
+     "end_s": 25.012,
+     "stress_s": 24.974
     },
     {
      "text": "clamps",
-     "start_s": 25.058,
-     "end_s": 25.358,
-     "stress_s": 25.133
+     "start_s": 25.062,
+     "end_s": 25.362,
+     "stress_s": 25.137
     },
     {
      "text": "went.",
-     "start_s": 25.408,
-     "end_s": 25.758,
-     "stress_s": 25.458
+     "start_s": 25.412,
+     "end_s": 25.712,
+     "stress_s": 25.462
     },
     {
      "text": "The",
-     "start_s": 25.808,
-     "end_s": 25.858,
-     "stress_s": 25.808
+     "start_s": 25.812,
+     "end_s": 25.862,
+     "stress_s": 25.812
     },
     {
      "text": "holes",
-     "start_s": 25.908,
-     "end_s": 26.158,
-     "stress_s": 25.933
+     "start_s": 25.912,
+     "end_s": 26.162,
+     "stress_s": 25.937
     },
     {
      "text": "stayed.",
-     "start_s": 26.208,
-     "end_s": 26.908,
-     "stress_s": 26.308
+     "start_s": 26.212,
+     "end_s": 26.604,
+     "stress_s": 26.312
     }
    ],
    "pitch": {
@@ -903,18 +900,18 @@
      "range": 1.4,
      "level": 0.0
     },
-    "median_hz": 214.6,
-    "range_st": 14.2,
+    "median_hz": 214.1,
+    "range_st": 14.03,
     "model_range_st": 14.27,
-    "followed": 0.55,
+    "followed": 0.56,
     "phrases": [
      {
       "end": "continue",
       "mark": ".",
       "on": "went.",
       "asked_st": 3.0,
-      "got_st": 3.03,
-      "end_level_st": 3.0,
+      "got_st": 3.06,
+      "end_level_st": 3.01,
       "ok": true
      },
      {
@@ -922,22 +919,22 @@
       "mark": ".",
       "on": "holes",
       "asked_st": -4.0,
-      "got_st": -7.72,
+      "set_st": -8.83,
       "ok": true,
-      "note": "ends in a creak: the level is the one set, not one heard"
+      "note": "ends in a creak, as the model does by itself: set, not heard"
      }
     ],
     "focus": [
      {
       "word": "clamps",
       "asked_st": 4.0,
-      "got_st": 9.02,
+      "got_st": 8.23,
       "ok": true
      },
      {
       "word": "holes",
       "asked_st": 4.0,
-      "got_st": 4.1,
+      "got_st": 3.44,
       "ok": true
      }
     ],
@@ -955,9 +952,9 @@
   "continue_st": 3.0
  },
  "pitch": {
-  "median_hz": 204.6,
-  "sd_st": 3.97,
-  "p10_p90_st": 10.34,
-  "top_st": 9.59
+  "median_hz": 203.8,
+  "sd_st": 3.93,
+  "p10_p90_st": 10.28,
+  "top_st": 9.54
  }
 }

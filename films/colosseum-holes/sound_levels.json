@@ -3,13 +3,13 @@
  "voice_lufs": -16.01,
  "voice_peak_dbfs": -1.76,
  "voice_true_peak_dbtp": -1.75,
- "voice_gain_db": 3.79,
+ "voice_gain_db": 3.78,
  "true_peak_guard_applied": true,
  "true_peak_guard_mode": "limiter",
- "true_peak_guard_db": 2.04,
- "mix_guard_db": 0.0,
- "mix_lufs": -15.95,
- "mix_true_peak_dbtp": -1.53,
+ "true_peak_guard_db": 2.5,
+ "mix_guard_db": 0.24,
+ "mix_lufs": -16.2,
+ "mix_true_peak_dbtp": -1.5,
  "room_rms_dbfs": -48.0,
  "cue_margin_db": 12.0,
  "duration_s": 29.13,
@@ -17,12 +17,12 @@
  "cues": [
   {
    "type": "tick",
-   "t": 5.91,
+   "t": 5.92,
    "dur": 0.05,
    "peak_dbfs": -15.86,
    "margin_below_voice_peak_db": 14.1,
    "short_term_lufs": -43.77,
-   "margin_below_voice_lufs_db": 27.76,
+   "margin_below_voice_lufs_db": 27.75,
    "scaled_for_loudness_db": 0.0,
    "ok": true
   },
@@ -33,18 +33,18 @@
    "peak_dbfs": -15.86,
    "margin_below_voice_peak_db": 14.1,
    "short_term_lufs": -43.77,
-   "margin_below_voice_lufs_db": 27.76,
+   "margin_below_voice_lufs_db": 27.75,
    "scaled_for_loudness_db": 0.0,
    "ok": true
   },
   {
    "type": "tick",
-   "t": 22.63,
+   "t": 22.64,
    "dur": 0.05,
    "peak_dbfs": -15.86,
    "margin_below_voice_peak_db": 14.1,
    "short_term_lufs": -43.77,
-   "margin_below_voice_lufs_db": 27.76,
+   "margin_below_voice_lufs_db": 27.75,
    "scaled_for_loudness_db": 0.0,
    "ok": true
   }
@@ -64,7 +64,7 @@
   "cue_loudness_margins": true,
   "length_matches_narration": true,
   "no_voice_peak_guard_needed": false,
-  "no_mix_peak_guard_needed": true
+  "no_mix_peak_guard_needed": false
  },
  "ok": true
 }
