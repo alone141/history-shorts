@@ -24,22 +24,28 @@ STJOHN = D + "met_stjohn_1856_colosseum_287727.jpg"
 SUARESIUS = D + "suaresius1651_p4_colosseum_holes.jpg"
 MIDDLETON = D + "middleton1892_vol2_p87_colosseum_clamps.jpg"
 
+# Each line carries its pitch plan (engine/pitch.py): "focus" words get a pitch accent, and a phrase ends by its
+# punctuation unless "ends" says otherwise (a yes/no question rises, a statement or a what-question falls).
 SCRIPT = [
-    {"id": "s0", "beat": 1, "text": "Did you know the Colosseum is full of holes, and people made most of them?"},
-    {"id": "s1", "beat": 2, "gap_before": 0.7, "text": "This photograph is from 1856.",
-     "say": "This photograph is from eighteen fifty-six."},
-    {"id": "s2", "beat": 2, "gap_before": 0.3, "text": "Can you see the piers? The dark dots are holes."},
-    {"id": "s3", "beat": 3, "gap_before": 0.6, "text": "In 1651, this book weighed two suspects:",
-     "say": "In sixteen fifty-one, this book weighed two suspects:"},
-    {"id": "s4", "beat": 3, "gap_before": 0.15, "text": "barbarians, or the poles of market stalls.",
-     "say": "barbarians, or the poles of market stalls."},
-    {"id": "s5", "beat": 4, "gap_before": 0.8, "text": "The accepted answer is on this page."},
-    {"id": "s6", "beat": 4, "gap_before": 0.4, "text": "The Romans tied the stone blocks together with iron clamps."},
-    {"id": "s7", "beat": 5, "gap_before": 0.6,
-     "text": "In the centuries after Rome fell, people dug the metal out, clamp by clamp."},
-    {"id": "s8", "beat": 5, "gap_before": 0.3, "text": "By one estimate, the building used about 300 tons of metal.",
-     "say": "By one estimate, the building used about three hundred tons of metal."},
-    {"id": "s9", "beat": 6, "gap_before": 0.7, "text": "To the diggers, the metal was worth more than the monument."},
+    {"id": "s0", "beat": 1, "text": "Did you know people made most of the Colosseum's holes?",
+     "pitch": {"focus": ["people"]}},
+    {"id": "s1", "beat": 2, "gap_before": 0.5, "text": "Can you see the piers?"},
+    {"id": "s2", "beat": 2, "gap_before": 0.2, "text": "Those dark dots are holes!", "pitch": {"focus": ["holes"]}},
+    {"id": "s3", "beat": 3, "gap_before": 0.7, "text": "In 1651, this page weighed barbarians against market stalls.",
+     "say": "In sixteen fifty-one, this page weighed barbarians against market stalls.",
+     "pitch": {"focus": ["barbarians", "market"]}},
+    {"id": "s4", "beat": 4, "gap_before": 0.3, "text": "So what is the accepted answer?"},
+    {"id": "s5", "beat": 4, "gap_before": 0.8, "text": "Iron clamps tied each block to the next.",
+     "pitch": {"focus": ["Iron"]}},
+    {"id": "s6", "beat": 5, "gap_before": 0.5, "text": "In the centuries after Rome fell,",
+     "pitch": {"focus": ["fell"], "ends": ["continue"]}},
+    {"id": "s7", "beat": 5, "gap_before": 0.3, "text": "people dug the metal out, clamp by clamp.",
+     "pitch": {"focus": ["dug"]}},
+    {"id": "s8", "beat": 6, "gap_before": 0.5, "text": "One estimate says about 300 tons of metal went into the building.",
+     "say": "One estimate says about three hundred tons of metal went into the building.",
+     "pitch": {"focus": ["hundred"]}},
+    {"id": "s9", "beat": 6, "gap_before": 0.7, "text": "The clamps went. The holes stayed.",
+     "pitch": {"focus": ["clamps", "holes"], "ends": ["continue", "fall"]}},
 ]
 
 WALL_AT = [1500, 2080]                      # Piranesi: the outer arcades at the front
@@ -58,6 +64,7 @@ FILM = {
     "title": "Why is the Colosseum full of holes?",
     "script": SCRIPT,
     "voice": {"voice": "af_heart", "lang": "en-us", "speed": 1.15},
+    "prosody": {},                              # pitch planned and measured line by line, with the settings of tokens.json
     "hook": {"lines": ["Why is the Colosseum", "full of holes?"], "x": 60, "y": 200},
     "objects": [
         {"id": "view", "scan": PIRANESI, "rotate": 0, "crop": [20, 20, 3740, 2330],
@@ -65,41 +72,42 @@ FILM = {
          "enter": {"at": 0.0, "dur": 0.6, "from": [-140, 420], "tilt_from": -7, "scale_from": 1.12}},
         {"id": "photo", "scan": STJOHN, "rotate": 0, "crop": [40, 30, 3790, 2960],
          "centre": [545, 752], "width": 820, "tilt": 1.2, "z": 2,
-         "enter": {"at": "s1-0.2", "dur": 0.6, "from": [160, 440], "tilt_from": 6, "scale_from": 1.12}},
+         "enter": {"at": "s1-0.3", "dur": 0.6, "from": [160, 440], "tilt_from": 6, "scale_from": 1.12}},
         {"id": "book", "scan": SUARESIUS, "rotate": 0, "crop": [740, 1130, 2330, 2060],
          "centre": [530, 740], "width": 840, "tilt": -1.4, "z": 3,
          "enter": {"at": "s3-0.2", "dur": 0.6, "from": [-130, 460], "tilt_from": -6, "scale_from": 1.12}},
         {"id": "page", "scan": MIDDLETON, "rotate": 0, "crop": [150, 650, 2040, 1690],
          "centre": [540, 652], "width": 860, "tilt": 1.0, "z": 4,
-         "enter": {"at": "s5-0.2", "dur": 0.6, "from": [150, 460], "tilt_from": 6, "scale_from": 1.12}},
+         "enter": {"at": "s4-0.15", "dur": 0.6, "from": [150, 460], "tilt_from": 6, "scale_from": 1.12}},
         {"id": "note", "scan": MIDDLETON, "rotate": 0, "crop": [150, 2895, 2040, 3270],
          "centre": [535, 972], "width": 860, "tilt": -0.8, "z": 5,
-         "enter": {"at": "s7-0.2", "dur": 0.6, "from": [-130, 300], "tilt_from": -5, "scale_from": 1.12}},
+         "enter": {"at": "s6-0.2", "dur": 0.6, "from": [-130, 300], "tilt_from": -5, "scale_from": 1.12}},
         {"id": "close", "scan": STJOHN, "rotate": 0, "crop": [1350, 1250, 2850, 2400],
          "centre": [545, 745], "width": 840, "tilt": 1.0, "z": 6,
          "enter": {"at": "s8-0.2", "dur": 0.6, "from": [150, 460], "tilt_from": 6, "scale_from": 1.12}},
     ],
+    # picture events are tied to the word the voice is saying ("s2.word:dots"), so they land on it
     "loupe": {
         "radius": 215, "magnification": 3.0,
-        "fade_in": {"at": 0.35, "dur": 0.4}, "fade_out": {"at": "s7-0.1", "dur": 0.4},
+        "fade_in": {"at": 0.35, "dur": 0.4}, "fade_out": {"at": "s6-0.1", "dur": 0.4},
         "enter": [800, 560],
         "stops": [
             {"object": "view", "at": WALL_AT, "arrive": 1.6, "travel": 1.2, "bulge": 0.18},
-            {"object": "photo", "at": PIER_AT, "arrive": "s2+0.3", "travel": 1.3, "bulge": 0.12},
-            {"object": "book", "at": BARBARORUM_AT, "arrive": "s4+0.3", "travel": 1.2, "bulge": 0.1},
-            {"object": "page", "at": CLAMPS_AT, "arrive": "s5+1.1", "travel": 1.2, "bulge": 0.0},
+            {"object": "photo", "at": PIER_AT, "arrive": "s1.word:piers+0.15", "travel": 1.0, "bulge": 0.12},
+            {"object": "book", "at": BARBARORUM_AT, "arrive": "s3.word:barbarians", "travel": 1.2, "bulge": 0.1},
+            {"object": "page", "at": CLAMPS_AT, "arrive": "s5-0.1", "travel": 1.4, "bulge": 0.0},
         ],
     },
     "marks": [
-        {"id": "pier", "type": "ellipse", "object": "photo", "box": PIER_BOX, "draw": "s2+1.0", "dur": 0.7,
+        {"id": "pier", "type": "ellipse", "object": "photo", "box": PIER_BOX, "draw": "s2.word:dots", "dur": 0.6,
          "fade": {"at": "s3-0.2", "dur": 0.2}, "width": 2.6},
-        {"id": "barbarians", "type": "underline", "object": "book", "box": BARBARORUM_BOX, "draw": "s4+0.4",
-         "dur": 0.6, "fade": {"at": "s5-0.2", "dur": 0.2}, "width": 2.6},
-        {"id": "clamps", "type": "underline", "object": "page", "box": CLAMPS_BOX, "draw": "s6+1.5", "dur": 0.8,
+        {"id": "barbarians", "type": "underline", "object": "book", "box": BARBARORUM_BOX, "draw": "s3.word:barbarians+0.15",
+         "dur": 0.6, "fade": {"at": "s4-0.15", "dur": 0.2}, "width": 2.6},
+        {"id": "clamps", "type": "underline", "object": "page", "box": CLAMPS_BOX, "draw": "s5.word:clamps", "dur": 0.8,
          "fade": {"at": "s8-0.2", "dur": 0.2}, "width": 2.6},
-        {"id": "dugout", "type": "underline", "object": "note", "box": NOTE_BOX, "draw": "s7+1.6", "dur": 0.8,
+        {"id": "dugout", "type": "underline", "object": "note", "box": NOTE_BOX, "draw": "s7.word:dug", "dur": 0.8,
          "fade": {"at": "s8-0.2", "dur": 0.2}, "width": 2.6},
-        {"id": "pier2", "type": "ellipse", "object": "close", "box": PIER2_BOX, "draw": "s8+0.8", "dur": 0.7,
+        {"id": "pier2", "type": "ellipse", "object": "close", "box": PIER2_BOX, "draw": "s8.word:three", "dur": 0.7,
          "width": 2.6},
     ],
     "plate": {
@@ -109,22 +117,22 @@ FILM = {
         "source": "Middleton 1892 · Suaresius 1651 · The Met",
         "ours": "The marks and the 3x loupe are ours.",
         "x": 60, "y": 1098, "width": 820,
-        "in": {"at": "s8+1.0", "dur": 0.9}, "rise": 12,
-        "leader": {"from": "pier2", "at": "s8+1.7", "dur": 0.6},
+        "in": {"at": "s8.word:three+0.2", "dur": 0.9}, "rise": 12,
+        "leader": {"from": "pier2", "at": "s8.word:three+0.9", "dur": 0.6},
     },
     "camera": {"scale": [1.0, 1.05], "focus": [540, 860],
                "moves": [{"at": "s1", "dur": 3.0, "focus": [560, 800]}]},
     "credit": {"text": "The Met · Internet Archive · Synthetic voice",
                "at": "s9.end+0.3", "dur": 0.6, "x": 60, "bottom": 1524},
-    "stills": {"01_landing": 0.75, "02_view": 1.9, "03_photo": "s1+0.8", "04_pier": "s2.end-0.1",
-               "05_book": "s4.end-0.2", "06_page": "s6.end-0.1", "07_note": "s7.end-0.1",
+    "stills": {"01_landing": 0.75, "02_view": 1.9, "03_photo": "s1.end", "04_pier": "s2.end-0.05",
+               "05_book": "s3.end-0.3", "06_page": "s5.end-0.1", "07_note": "s7.end-0.1",
                "08_plate": "s8.end+0.2", "09_hold": "end-0.3"},
     # placeholder for the mock until the owner picks a track; "Suonatore di Liuto" by Kevin MacLeod, CC BY 4.0
     "music": {"file": "data/music/suonatore_di_liuto_kevin_macleod.mp3", "start": 0.2, "lufs": -30.0,
               "fade_in": 0.3, "fade_out": 1.5},
     "sound": [
-        {"type": "tick", "at": "s2+1.7"},              # the ring round the pier closes
-        {"type": "tick", "at": "s6+2.3"},              # the line under the clamps is drawn
-        {"type": "tick", "at": "s8+1.5"},              # the ring round the second pier closes
+        {"type": "tick", "at": "s2.word:dots+0.6"},        # the ring round the pier closes
+        {"type": "tick", "at": "s5.word:clamps+0.8"},      # the line under the clamps is drawn
+        {"type": "tick", "at": "s8.word:three+0.7"},       # the ring round the second pier closes
     ],
 }

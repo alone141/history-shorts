@@ -3,7 +3,7 @@
 A topic is one data module in topics/ (plus its sources). Everything else is
 here:
 
-    python -m engine.film <topic> voice      narration audio and the clock
+    python -m engine.film <topic> voice      narration audio and the clock (and, with "prosody", what the pitch does)
     python -m engine.film <topic> sound      voice + room tone + cues, with a levels report
     python -m engine.film <topic> stills     the frames listed in FILM["stills"]
     python -m engine.film <topic> accents    one still in every accent option
@@ -35,6 +35,9 @@ ROOT = Path(__file__).resolve().parents[1]
 TOKENS = json.loads((ROOT / "engine" / "tokens.json").read_text(encoding="utf-8"))
 
 
+PROSODY = {k: v for k, v in TOKENS.get("prosody", {}).items() if not k.startswith("_")}
+
+
 def load_topic(name: str) -> dict:
     return importlib.import_module(f"topics.{name}").FILM
 
@@ -52,7 +55,8 @@ def narrate(film: dict) -> dict:
     v = {**TOKENS["voice"], **film.get("voice", {})}        # a film may tighten its own lead-in, gaps and tail
     return voice.synthesise(film["script"], build_dir(film) / "voice", voice=v["voice"], lang=v["lang"],
                             speed=v["speed"], fps=TOKENS["frame"]["fps"], lead_in=v["lead_in_s"], gap=v["gap_s"], tail=v["tail_s"],
-                            tight=bool(v.get("tight", False)))
+                            tight=bool(v.get("tight", False)),
+                            prosody={**PROSODY, **film["prosody"]} if "prosody" in film else None)
 
 
 def cues(film: dict, narration: dict) -> list[dict]:
@@ -110,15 +114,23 @@ def timing_notes(narration: dict) -> list[str]:
             if not chunk.get("at_pause", True) and (chunk.get("spread_s") or 0) > 0.12]
 
 
+def pitch_problems(narration: dict) -> list[str]:
+    """Pitch movements the script asked for that the audio does not make (films with "prosody")."""
+    if "prosody" not in narration:
+        return []
+    from engine import pitch
+    return pitch.problems(narration)
+
+
 def check(film: dict, narration: dict) -> list[str]:
     if film["look"] == "phase":
         from engine import phase
         scene = phase.Scene(film, narration, samples=1)
         problems = scene.validate()
         scene.close()
-        return problems + timing_problems(narration)
+        return problems + timing_problems(narration) + pitch_problems(narration)
     from engine import table
-    return table.validate(table.load(film, narration)) + timing_problems(narration)
+    return table.validate(table.load(film, narration)) + timing_problems(narration) + pitch_problems(narration)
 
 
 def stills(film: dict, narration: dict, out_dir: Path, *, accent: str | None = None, names: list[str] | None = None,
@@ -186,6 +198,8 @@ def render(film: dict, *, accent: str | None = None, samples: int | None = None,
     contact_sheet(still_paths, out / "contact_sheet.jpg")
     shutil.copyfile(build_dir(film) / "voice" / "narration.json", fresh(out / "narration.json"))
     shutil.copyfile(build_dir(film) / "audio" / "mix.levels.json", fresh(out / "sound_levels.json"))
+    if (build_dir(film) / "voice" / "pitch.png").exists():
+        shutil.copyfile(build_dir(film) / "voice" / "pitch.png", fresh(out / "pitch.png"))
     save_text(out / "render.json", json.dumps({"video": info, "seconds": round(time.time() - started, 1)}, indent=1))
     return info
 
@@ -208,8 +222,18 @@ def main() -> None:
             print(f"  {s['id']:<4} {s['start_s']:6.2f} - {s['end_s']:6.2f}  {s['text']}")
             for c in s.get("chunks") or []:
                 print(f"         {c['start_s']:6.2f} - {c['end_s']:6.2f}  {c['text']}")
+            if s.get("pitch"):
+                from engine import pitch
+                print(f"         pitch: {pitch.summary(s)}")
         for note in timing_notes(narration):
             print("note:", note)
+        if narration.get("pitch"):
+            o = narration["pitch"]
+            print(f"pitch over the whole narration: spread {o['sd_st']} st (flat under 3, lively about 4, top of the human data 4.8); "
+                  f"10th to 90th percentile {o['p10_p90_st']} st; median {o['median_hz']} Hz")
+            for problem in pitch_problems(narration):
+                print("PITCH:", problem)
+            print("pitch sheet:", build_dir(film) / "voice" / "pitch.png")
         print("voice:", build_dir(film) / "voice" / "voice.wav")
     elif args.step == "sound":
         levels = mix(film, narration)

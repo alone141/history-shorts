@@ -8,6 +8,8 @@ with it.
     "s3.end"        end of sentence s3
     "s3.cue:name"   the moment inside s3 that the script marked as cue "name"
     "s3.chunk:1"    the start of caption chunk 1 of s3 (chunks count from 0)
+    "s3.word:piers" the moment the voice starts the word "piers" in s3 ("word:clamp#2" for its second
+                    occurrence); only in films whose narration is made with a "prosody" setting
     "start", "end"  first and last frame of the film
     any of these followed by +0.4 or -0.25 (seconds)
 
@@ -19,7 +21,7 @@ from __future__ import annotations
 import math
 import re
 
-_EXPR = re.compile(r"^\s*([A-Za-z_][\w]*)(?:\.(end|cue:[\w-]+|chunk:\d+))?\s*([+-]\s*\d+(?:\.\d+)?)?\s*$")
+_EXPR = re.compile(r"^\s*([A-Za-z_][\w]*)(?:\.(end|cue:[\w-]+|chunk:\d+|word:[\w'’-]+?(?:#\d+)?))?\s*([+-]\s*\d+(?:\.\d+)?)?\s*$")
 
 
 def resolve(expr: str | float | int, narration: dict) -> float:
@@ -47,6 +49,13 @@ def resolve(expr: str | float | int, narration: dict) -> float:
         if index >= len(chunks):
             raise KeyError(f"sentence {name!r} has no chunk {index} (expression {expr!r})")
         return float(chunks[index]["start_s"]) + shift
+    if part.startswith("word:"):
+        wanted, _, nth = part.split(":", 1)[1].partition("#")
+        plain = lambda w: re.sub(r"[^\w'’-]", "", w.lower()).strip("-'’")
+        hits = [w for w in sentence.get("words") or [] if plain(w["text"]) == plain(wanted)]
+        if len(hits) < int(nth or 1):
+            raise KeyError(f"sentence {name!r} has no word {wanted!r} (expression {expr!r})")
+        return float(hits[int(nth or 1) - 1]["start_s"]) + shift
     cue = part.split(":", 1)[1]
     if cue not in sentence.get("cues", {}):
         raise KeyError(f"sentence {name!r} has no cue {cue!r} (expression {expr!r})")
