@@ -12,6 +12,7 @@ engine/            everything shared by all films
   tokens.json        colours, type, safe areas, sound levels: the single source of design values
   timeline.py        times as expressions on the narration clock ("s3", "s4.cue:lintels", "s5+0.4")
   voice.py           narration (Kokoro) and the clock it defines
+  pitch.py           the narrator's intonation: planned per line, rendered through the model, measured from the audio
   sound.py           voice + room tone + code-made cues, with a levels report
   encode.py          H.264 MP4 (PyAV)
   files.py           safe file writing (see "This PC" below)
@@ -45,6 +46,10 @@ A topic is **one data module plus its sources**.
 3. For the phase model, a function that returns the model: prisms that survive (`matter`) and prisms that are inferred (`light`). See `topics/stonehenge/model.py`.
 4. `films/<id>/FACTS.md` and `CREDITS.md`.
 
+The narrator's pitch is part of the script. A film with `"prosody": {}` has every line's
+intonation planned, rendered and measured (see "The narrator's pitch" below); a line says what
+it wants under `"pitch"`, for example `{"focus": ["holes"]}` or `{"ends": ["continue"]}`.
+
 Then:
 
 ```
@@ -57,6 +62,29 @@ python -m engine.film <film> render
 ```
 
 Run from the repository root with the project environment (`.venv`).
+
+## The narrator's pitch
+
+Kokoro on its own ends most questions flat: on eight yes/no questions only one rose, and it often
+gives the last word of a phrase no pitch at all and lets it trail off. `engine/pitch.py` therefore
+sets the pitch itself. It writes a copy of the voice model (`models/kokoro/kokoro-v1.0-pitch.onnx`,
+built on first use, identical to the stock model when nothing is set) whose pitch curve, energy and
+phoneme lengths can be given, and for each line it:
+
+- widens the model's own movement about the line's median (`range`),
+- puts a pitch accent on the line's `focus` words,
+- ends each phrase by its punctuation: a yes/no question rises from a low on its last stressed
+  syllable, a statement or a what-question falls, a colon ends a little up; `"ends"` overrides this
+  (`"rise"`, `"fall"`, `"continue"`, `"keep"`),
+- then measures the audio with Praat's pitch tracker and reports every asked movement next to what
+  came out.
+
+`python -m engine.film <film> voice` prints that report and the spread of pitch over the whole
+narration, and writes `build/<film>/voice/pitch.png`, a drawing of every line's curve (the model
+alone, the curve set, the pitch heard). `check` and `render` stop on a movement that did not come
+out. The settings and their meaning are in `engine/tokens.json` under `"prosody"`. A narration made
+this way also knows when every word is spoken, so a picture event can be tied to a word:
+`"s2.word:dots"`.
 
 ## Setting up on another machine
 

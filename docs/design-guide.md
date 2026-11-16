@@ -156,6 +156,8 @@ Beat order that has worked: hook and subject in house light; the count; lights d
 
 No music. A silent beat of about two seconds before the turn. `python -m engine.film <topic> sound` writes the mix and a levels report; the render refuses to run if the report fails. A person must still listen: numbers cannot hear a squashed consonant or a cue that lands on the wrong word.
 
+**Pitch.** The narrator's intonation is set on purpose and measured, not left to the synthesiser (`engine/pitch.py`, switched on by `"prosody"` in the film). A yes/no question ends on a rise of about 7 semitones from a low on its last stressed syllable; a statement and a what-question fall; a line before a pause that is not finished ends a little up; one word per clause may carry an accent, and it should have a long voiced vowel ("iron", "holes", not "accepted" or "its"). The spread of pitch over a narration should be about 4 semitones (the synthesiser alone gives about 3, which reads as calm). Vary the shapes: a run of same-shaped statements is a fault, and so is a rise on every line. `film voice` reports each movement asked and heard, and draws the curves.
+
 At speed 1.05, about 77 spoken words give 36 seconds with the standard pauses. A film may shorten its own lead-in, gaps and tail (`"voice"` in the topic), and may ask for `"tight"` clips: the synthesiser ends every clip with about half a second of rumble too low to hear, so every pause otherwise runs that much longer than the script sets. With tight clips, 75 words give 26 seconds.
 
 ## 9. Captions, credits and labels

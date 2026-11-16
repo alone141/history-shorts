@@ -55,9 +55,43 @@ was made; the "so" part is my interpretation.
   it's not possible remove that line." Kokoro does not raise its pitch on most
   questions (measured: only "See the man on the donkey?" rose). So: avoid
   ending a line on a yes/no question; write it as a statement, or measure the
-  pitch before keeping it.
+  pitch before keeping it. (Superseded on 16 November 2026: questions are
+  wanted and the pitch engine now makes the rise; see the next section.)
 - I cannot hear audio. What worked: send short samples (voices, music mixed
   under the narration) and let the owner pick by number, instead of describing.
 - Process the owner accepted: Sonnet agents for source research and one
   hostile fact check, Haiku for FACTS/CREDITS/POST, renders of about 4 minutes
   run without asking. Run the fact check before the first render.
+
+**Pitch is mine to plan, set and check (16 November 2026, Colosseum film).**
+What was said: "You are the responsible one for pitch changes in the script.
+From now on it's one of the most important aspects of video generation. Redo
+the narration and script."
+Context: the owner had asked for two questions in the script ("Did you
+know ...?", "Can you see the piers?"). I sent a mock, reported a small measured
+rise on the second one, and asked the owner to listen for whether it landed as
+a question.
+
+My interpretation, to apply in every session here:
+- Do not hand a pitch question back to the owner. Decide what each line's pitch
+  should do, make it happen, measure it, and report the numbers.
+- The tool is `engine/pitch.py` (README, "The narrator's pitch"). A film sets
+  `"prosody": {}`; a script line carries `"pitch": {"focus": [...], "ends":
+  [...]}`. `film voice` prints each movement asked and heard and writes
+  `build/<film>/voice/pitch.png`. Look at that sheet before every render;
+  `check` and `render` stop on a movement that did not come out.
+- Why it was needed (measured): Kokoro alone raised 1 of 8 yes/no questions,
+  and no wording, punctuation, speed or voice changes that; it often gives the
+  last word of a phrase no pitch at all. So a question in a script only works
+  through the engine.
+- Write the script for pitch: a yes/no question rises; a what/why question
+  falls; a line cut before a pause ends on `"continue"`; one accent per clause,
+  on a word with a long voiced vowel ("iron", "holes", "people"; not
+  "accepted" or "stalls"); vary the shapes from line to line. Aim for a spread
+  of about 4 semitones over the narration (the model alone gave 3.0 on this
+  script, which the owner had called too calm).
+- I still cannot hear. What I can vouch for is the pitch measured in the audio,
+  not how natural it sounds; say that plainly when sending a film.
+- Process the owner accepted for this: a workflow with Sonnet agents (research
+  on intonation, a baseline measurement of the voice, three script writers and
+  three judges, then independent verification of the engine).
