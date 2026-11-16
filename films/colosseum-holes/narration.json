@@ -1,0 +1,103 @@
+{
+ "voice": "af_heart",
+ "lang": "en-us",
+ "speed": 1.15,
+ "sample_rate": 24000,
+ "fps": 30,
+ "duration_s": 35.3,
+ "frames": 1059,
+ "word_count": 100,
+ "cue_method": "sentence start + duration of synthesised prefix text - 0.08 s",
+ "sentences": [
+  {
+   "id": "s0",
+   "beat": 1,
+   "text": "Did you know the Colosseum is full of holes, and people made most of them?",
+   "say": "Did you know the Colosseum is full of holes, and people made most of them?",
+   "start_s": 0.4,
+   "end_s": 3.975,
+   "cues": {}
+  },
+  {
+   "id": "s1",
+   "beat": 2,
+   "text": "This photograph is from 1856.",
+   "say": "This photograph is from eighteen fifty-six.",
+   "start_s": 4.675,
+   "end_s": 6.769,
+   "cues": {}
+  },
+  {
+   "id": "s2",
+   "beat": 2,
+   "text": "Can you see the piers? The dark dots are holes.",
+   "say": "Can you see the piers? The dark dots are holes.",
+   "start_s": 7.069,
+   "end_s": 9.438,
+   "cues": {}
+  },
+  {
+   "id": "s3",
+   "beat": 3,
+   "text": "In 1651, this book weighed two suspects:",
+   "say": "In sixteen fifty-one, this book weighed two suspects:",
+   "start_s": 10.038,
+   "end_s": 12.735,
+   "cues": {}
+  },
+  {
+   "id": "s4",
+   "beat": 3,
+   "text": "barbarians, or the poles of market stalls.",
+   "say": "barbarians, or the poles of market stalls.",
+   "start_s": 12.885,
+   "end_s": 15.17,
+   "cues": {}
+  },
+  {
+   "id": "s5",
+   "beat": 4,
+   "text": "The accepted answer is on this page.",
+   "say": "The accepted answer is on this page.",
+   "start_s": 15.97,
+   "end_s": 17.783,
+   "cues": {}
+  },
+  {
+   "id": "s6",
+   "beat": 4,
+   "text": "The Romans tied the stone blocks together with iron clamps.",
+   "say": "The Romans tied the stone blocks together with iron clamps.",
+   "start_s": 18.183,
+   "end_s": 21.204,
+   "cues": {}
+  },
+  {
+   "id": "s7",
+   "beat": 5,
+   "text": "In the centuries after Rome fell, people dug the metal out, clamp by clamp.",
+   "say": "In the centuries after Rome fell, people dug the metal out, clamp by clamp.",
+   "start_s": 21.804,
+   "end_s": 25.779,
+   "cues": {}
+  },
+  {
+   "id": "s8",
+   "beat": 5,
+   "text": "By one estimate, the building used about 300 tons of metal.",
+   "say": "By one estimate, the building used about three hundred tons of metal.",
+   "start_s": 26.078,
+   "end_s": 29.485,
+   "cues": {}
+  },
+  {
+   "id": "s9",
+   "beat": 6,
+   "text": "To the diggers, the metal was worth more than the monument.",
+   "say": "To the diggers, the metal was worth more than the monument.",
+   "start_s": 30.185,
+   "end_s": 32.799,
+   "cues": {}
+  }
+ ]
+}
