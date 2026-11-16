@@ -1,7 +1,7 @@
 {
  "video": {
   "path": "/home/user/history-shorts/films/colosseum-holes/colosseum-holes.mp4",
-  "file_size": 32543192,
+  "file_size": 29125162,
   "top_level_atoms": [
    "ftyp",
    "moov",
@@ -9,8 +9,8 @@
    "mdat"
   ],
   "faststart": true,
-  "duration_s": 35.3,
-  "container_bit_rate": 7375227,
+  "duration_s": 29.133333,
+  "container_bit_rate": 7997756,
   "video": {
    "codec": "h264",
    "profile": "High",
@@ -18,9 +18,9 @@
    "width": 1080,
    "height": 1920,
    "fps": 30.0,
-   "frames": 1059,
-   "duration_s": 35.3,
-   "bit_rate": 7164497,
+   "frames": 874,
+   "duration_s": 29.133333333333333,
+   "bit_rate": 7787524,
    "constant_frame_rate": true,
    "max_keyframe_interval": 60,
    "color_primaries": "bt709",
@@ -33,11 +33,11 @@
    "profile": "LC",
    "sample_rate": 48000,
    "channels": 2,
-   "duration_s": 35.3,
-   "bit_rate": 202950
+   "duration_s": 29.133,
+   "bit_rate": 202294
   },
-  "video_frames_written": 1059,
-  "audio_samples_written": 1694400
+  "video_frames_written": 874,
+  "audio_samples_written": 1398400
  },
- "seconds": 225.4
+ "seconds": 313.7
 }

@@ -3,21 +3,21 @@
  "voice_lufs": -16.01,
  "voice_peak_dbfs": -1.76,
  "voice_true_peak_dbtp": -1.75,
- "voice_gain_db": 3.55,
+ "voice_gain_db": 3.79,
  "true_peak_guard_applied": true,
  "true_peak_guard_mode": "limiter",
- "true_peak_guard_db": 1.27,
- "mix_guard_db": 0.62,
- "mix_lufs": -16.54,
- "mix_true_peak_dbtp": -1.5,
+ "true_peak_guard_db": 2.04,
+ "mix_guard_db": 0.0,
+ "mix_lufs": -15.95,
+ "mix_true_peak_dbtp": -1.53,
  "room_rms_dbfs": -48.0,
  "cue_margin_db": 12.0,
- "duration_s": 35.3,
+ "duration_s": 29.13,
  "sample_rate": 48000,
  "cues": [
   {
    "type": "tick",
-   "t": 8.77,
+   "t": 5.91,
    "dur": 0.05,
    "peak_dbfs": -15.86,
    "margin_below_voice_peak_db": 14.1,
@@ -28,7 +28,7 @@
   },
   {
    "type": "tick",
-   "t": 20.48,
+   "t": 14.65,
    "dur": 0.05,
    "peak_dbfs": -15.86,
    "margin_below_voice_peak_db": 14.1,
@@ -39,7 +39,7 @@
   },
   {
    "type": "tick",
-   "t": 27.58,
+   "t": 22.63,
    "dur": 0.05,
    "peak_dbfs": -15.86,
    "margin_below_voice_peak_db": 14.1,
@@ -53,7 +53,7 @@
   "file": "data/music/suonatore_di_liuto_kevin_macleod.mp3",
   "start_s": 0.2,
   "lufs_target": -30.0,
-  "lufs": -29.98,
+  "lufs": -30.01,
   "covers_film": true
  },
  "checks": {
@@ -64,7 +64,7 @@
   "cue_loudness_margins": true,
   "length_matches_narration": true,
   "no_voice_peak_guard_needed": false,
-  "no_mix_peak_guard_needed": false
+  "no_mix_peak_guard_needed": true
  },
  "ok": true
 }
