@@ -90,8 +90,21 @@ My interpretation, to apply in every session here:
   "accepted" or "stalls"); vary the shapes from line to line. Aim for a spread
   of about 4 semitones over the narration (the model alone gave 3.0 on this
   script, which the owner had called too calm).
+- A question must be short (12 words at most) and end on a word the voice
+  keeps voiced. My first opening, "Did you know people made most of the
+  Colosseum's holes?", passed my own check and was wrong: an independent
+  re-measurement showed its rise was a 50 ms step on a breaking voice. "...
+  holes are man-made?" gave a clean 200 ms glide. So when the check says "a
+  step, not a glide", reword the line; do not turn the settings up.
+- Have the pitch checked by something other than my own code before sending.
+  The verification agents found what my checks had passed: the broken rise
+  above, falls I reported as measured that were only the curve I had set (the
+  model ends most statements in a creak nobody can measure), and crashes on
+  lines with digits. `film voice` now says "set, not heard" for those falls.
 - I still cannot hear. What I can vouch for is the pitch measured in the audio,
   not how natural it sounds; say that plainly when sending a film.
+- The engine is tuned for `af_heart` at 1.15 only. With `bm_fable` two of five
+  test questions got a real glide; the older films were not converted.
 - Process the owner accepted for this: a workflow with Sonnet agents (research
   on intonation, a baseline measurement of the voice, three script writers and
   three judges, then independent verification of the engine).

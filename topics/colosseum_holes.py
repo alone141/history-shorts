@@ -27,8 +27,9 @@ MIDDLETON = D + "middleton1892_vol2_p87_colosseum_clamps.jpg"
 # Each line carries its pitch plan (engine/pitch.py): "focus" words get a pitch accent, and a phrase ends by its
 # punctuation unless "ends" says otherwise (a yes/no question rises, a statement or a what-question falls).
 SCRIPT = [
-    {"id": "s0", "beat": 1, "text": "Did you know people made most of the Colosseum's holes?",
-     "pitch": {"focus": ["people"]}},
+    # the opening ends on "man-made" because that word carries a clean rise; "... people made most of the
+    # Colosseum's holes?" was tried first and its rise broke up on "holes" (a 50 ms step, not a glide)
+    {"id": "s0", "beat": 1, "text": "Did you know most of the Colosseum's holes are man-made?"},
     {"id": "s1", "beat": 2, "gap_before": 0.5, "text": "Can you see the piers?"},
     {"id": "s2", "beat": 2, "gap_before": 0.2, "text": "Those dark dots are holes!", "pitch": {"focus": ["holes"]}},
     {"id": "s3", "beat": 3, "gap_before": 0.7, "text": "In 1651, this page weighed barbarians against market stalls.",
@@ -111,9 +112,9 @@ FILM = {
          "width": 2.6},
     ],
     "plate": {
-        "label": "COLOSSEUM · CLAMPS DUG OUT AFTER ANTIQUITY",
+        "label": "COLOSSEUM · METAL USED TO BUILD IT",
         "reading": "about 300 tons",
-        "text": ["Metal used in the building, a modern estimate."],
+        "text": ["A modern estimate, not a measured figure."],
         "source": "Middleton 1892 · Suaresius 1651 · The Met",
         "ours": "The marks and the 3x loupe are ours.",
         "x": 60, "y": 1098, "width": 820,

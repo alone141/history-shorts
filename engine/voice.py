@@ -148,7 +148,10 @@ def _pitched_clip(item: dict, voice: str, lang: str, speed: float, cache_dir: Pa
     start, end = trim_bounds(take.audio, pitch.RATE, tight=tight)
     clip = take.audio[start:end].astype(np.float32, copy=True)
     offset = start / pitch.RATE
-    report = {"words": pitch.word_times(take, offset), "pitch": {"plan": _plan_summary(plan), **pitch.measure(take)},
+    length = clip.size / pitch.RATE               # the last sound of a line fades into silence that is trimmed off
+    words = [{**w, **{k: round(min(max(w[k], 0.0), length), 3) for k in ("start_s", "end_s", "stress_s")}}
+             for w in pitch.word_times(take, offset)]
+    report = {"words": words, "pitch": {"plan": _plan_summary(plan), **pitch.measure(take)},
               "curves": pitch.curves(take, offset)}
     cache_dir.mkdir(parents=True, exist_ok=True)
     sf.write(fresh(wav), clip, pitch.RATE, subtype="FLOAT")
@@ -316,8 +319,12 @@ def synthesise(script: list[dict], out_dir: str | Path, *, voice: str = "bm_fabl
             start = cursor + int(round(float(item.get("gap_before", gap)) * sample_rate))
         cues: dict[str, float] = {}
         for name, prefix in (item.get("cues") or {}).items():
-            prefix_clip, _ = _clip(prefix, voice, lang, speed, cache_dir, models, tight)
-            offset = max(0.0, prefix_clip.size / sample_rate + CUE_OFFSET_S)
+            if report is not None:               # a pitched clip knows when each of its words ends
+                said = report["words"][min(len(prefix.split()), len(report["words"])) - 1]
+                offset = max(0.0, said["end_s"] + CUE_OFFSET_S)
+            else:
+                prefix_clip, _ = _clip(prefix, voice, lang, speed, cache_dir, models, tight)
+                offset = max(0.0, prefix_clip.size / sample_rate + CUE_OFFSET_S)
             cues[name] = round(start / sample_rate + offset, 3)
         entry = {
             "id": item["id"],

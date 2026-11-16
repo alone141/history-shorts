@@ -72,19 +72,40 @@ built on first use, identical to the stock model when nothing is set) whose pitc
 phoneme lengths can be given, and for each line it:
 
 - widens the model's own movement about the line's median (`range`),
-- puts a pitch accent on the line's `focus` words,
+- puts a pitch accent on the line's `focus` words, counted from the words around them,
 - ends each phrase by its punctuation: a yes/no question rises from a low on its last stressed
-  syllable, a statement or a what-question falls, a colon ends a little up; `"ends"` overrides this
-  (`"rise"`, `"fall"`, `"continue"`, `"keep"`),
+  syllable, a statement or a question that opens on what/why/how falls, a colon ends a little up;
+  `"ends"` overrides this (`"rise"`, `"fall"`, `"continue"`, `"keep"`),
 - then measures the audio with Praat's pitch tracker and reports every asked movement next to what
   came out.
+
+What the report can and cannot say. A rise passes only if it is a glide: at least 4 semitones over at
+least 100 ms of unbroken clean voice (a rise that is only a short step after a gap fails). An accent
+passes if the vowel holds its height for 40 ms. A fall is different: the model ends most statements
+in a creak that no pitch tracker follows, with or without this engine, so most falls are reported as
+"set, ends in a creak (not heard)": the curve was set low, and nothing more can be measured. None of
+this says how natural the voice sounds; that takes ears.
+
+Writing for it (from 70 test lines and an independent re-measurement, November 2026):
+
+- A question: 12 words at most, one clause, and a last word the voice keeps voiced to the end:
+  "piers", "man-made", "damage", "iron", "Colosseum". On some last words the model trails off and
+  the rise breaks ("... most of the Colosseum's holes?" did); the check says so, and the cure is to
+  reword, not to raise the settings.
+- An accent: one per clause, on a word with a long voiced vowel, and not the last word of a falling
+  line if its vowel is short ("picks", "gap"). Two accents on neighbouring words flatten the second.
+- Figures need `"say"` in words. A line with digits is spoken, but its word times are approximate.
+- The settings were tested with `af_heart` at 1.15. With the older films' `bm_fable` only two of five
+  test questions got a real glide, so those films keep their narration until that voice is tuned.
+- The limits in `engine/pitch.py` (`LIMITS`) are where the tests stopped: a rise over 9 semitones or
+  a range over 1.6 makes the voice rough.
 
 `python -m engine.film <film> voice` prints that report and the spread of pitch over the whole
 narration, and writes `build/<film>/voice/pitch.png`, a drawing of every line's curve (the model
 alone, the curve set, the pitch heard). `check` and `render` stop on a movement that did not come
 out. The settings and their meaning are in `engine/tokens.json` under `"prosody"`. A narration made
 this way also knows when every word is spoken, so a picture event can be tied to a word:
-`"s2.word:dots"`.
+`"s2.word:dots"` (and a `"cues"` entry is timed from the same word times).
 
 ## Setting up on another machine
 

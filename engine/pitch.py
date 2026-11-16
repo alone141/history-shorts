@@ -15,7 +15,7 @@ over that curve, in semitones:
     range      the model's own movement about the line's median, scaled (1.3 = livelier)
     level      the whole line moved up or down
     focus      a pitch accent on chosen words: the stressed syllable is lifted to
-               at least `focus_st` above the line's median
+               at least `focus_st` above the words around it
     ends       what each phrase does at its end:
                  "rise"      low on the last stressed syllable, then up by `rise_st`
                              (a yes/no question)
@@ -37,6 +37,14 @@ result is then measured from the audio itself with Praat's pitch tracker, and
 every asked-for movement is reported next to what came out (`ok` false when it
 fell short). `sheet` draws the curves so they can be looked at.
 
+What a pass means. A rise passes only as a glide: at least HEARD_RISE_ST
+semitones over at least MIN_GLIDE_MS of unbroken clean voice; a short step
+after a gap fails, whatever the first and last values say. An accent passes if
+its vowel holds the height for 40 ms over the words around it. A fall is
+reported as heard only where there is voice to hear: the model ends most
+statements in a creak that no tracker follows, shaped or not, and those are
+reported as set, not heard. Nothing here measures how natural the voice sounds.
+
 A script line carries its plan under "pitch"; a film switches the engine on with
 a "prosody" dictionary (its values override tokens.json "prosody"):
 
@@ -51,6 +59,7 @@ from __future__ import annotations
 import difflib
 import json
 import math
+import os
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -65,7 +74,7 @@ VOICED_HZ = 50.0           # the model writes 0 where there is no voice
 LEAD = 4                   # curve points by which the sound runs ahead of the reported phoneme frames
 SOUND_BELOW_PEAK_DB = 32.0 # quieter than this under the clip's loudest moment is not speech
 HISS_SHARE = 0.35          # more of the energy than this above 4 kHz is a hiss (s, f, sh), not a voice
-ENGINE_VERSION = "13"       # part of the clip cache key: bump when the shaping changes
+ENGINE_VERSION = "16"       # part of the clip cache key: bump when the shaping changes
 MODEL_NAME, EDITABLE_NAME = "kokoro-v1.0.onnx", "kokoro-v1.0-pitch.onnx"
 
 STRESS = "ˈˌ"
@@ -82,10 +91,16 @@ DEFAULTS = {
     "fall_st": 4.0, "continue_st": 2.5, "continue_energy": -1.0,
     "floor_st": -8.0, "ceiling_st": 10.0,       # about as low and as high as this voice goes by itself
 }
+# The settings were tested inside these limits; outside them the voice gets rough (rises over about 9
+# semitones, movement scaled over 1.6) or the setting stops meaning anything.
+LIMITS = {"range": (0.5, 1.6), "focus_st": (0.0, 8.0), "stretch": (1.0, 1.3), "rise_st": (4.0, 9.0), "rise_stretch": (1.0, 1.3),
+          "fall_st": (0.0, 8.0), "continue_st": (0.0, 5.0)}
+OPENERS = {"so", "and", "but", "then", "well", "now", "ok", "okay"}
 # how far a measured movement may fall short of what was asked and still pass
 TOLERANCE = {"rise": 0.75, "fall_st": 1.0, "continue": 0.6, "focus_st": 1.0}
 HEARD_RISE_ST = 4.0        # under this a final rise is too small to be heard as a question
 ACCENT_MARGIN_ST = 0.5     # short peaks are heard a little under the pitch set, so an accent is set this much over
+MIN_GLIDE_MS = 100         # a question's rise has to climb over at least this long a stretch of unbroken clean voice
 CLEAN_RISE_SHARE = 0.55    # at least this share of a question's rise has to be cleanly voiced
 FOLLOW_ST = 1.5            # the audio "follows" the curve it was rendered from when it is this close to it
 
@@ -133,13 +148,9 @@ def editable_model(model_dir: str | Path) -> Path:
         graph.output.append(helper.make_empty_tensor_value_info(name))
     del graph.node[:]
     graph.node.extend(nodes)
-    part = dst.with_name(dst.name + ".part")
-    if part.exists():
-        part.unlink()
+    part = dst.with_name(f"{dst.name}.{os.getpid()}.part")       # its own name, so two builders cannot cut across each other
     onnx.save(model, str(part))
-    if dst.exists():
-        dst.unlink()
-    part.replace(dst)
+    os.replace(part, dst)
     return dst
 
 
@@ -181,7 +192,7 @@ class Phrase:
 
 
 def _plain(word: str) -> str:
-    return re.sub(r"[^\w'’-]", "", word.lower()).strip("-'’")
+    return re.sub(r"[^\w'-]", "", word.lower().replace("’", "'")).strip("-'")
 
 
 def _strip(phonemes: str) -> str:
@@ -193,35 +204,55 @@ def _word_spans(phonemes: str) -> list[tuple[int, int]]:
 
 
 def align_words(text: str, phonemes: str, phonemize) -> list[tuple[int, int]]:
-    """Phoneme span of every written word. The phonemizer sometimes runs two words together ("in the")."""
+    """Phoneme span of every written word.
+
+    Usually the phonemizer gives one group of phonemes per written word. It runs some pairs together ("in the"),
+    reads a figure as several words ("1651"), and drops a dash that stands alone; those cases are matched by how
+    each written word sounds on its own. If nothing fits, the groups are shared out in order: word times are
+    then approximate, and nothing stops.
+    """
     written, spans = text.split(), _word_spans(phonemes)
-    if len(written) == len(spans):
-        return spans
-    alone = [_strip(phonemize(w)) or "?" for w in written]
-    heard = [_strip(phonemes[a:b]) for a, b in spans]
-    n, m, reach = len(written), len(spans), 3
-    cost = np.full((n + 1, m + 1), np.inf)
-    back = np.zeros((n + 1, m + 1), dtype=int)
-    cost[0, 0] = 0.0
-    for i in range(1, n + 1):
-        for j in range(1, m + 1):
-            for k in range(1, min(reach, i) + 1):          # k written words in one spoken group
-                if not np.isfinite(cost[i - k, j - 1]):
-                    continue
-                c = cost[i - k, j - 1] + 1.0 - difflib.SequenceMatcher(None, "".join(alone[i - k:i]), heard[j - 1]).ratio()
-                if c < cost[i, j]:
-                    cost[i, j], back[i, j] = c, k
-    if not np.isfinite(cost[n, m]):
-        raise ValueError(f"cannot match the words of {text!r} to its phonemes {phonemes!r}")
-    out: list[tuple[int, int]] = [(0, 0)] * n
-    i, j = n, m
-    while i > 0:
-        k = int(back[i, j])
-        a, b = spans[j - 1]
-        shares = np.cumsum([0] + [len(alone[x]) for x in range(i - k, i)]) / max(1, sum(len(alone[x]) for x in range(i - k, i)))
-        for step, x in enumerate(range(i - k, i)):
-            out[x] = (a + int(round(shares[step] * (b - a))), a + int(round(shares[step + 1] * (b - a))))
-        i, j = i - k, j - 1
+    real = [i for i, w in enumerate(written) if re.search(r"\w", w)]       # a lone dash or quote mark makes no sound
+    n, m = len(real), len(spans)
+    placed: list[tuple[int, int]] = [(0, 0)] * n
+    if n == m:
+        placed = list(spans)
+    elif n and m:
+        alone = [_strip(phonemize(written[i])) or "?" for i in real]
+        heard = [_strip(phonemes[a:b]) for a, b in spans]
+        unlike = lambda x, y: 1.0 - difflib.SequenceMatcher(None, x, y).ratio()
+        cost = np.full((n + 1, m + 1), np.inf)
+        back = np.zeros((n + 1, m + 1, 2), dtype=int)
+        cost[0, 0] = 0.0
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                steps = [(k, 1) for k in range(1, min(3, i) + 1)] + [(1, g) for g in range(2, min(6, j) + 1)]
+                for k, g in steps:               # k written words in one spoken group, or one written word in g groups
+                    if np.isfinite(cost[i - k, j - g]):
+                        c = cost[i - k, j - g] + unlike("".join(alone[i - k:i]), "".join(heard[j - g:j]))
+                        if c < cost[i, j]:
+                            cost[i, j], back[i, j] = c, (k, g)
+        if np.isfinite(cost[n, m]):
+            i, j = n, m
+            while i > 0:
+                k, g = (int(v) for v in back[i, j])
+                a, b = spans[j - g][0], spans[j - 1][1]
+                sizes = [len(alone[x]) for x in range(i - k, i)]
+                shares = np.cumsum([0] + sizes) / max(1, sum(sizes))
+                for step, x in enumerate(range(i - k, i)):
+                    placed[x] = (a + int(round(shares[step] * (b - a))), a + int(round(shares[step + 1] * (b - a))))
+                i, j = i - k, j - g
+        else:
+            edges = np.linspace(0, m, n + 1).round().astype(int)
+            for x in range(n):
+                first, last = min(edges[x], m - 1), min(max(edges[x + 1], edges[x] + 1), m) - 1
+                placed[x] = (spans[first][0], spans[last][1])
+    out, end = [], 0
+    by_index = dict(zip(real, placed))
+    for i in range(len(written)):
+        span = by_index.get(i, (end, end))       # a mark without sound sits where the word before it ends
+        out.append(span)
+        end = span[1]
     return out
 
 
@@ -273,16 +304,28 @@ def lay_out(text: str, phonemes: str, phonemize) -> tuple[list[Word], list[Phras
 # ------------------------------------------------------------------ the plan
 def plan_for(item: dict, prosody: dict | None) -> dict:
     """The full plan of one script line: the film's settings, then the line's own "pitch"."""
-    plan = {**DEFAULTS, **{k: v for k, v in (prosody or {}).items() if k in DEFAULTS}}
+    settings = {k: v for k, v in (prosody or {}).items() if not k.startswith("_")}
     own = dict(item.get("pitch") or {})
+    where = f"line {item.get('id')!r}"
+    for name, given in (("the film's prosody", settings), (f"{where} pitch", {k: v for k, v in own.items() if k not in ("focus", "ends", "end")})):
+        unknown = sorted(set(given) - set(DEFAULTS))
+        if unknown:
+            raise ValueError(f"{name}: unknown setting {unknown}; a line may give focus, ends and {sorted(DEFAULTS)}")
+    plan = {**DEFAULTS, **{k: float(v) for k, v in settings.items()}}
     for key in DEFAULTS:
         if key in own:
             plan[key] = float(own[key])
+    for key, (low, high) in LIMITS.items():
+        if not low <= plan[key] <= high:
+            raise ValueError(f"{where}: {key} is {plan[key]}; it was only tested from {low} to {high}")
     focus = []
     for f in own.get("focus", []):
         f = {"word": f} if isinstance(f, str) else dict(f)
-        focus.append({"word": f["word"], "nth": int(f.get("nth", 1)), "st": float(f.get("st", plan["focus_st"])),
-                      "stretch": float(f.get("stretch", plan["stretch"]))})
+        entry = {"word": f["word"], "nth": int(f.get("nth", 1)), "st": float(f.get("st", plan["focus_st"])),
+                 "stretch": float(f.get("stretch", plan["stretch"]))}
+        if entry["nth"] < 1 or not LIMITS["focus_st"][0] <= entry["st"] <= LIMITS["focus_st"][1]:
+            raise ValueError(f"{where}: focus {f!r}: nth counts from 1 and st runs from {LIMITS['focus_st'][0]} to {LIMITS['focus_st'][1]}")
+        focus.append(entry)
     plan["focus"] = focus
     ends = own.get("ends", own.get("end"))
     if isinstance(ends, str):
@@ -296,8 +339,12 @@ def plan_for(item: dict, prosody: dict | None) -> dict:
 
 def _default_end(phrase: Phrase, words: list[Word]) -> str:
     if phrase.mark == "?":
+        # a question that opens on a question word falls ("So what is the answer?"); every other one rises,
+        # also one with such a word inside it ("Is this what the clamps did?")
         opening = [_plain(w.text) for w in words[phrase.first_of_sentence:phrase.first_of_sentence + 3]]
-        return "fall" if any(w in WH_WORDS for w in opening) else "rise"
+        while len(opening) > 1 and opening[0] in OPENERS:
+            opening = opening[1:]
+        return "fall" if opening and opening[0] in WH_WORDS else "rise"
     if phrase.mark in (".", "!"):
         return "fall"
     if phrase.mark == ":":
@@ -452,14 +499,28 @@ def shape(base_hz: np.ndarray, energy: np.ndarray, audio: np.ndarray, phonemes: 
         # The model's own accent keeps its shape (a peak early in the vowel, then down) and is raised as a
         # whole: by as much as it takes for the vowel to stay at the asked height for 40 ms, since a peak of a
         # single point is not heard. The lift is full over the first half of the vowel and eases off around it.
-        values = np.sort(target[v0:v1][np.isfinite(target[v0:v1])])
-        held = float(values[-min(3, values.size)])
-        need = max(0.0, level + f["st"] + ACCENT_MARGIN_ST - held)
-        if need > 0.1:
-            half, left, right = v0 + 0.5 * (v1 - v0), v0 - 5, v1 + 3
-            weight = np.where(t < v0, (t - left) / max(1.0, v0 - left), np.where(t > half, (right - t) / max(1.0, right - half), 1.0))
-            target = target + need * (0.5 - 0.5 * np.cos(np.pi * np.clip(weight, 0.0, 1.0)))
-        entry.update(added_st=round(need, 2), frames=[v0, v1])
+        # An accent is heard against the words around it, so its height counts from their level (the median
+        # of the half second either side), not from the line's.
+        near = [[max(0, min(a, v0) - 40), max(0, min(a, v0) - 2)], [min(total, max(b, v1) + 2), min(total, max(b, v1) + 40)]]
+        around = _median(np.concatenate([target[i:j] for i, j in near]), level)
+        goal = min(around + f["st"] + ACCENT_MARGIN_ST, plan["ceiling_st"])
+        half, left, right = v0 + 0.5 * (v1 - v0), v0 - 5, v1 + 3
+        weight = np.where(t < v0, (t - left) / max(1.0, v0 - left), np.where(t > half, (right - t) / max(1.0, right - half), 1.0))
+        weight = 0.5 - 0.5 * np.cos(np.pi * np.clip(weight, 0.0, 1.0))
+
+        def held(lift: float) -> float:          # the height the vowel keeps for 40 ms with this much lift
+            values = np.sort((target + lift * weight)[v0:v1])
+            values = values[np.isfinite(values)]
+            return float(values[-min(3, values.size)])
+
+        low_lift, need = 0.0, 0.0
+        if held(0.0) < goal:
+            need = 14.0
+            for _ in range(24):                  # the smallest lift that gets there
+                middle = (low_lift + need) / 2
+                low_lift, need = (middle, need) if held(middle) < goal else (low_lift, middle)
+            target = target + need * weight
+        entry.update(added_st=round(need, 2), frames=[v0, v1], near=near)
         planned["focus"].append(entry)
 
     # phrase endings
@@ -535,7 +596,11 @@ def shape(base_hz: np.ndarray, energy: np.ndarray, audio: np.ndarray, phonemes: 
         entry["frames"] = [int(first), int(last)]
         planned["phrases"].append(entry)
 
-    target = np.clip(target, plan["floor_st"], plan["ceiling_st"])
+    # the plan may not push the voice beyond its limits, but where the model itself goes beyond them (a creaky
+    # ending far below the floor) the model's own value stands: with nothing asked, nothing is changed
+    lowest = np.where(voiced, np.fmin(plan["floor_st"], base), plan["floor_st"])       # points given a pitch have no value of the model's
+    highest = np.where(voiced, np.fmax(plan["ceiling_st"], base), plan["ceiling_st"])
+    target = np.clip(target, lowest, highest)
     delta = np.where(voiced, target - base, np.nan)
     known = np.flatnonzero(np.isfinite(delta))
     delta = np.interp(np.arange(total), known, delta[known])        # carry the change across unvoiced stretches
@@ -662,29 +727,52 @@ def measure(take: Take) -> dict:
         a, b = max(0, a), min(heard.size, b)
         return heard[a:b][follows[a:b]]
 
+    def glide(first: int, last: int) -> tuple[float, float]:
+        """The last unbroken stretch of clean voice in [first, last]: its length in ms and how far it climbs (st)."""
+        idx = np.flatnonzero(follows[max(0, first - 1):last + 2]) + max(0, first - 1)
+        if idx.size < 3:
+            return 0.0, 0.0
+        start = idx.size - 1
+        while start > 0 and idx[start] - idx[start - 1] <= 2:        # a single missing point does not break it
+            start -= 1
+        run = heard[idx[start:]]
+        return float((idx[-1] - idx[start] + 1) * F0_STEP_S * 1000.0), _st(float(np.median(run[-3:])), float(run.min()))
+
     for entry in planned["phrases"]:
         got = {k: entry.get(k) for k in ("end", "mark", "on", "asked_st")}
         if "frames" not in entry:
-            out["phrases"].append({**got, "note": entry.get("note", "left as the model spoke it")})
+            if entry["end"] == "keep":
+                out["phrases"].append({**got, "note": "left as the model spoke it"})
+            else:                                 # asked for, and there was nothing to carry it
+                out["phrases"].append({**got, "ok": False, "note": entry.get("note", "could not be carried out")})
+                out["ok"] = False
             continue
         first, last = entry["frames"]
         tail, end = pitches(first - 1, last + 2), pitches(max(first, last - 6), last + 2)       # the end: the last 90 ms
         if entry["end"] == "fall":
-            # a statement may end in a creak no tracker follows: then the curve it was rendered from stands in
             set_end = take.set_hz[max(first, last - 3):last + 1]
-            end_hz = float(np.median(end)) if end.size else float(np.median(set_end[set_end > VOICED_HZ]))
-            got["got_st"] = round(_st(end_hz, line), 2)
-            got["ok"] = got["got_st"] <= entry["asked_st"] + TOLERANCE["fall_st"]
-            if not end.size:
-                got["note"] = "ends in a creak: the level is the one set, not one heard"
+            got["set_st"] = round(_st(float(np.median(set_end[set_end > VOICED_HZ])), line), 2) if (set_end > VOICED_HZ).any() else None
+            if end.size:
+                got["got_st"] = round(_st(float(np.median(end)), line), 2)
+                got["ok"] = got["got_st"] <= entry["asked_st"] + TOLERANCE["fall_st"]
+            else:
+                # The model ends most statements in a creak that no tracker follows, shaped or not. The curve was
+                # set low enough or it was not; what is heard there cannot be put in semitones.
+                got["ok"] = got["set_st"] is not None and got["set_st"] <= entry["asked_st"] + TOLERANCE["fall_st"]
+                got["note"] = "ends in a creak, as the model does by itself: set, not heard"
         elif tail.size < 4 or end.size < 2:
             got.update(ok=False, note="the ending is not voiced clearly enough to hear the movement")
         elif entry["end"] == "rise":
             got["got_st"] = round(_st(float(np.median(end)), float(np.percentile(tail, 10))), 2)
             got["end_level_st"] = round(_st(float(np.median(end)), line), 2)
             got["voiced"] = round(float(follows[first:last + 1].mean()), 2)      # share of the rise that is cleanly voiced
+            length, climb = glide(first, last)
+            got["glide_ms"], got["glide_st"] = round(length), round(climb, 2)
             got["ok"] = got["got_st"] >= max(HEARD_RISE_ST, TOLERANCE["rise"] * entry["asked_st"])
-            if got["ok"] and got["voiced"] < CLEAN_RISE_SHARE:
+            if got["ok"] and (length < MIN_GLIDE_MS or climb < HEARD_RISE_ST):
+                got.update(ok=False, note=f"the rise is a step, not a glide: its last unbroken stretch of clean voice is {length:.0f} ms "
+                                          f"and climbs {climb:.1f} st (wanted: {MIN_GLIDE_MS} ms and {HEARD_RISE_ST} st)")
+            elif got["ok"] and got["voiced"] < CLEAN_RISE_SHARE:
                 got.update(ok=False, note=f"the rise is creaky: only {got['voiced']:.0%} of it is heard at the pitch set")
         else:                                     # continue: the end against the start of the lifted stretch
             got["got_st"] = round(_st(float(np.median(pitches(last - 3, last + 2)) if pitches(last - 3, last + 2).size else np.median(end)),
@@ -704,8 +792,9 @@ def measure(take: Take) -> dict:
             out["focus"].append({**got, "ok": False, "note": entry.get("note", "not voiced clearly enough to measure")})
             out["ok"] = False
             continue
-        got["got_st"] = round(_st(float(np.sort(peak)[-min(3, peak.size)]), line), 2)      # the height held for 40 ms
-        got["ok"] = got["got_st"] >= entry["asked_st"] - TOLERANCE["focus_st"]
+        around = np.concatenate([pitches(i, j) for i, j in entry["near"]])
+        got["got_st"] = round(_st(float(np.sort(peak)[-min(3, peak.size)]), float(np.median(around)) if around.size else line), 2)
+        got["ok"] = got["got_st"] >= entry["asked_st"] - TOLERANCE["focus_st"]      # the height held for 40 ms, over the words around
         out["ok"] = out["ok"] and got["ok"]
         out["focus"].append(got)
     return out
@@ -714,7 +803,10 @@ def measure(take: Take) -> dict:
 def curves(take: Take, offset_s: float = 0.0) -> dict:
     """The curves of a take for the sheet: the model's own, the planned one, and the one heard in the audio."""
     t = np.arange(take.base_hz.size) * F0_STEP_S - offset_s
-    heard, follows = follow(take)
+    if take.planned.get("ref_hz"):
+        heard, follows = follow(take)
+    else:                                        # a line with no voiced sound has no pitch to draw
+        heard, follows = np.full(take.base_hz.size, np.nan), np.zeros(take.base_hz.size, bool)
     keep = lambda values: [round(float(v), 1) if np.isfinite(v) and v > VOICED_HZ else None for v in values]
     return {"ref_hz": take.planned.get("ref_hz") or 200.0, "t": [round(float(v), 4) for v in t],
             "model_hz": keep(take.base_hz), "set_hz": keep(take.set_hz), "heard_hz": keep(heard),
@@ -738,8 +830,15 @@ def overall(curves_by_id: dict) -> dict:
 
 
 def word_times(take: Take, offset_s: float = 0.0) -> list[dict]:
+    """When each word starts and ends (its punctuation, which the model turns into silence, not counted)."""
+    def last_sound(w: Word) -> int:
+        end = w.span[1]
+        while end - 1 > w.span[0] and take.phonemes[end - 1] in MAJOR + MINOR:
+            end -= 1
+        return end
+
     return [{"text": w.text, "start_s": round(take.time_of(w.span[0]) - offset_s, 3),
-             "end_s": round(take.time_of(w.span[1]) - offset_s, 3),
+             "end_s": round(take.time_of(last_sound(w)) - offset_s, 3),
              "stress_s": round(take.time_of(w.stress) - offset_s, 3)} for w in take.words]
 
 
@@ -754,11 +853,13 @@ def problems(narration: dict) -> list[str]:
             out.append(f"pitch {s['id']}: {p['note']}")
         for phrase in p.get("phrases", []):
             if phrase.get("ok") is False:
-                out.append(f"pitch {s['id']}: the {phrase['end']} on {phrase.get('on')!r} measured {phrase.get('got_st')} st, "
-                           f"asked {phrase.get('asked_st')} st" + (f" ({phrase['note']})" if phrase.get("note") else ""))
+                heard = f"measured {phrase['got_st']} st, " if phrase.get("got_st") is not None else ""
+                out.append(f"pitch {s['id']}: the {phrase['end']} on {phrase.get('on')!r}: {heard}asked {phrase.get('asked_st')} st"
+                           + (f" ({phrase['note']})" if phrase.get("note") else ""))
         for f in p.get("focus", []):
             if f.get("ok") is False:
-                out.append(f"pitch {s['id']}: the accent on {f['word']!r} measured {f.get('got_st')} st above the line, asked {f.get('asked_st')} st")
+                out.append(f"pitch {s['id']}: the accent on {f['word']!r} measured {f.get('got_st')} st over the words around it, "
+                           f"asked {f.get('asked_st')} st" + (f" ({f['note']})" if f.get("note") else ""))
     return out
 
 
@@ -769,13 +870,22 @@ def summary(sentence: dict) -> str:
         return ""
     parts = [f"range {p['range_st']:.1f} st (model alone {p['model_range_st']:.1f})"]
     for phrase in p["phrases"]:
-        if phrase.get("got_st") is None:
+        if phrase["end"] == "keep":
             continue
         mark = "ok" if phrase.get("ok") else "SHORT"
-        parts.append(f"{phrase['end']} on \"{phrase['on']}\" {phrase['got_st']:+.1f} st {mark}")
+        name = f"{phrase['end']} on \"{phrase['on']}\""
+        if phrase.get("got_st") is None:
+            parts.append(f"{name} set {phrase['set_st']:+.1f} st, ends in a creak (not heard)" if phrase.get("set_st") is not None
+                         else f"{name} SHORT")
+        elif phrase["end"] == "rise":
+            parts.append(f"{name} {phrase['got_st']:+.1f} st, a {phrase['glide_ms']} ms glide {mark}")
+        else:
+            parts.append(f"{name} {phrase['got_st']:+.1f} st {mark}")
     for f in p["focus"]:
         if f.get("got_st") is not None:
             parts.append(f"accent \"{f['word']}\" {f['got_st']:+.1f} st {'ok' if f.get('ok') else 'SHORT'}")
+        elif f.get("ok") is False:
+            parts.append(f"accent \"{f['word']}\" SHORT")
     return "; ".join(parts)
 
 

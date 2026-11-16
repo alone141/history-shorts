@@ -51,8 +51,10 @@ def resolve(expr: str | float | int, narration: dict) -> float:
         return float(chunks[index]["start_s"]) + shift
     if part.startswith("word:"):
         wanted, _, nth = part.split(":", 1)[1].partition("#")
-        plain = lambda w: re.sub(r"[^\w'’-]", "", w.lower()).strip("-'’")
+        plain = lambda w: re.sub(r"[^\w'-]", "", w.lower().replace("’", "'")).strip("-'")
         hits = [w for w in sentence.get("words") or [] if plain(w["text"]) == plain(wanted)]
+        if int(nth or 1) < 1:
+            raise ValueError(f"occurrences count from 1 (expression {expr!r})")
         if len(hits) < int(nth or 1):
             raise KeyError(f"sentence {name!r} has no word {wanted!r} (expression {expr!r})")
         return float(hits[int(nth or 1) - 1]["start_s"]) + shift
