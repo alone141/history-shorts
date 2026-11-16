@@ -25,17 +25,16 @@ SUARESIUS = D + "suaresius1651_p4_colosseum_holes.jpg"
 MIDDLETON = D + "middleton1892_vol2_p87_colosseum_clamps.jpg"
 
 SCRIPT = [
-    {"id": "s0", "beat": 1, "text": "The Colosseum is full of holes, and people made most of them.",
-     "say": "The Colosseum is full of holes, and people made most of them!"},
+    {"id": "s0", "beat": 1, "text": "Did you know the Colosseum is full of holes, and people made most of them?"},
     {"id": "s1", "beat": 2, "gap_before": 0.7, "text": "This photograph is from 1856.",
      "say": "This photograph is from eighteen fifty-six."},
-    {"id": "s2", "beat": 2, "gap_before": 0.3, "text": "Look at the piers. The dark dots are holes."},
+    {"id": "s2", "beat": 2, "gap_before": 0.3, "text": "Can you see the piers? The dark dots are holes."},
     {"id": "s3", "beat": 3, "gap_before": 0.6, "text": "In 1651, this book weighed two suspects:",
      "say": "In sixteen fifty-one, this book weighed two suspects:"},
     {"id": "s4", "beat": 3, "gap_before": 0.15, "text": "barbarians, or the poles of market stalls.",
      "say": "barbarians, or the poles of market stalls."},
-    {"id": "s5", "beat": 4, "gap_before": 0.8, "text": "The accepted answer is on this page: iron clamps, set in lead."},
-    {"id": "s6", "beat": 4, "gap_before": 0.5, "text": "The Romans used them to tie the stone blocks together."},
+    {"id": "s5", "beat": 4, "gap_before": 0.8, "text": "The accepted answer is on this page."},
+    {"id": "s6", "beat": 4, "gap_before": 0.4, "text": "The Romans tied the stone blocks together with iron clamps."},
     {"id": "s7", "beat": 5, "gap_before": 0.6,
      "text": "In the centuries after Rome fell, people dug the metal out, clamp by clamp."},
     {"id": "s8", "beat": 5, "gap_before": 0.3, "text": "By one estimate, the building used about 300 tons of metal.",
@@ -88,7 +87,7 @@ FILM = {
             {"object": "view", "at": WALL_AT, "arrive": 1.6, "travel": 1.2, "bulge": 0.18},
             {"object": "photo", "at": PIER_AT, "arrive": "s2+0.3", "travel": 1.3, "bulge": 0.12},
             {"object": "book", "at": BARBARORUM_AT, "arrive": "s4+0.3", "travel": 1.2, "bulge": 0.1},
-            {"object": "page", "at": CLAMPS_AT, "arrive": "s5+1.7", "travel": 1.2, "bulge": 0.0},
+            {"object": "page", "at": CLAMPS_AT, "arrive": "s5+1.1", "travel": 1.2, "bulge": 0.0},
         ],
     },
     "marks": [
@@ -96,7 +95,7 @@ FILM = {
          "fade": {"at": "s3-0.2", "dur": 0.2}, "width": 2.6},
         {"id": "barbarians", "type": "underline", "object": "book", "box": BARBARORUM_BOX, "draw": "s4+0.4",
          "dur": 0.6, "fade": {"at": "s5-0.2", "dur": 0.2}, "width": 2.6},
-        {"id": "clamps", "type": "underline", "object": "page", "box": CLAMPS_BOX, "draw": "s5+2.0", "dur": 0.8,
+        {"id": "clamps", "type": "underline", "object": "page", "box": CLAMPS_BOX, "draw": "s6+1.5", "dur": 0.8,
          "fade": {"at": "s8-0.2", "dur": 0.2}, "width": 2.6},
         {"id": "dugout", "type": "underline", "object": "note", "box": NOTE_BOX, "draw": "s7+1.6", "dur": 0.8,
          "fade": {"at": "s8-0.2", "dur": 0.2}, "width": 2.6},
@@ -118,11 +117,14 @@ FILM = {
     "credit": {"text": "The Met · Internet Archive · Synthetic voice",
                "at": "s9.end+0.3", "dur": 0.6, "x": 60, "bottom": 1524},
     "stills": {"01_landing": 0.75, "02_view": 1.9, "03_photo": "s1+0.8", "04_pier": "s2.end-0.1",
-               "05_book": "s4.end-0.2", "06_page": "s6+0.5", "07_note": "s7.end-0.1",
+               "05_book": "s4.end-0.2", "06_page": "s6.end-0.1", "07_note": "s7.end-0.1",
                "08_plate": "s8.end+0.2", "09_hold": "end-0.3"},
+    # placeholder for the mock until the owner picks a track; "Suonatore di Liuto" by Kevin MacLeod, CC BY 4.0
+    "music": {"file": "data/music/suonatore_di_liuto_kevin_macleod.mp3", "start": 0.2, "lufs": -30.0,
+              "fade_in": 0.3, "fade_out": 1.5},
     "sound": [
         {"type": "tick", "at": "s2+1.7"},              # the ring round the pier closes
-        {"type": "tick", "at": "s5+2.8"},              # the line under the clamps is drawn
+        {"type": "tick", "at": "s6+2.3"},              # the line under the clamps is drawn
         {"type": "tick", "at": "s8+1.5"},              # the ring round the second pier closes
     ],
 }
