@@ -77,7 +77,7 @@ VOICED_HZ = 50.0           # the model writes 0 where there is no voice
 LEAD = 4                   # curve points by which the sound runs ahead of the reported phoneme frames
 SOUND_BELOW_PEAK_DB = 32.0 # quieter than this under the clip's loudest moment is not speech
 HISS_SHARE = 0.35          # more of the energy than this above 4 kHz is a hiss (s, f, sh), not a voice
-ENGINE_VERSION = "20"       # part of the clip cache key: bump when the shaping changes
+ENGINE_VERSION = "21"       # part of the clip cache key: bump when the shaping changes
 MODEL_NAME, EDITABLE_NAME = "kokoro-v1.0.onnx", "kokoro-v1.0-pitch.onnx"
 
 STRESS = "ˈˌ"
@@ -595,6 +595,16 @@ def shape(base_hz: np.ndarray, energy: np.ndarray, audio: np.ndarray, phonemes: 
             ramp = add * _ease((t - first) / max(1.0, last - first), 1.3)
             entry.update(asked_st=-plan["fall_st"], added_st=round(add, 2))
             target = np.where((t >= first) & (t < b) & np.isfinite(target), target + ramp, target)
+            # A fall also means the last word does not climb: the model often dips into a word and comes back
+            # up at a comma, which ends low enough and is still heard as a rise. From the last word's vowel on,
+            # the curve may only go down or stay.
+            if phrase.words and words[phrase.words[-1]] is not word:
+                start = vowel_of(words[phrase.words[-1]])[0]
+            else:
+                start = first
+            held = np.flatnonzero((t >= start) & (t <= last) & np.isfinite(target))
+            if held.size:
+                target[held] = np.minimum.accumulate(target[held])
         entry["frames"] = [int(first), int(last)]
         planned["phrases"].append(entry)
 

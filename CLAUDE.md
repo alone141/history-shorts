@@ -102,7 +102,11 @@ My interpretation, to apply in every session here:
   is unfinished and runs on into the next line. So: do not ask for
   `"continue"` at all. The only rise inside a statement the owner has
   accepted is on the first of two choices ("was it barbarians, or market
-  stalls?").
+  stalls?"). The voice also rises by itself at some commas ("gone now,"
+  climbed 7 semitones with nothing asked), so a finished clause inside a line
+  gets `"fall"` with `"fall_st": 2.0`, and `film voice` prints "left alone
+  RISES" for any ending it did not touch that climbs. Read those before
+  sending audio; a lead-in ("In 1651,", "After Rome fell,") may stay.
 - "these two lines are perfect" (17 November 2026), said of "Those dark dots
   are holes, and they've puzzled people for centuries." and "In 1651, this
   page asked: was it barbarians, or market stalls?", after the owner had asked
