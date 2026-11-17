@@ -50,7 +50,7 @@ SCRIPT = [
      "say": "By one estimate, about three hundred tons of metal went into the building.",
      "pitch": {"focus": ["hundred"]}},
     {"id": "s9", "beat": 6, "gap_before": 0.7, "text": "Most of the clamps are gone now. The holes never left.",
-     "pitch": {"focus": ["clamps", "holes"], "ends": ["continue", "fall"]}},
+     "pitch": {"focus": ["clamps", "holes"]}},
 ]
 
 WALL_AT = [1500, 2080]                      # Piranesi: the outer arcades at the front

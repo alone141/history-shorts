@@ -52,7 +52,10 @@ a "prosody" dictionary (its values override tokens.json "prosody"):
 
 Without "ends" a phrase ending is chosen from its punctuation: "?" rises unless
 the sentence opens with a question word (what, why, how ...), which falls; "."
-and "!" fall; ":" continues; "," keeps what the model did.
+and "!" fall; "," and ":" keep what the model did. A "continue" rise is only for
+a clause that is plainly unfinished, and has to be asked for: on "It's right
+here:" and on a finished sentence the owner heard it as a rise that should not
+be there.
 """
 from __future__ import annotations
 
@@ -74,7 +77,7 @@ VOICED_HZ = 50.0           # the model writes 0 where there is no voice
 LEAD = 4                   # curve points by which the sound runs ahead of the reported phoneme frames
 SOUND_BELOW_PEAK_DB = 32.0 # quieter than this under the clip's loudest moment is not speech
 HISS_SHARE = 0.35          # more of the energy than this above 4 kHz is a hiss (s, f, sh), not a voice
-ENGINE_VERSION = "18"       # part of the clip cache key: bump when the shaping changes
+ENGINE_VERSION = "19"       # part of the clip cache key: bump when the shaping changes
 MODEL_NAME, EDITABLE_NAME = "kokoro-v1.0.onnx", "kokoro-v1.0-pitch.onnx"
 
 STRESS = "ˈˌ"
@@ -347,9 +350,7 @@ def _default_end(phrase: Phrase, words: list[Word]) -> str:
         return "fall" if opening and opening[0] in WH_WORDS else "rise"
     if phrase.mark in (".", "!"):
         return "fall"
-    if phrase.mark == ":":
-        return "continue"
-    return "keep"
+    return "keep"                                # a comma or a colon: the model's own ending, which does not rise
 
 
 def _find_word(words: list[Word], wanted: str, nth: int) -> int:

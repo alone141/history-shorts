@@ -74,7 +74,8 @@ phoneme lengths can be given, and for each line it:
 - widens the model's own movement about the line's median (`range`),
 - puts a pitch accent on the line's `focus` words, counted from the words around them,
 - ends each phrase by its punctuation: a yes/no question rises from a low on its last stressed
-  syllable, a statement or a question that opens on what/why/how falls, a colon ends a little up;
+  syllable, a statement or a question that opens on what/why/how falls, a comma or a colon keeps the model's
+  own ending;
   `"ends"` overrides this (`"rise"`, `"fall"`, `"continue"`, `"keep"`),
 - then measures the audio with Praat's pitch tracker and reports every asked movement next to what
   came out.

@@ -93,6 +93,12 @@ My interpretation, to apply in every session here:
   "accepted" or "stalls"); vary the shapes from line to line. Aim for a spread
   of about 4 semitones over the narration (the model alone gave 3.0 on this
   script, which the owner had called too calm).
+- "It's right here: ends with a rise when it should not. same issue with
+  'Most of the clamps are gone now'" (17 November 2026). I had put a small
+  "continue" rise on both, one by the engine's default for a colon, one by
+  hand for a contrast pair. So: a finished statement falls, and a colon keeps
+  the model's own ending (now the default). Ask for `"continue"` only on a
+  clause that is plainly unfinished ("After Rome fell, iron was valuable,").
 - A question must be short (12 words at most) and end on a word the voice
   keeps voiced. My first opening, "Did you know people made most of the
   Colosseum's holes?", passed my own check and was wrong: an independent
