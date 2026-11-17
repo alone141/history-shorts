@@ -42,7 +42,7 @@ SCRIPT = [
      "say": "In sixteen fifty-one, this page asked: was it barbarians, or market stalls?",
      # a choice between two ends like a statement: up on the first, down on the second
      "pitch": {"focus": ["barbarians", "market"], "ends": ["keep", "keep", "continue", "fall"]}},
-    {"id": "s4", "beat": 4, "gap_before": 0.4, "text": "So what do historians say?"},
+    {"id": "s4", "beat": 4, "gap_before": 0.4, "text": "So what's the answer today?"},
     {"id": "s5", "beat": 4, "gap_before": 0.6, "text": "It's right here: iron clamps tied each block to the next.",
      "pitch": {"focus": ["iron"]}},
     {"id": "s6", "beat": 5, "gap_before": 0.5, "text": "After Rome fell, iron was valuable,"},
@@ -122,7 +122,7 @@ FILM = {
         "label": "COLOSSEUM · METAL USED TO BUILD IT",
         "reading": "about 300 tons",
         "text": ["A modern estimate, not a measured figure."],
-        "source": "Middleton 1892 · Suaresius 1651 · The Met",
+        "source": "Figure: Art of Making, King's College London",
         "ours": "The marks and the 2x loupe are ours.",
         "x": 60, "y": 1098, "width": 820,
         "in": {"at": "s9.word:three", "dur": 0.9}, "rise": 12,
