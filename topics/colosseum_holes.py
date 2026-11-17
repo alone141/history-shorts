@@ -89,7 +89,7 @@ FILM = {
     ],
     # picture events are tied to the word the voice is saying ("s2.word:dots"), so they land on it
     "loupe": {
-        "radius": 215, "magnification": 3.0,
+        "radius": 215, "magnification": 2.0,           # the owner found 3x too much (17 November 2026)
         "fade_in": {"at": 0.35, "dur": 0.4}, "fade_out": {"at": "s6-0.1", "dur": 0.4},
         "enter": [800, 560],
         "stops": [
@@ -116,7 +116,7 @@ FILM = {
         "reading": "about 300 tons",
         "text": ["A modern estimate, not a measured figure."],
         "source": "Middleton 1892 · Suaresius 1651 · The Met",
-        "ours": "The marks and the 3x loupe are ours.",
+        "ours": "The marks and the 2x loupe are ours.",
         "x": 60, "y": 1098, "width": 820,
         "in": {"at": "s8.word:three+0.2", "dur": 0.9}, "rise": 12,
         "leader": {"from": "pier2", "at": "s8.word:three+0.9", "dur": 0.6},
