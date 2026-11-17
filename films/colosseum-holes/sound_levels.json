@@ -1,0 +1,70 @@
+{
+ "voice_lufs_target": -16.0,
+ "voice_lufs": -16.01,
+ "voice_peak_dbfs": -1.76,
+ "voice_true_peak_dbtp": -1.75,
+ "voice_gain_db": 3.57,
+ "true_peak_guard_applied": true,
+ "true_peak_guard_mode": "limiter",
+ "true_peak_guard_db": 2.41,
+ "mix_guard_db": 0.85,
+ "mix_lufs": -16.89,
+ "mix_true_peak_dbtp": -1.5,
+ "room_rms_dbfs": -48.0,
+ "cue_margin_db": 12.0,
+ "duration_s": 35.17,
+ "sample_rate": 48000,
+ "cues": [
+  {
+   "type": "tick",
+   "t": 7.25,
+   "dur": 0.05,
+   "peak_dbfs": -15.86,
+   "margin_below_voice_peak_db": 14.1,
+   "short_term_lufs": -43.77,
+   "margin_below_voice_lufs_db": 27.75,
+   "scaled_for_loudness_db": 0.0,
+   "ok": true
+  },
+  {
+   "type": "tick",
+   "t": 18.7,
+   "dur": 0.05,
+   "peak_dbfs": -15.86,
+   "margin_below_voice_peak_db": 14.1,
+   "short_term_lufs": -43.77,
+   "margin_below_voice_lufs_db": 27.75,
+   "scaled_for_loudness_db": 0.0,
+   "ok": true
+  },
+  {
+   "type": "tick",
+   "t": 26.11,
+   "dur": 0.05,
+   "peak_dbfs": -15.86,
+   "margin_below_voice_peak_db": 14.1,
+   "short_term_lufs": -43.77,
+   "margin_below_voice_lufs_db": 27.75,
+   "scaled_for_loudness_db": 0.0,
+   "ok": true
+  }
+ ],
+ "music": {
+  "file": "data/music/suonatore_di_liuto_kevin_macleod.mp3",
+  "start_s": 0.2,
+  "lufs_target": -30.0,
+  "lufs": -29.98,
+  "covers_film": true
+ },
+ "checks": {
+  "voice_lufs_within_tolerance": true,
+  "true_peak_at_or_below_ceiling": true,
+  "room_rms_within_tolerance": true,
+  "cue_peak_margins": true,
+  "cue_loudness_margins": true,
+  "length_matches_narration": true,
+  "no_voice_peak_guard_needed": false,
+  "no_mix_peak_guard_needed": false
+ },
+ "ok": true
+}

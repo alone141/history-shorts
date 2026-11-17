@@ -10,6 +10,9 @@ kokoro-onnx==0.6.1
 onnxruntime==1.23.2
 soundfile==0.14.0
 pyloudnorm==0.2.0
+# pitch of the narration (engine/pitch.py): editing the voice model, and measuring pitch from audio
+onnx==1.23.2
+praat-parselmouth==0.4.7
 truststore==0.10.4
 # only for rebuilding the Stonehenge data from the raw downloads
 laspy==2.7.0

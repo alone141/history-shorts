@@ -2,7 +2,10 @@
 
 Synthesises a two-sentence script with one cue, mixes it with three code-made
 cues, encodes 90 generated frames with that audio, and prints a PASS/FAIL table
-of every numeric check. Output goes under build/selftest/.
+of every numeric check. It also checks the pitch engine: the editable copy of
+the voice model gives the stock model's samples when nothing is set, a question
+ends on a measured rise, an accent lands on its word, and a narration made with
+"prosody" is repeatable. Output goes under build/selftest/.
 
 Run from the repository root:  python -m engine.selftest_av
 The exit status is 0 only if every check passes.
@@ -85,6 +88,50 @@ def main() -> int:
     check("voice: sentences ordered, gap", f"{s2['start_s'] - s1['end_s']:.3f}s", "0.38 +/- 0.002",
           abs(s2["start_s"] - s1["end_s"] - 0.38) < 0.002)
     check("voice: narration frame count", f"{narration['frames']} frames", str(FRAMES), narration["frames"] == FRAMES)
+
+    # --- pitch (engine/pitch.py): the narrator's intonation is set and then measured
+    from engine import pitch
+
+    models = ROOT / "models" / "kokoro"
+    settings = {k: v for k, v in json.loads((ROOT / "engine" / "tokens.json").read_text(encoding="utf-8"))["prosody"].items()
+                if not k.startswith("_")}
+    question = "Can you see the piers?"
+
+    def speak(text: str, own: dict, prosody: dict):
+        return pitch.speak(text, voice="af_heart", lang="en-us", speed=1.15, plan=pitch.plan_for({"id": "t", "pitch": own}, prosody),
+                           model_dir=models)
+
+    alone = speak(question, {"ends": ["keep"]}, {"range": 1.0, "stretch": 1.0, "rise_stretch": 1.0})
+    kokoro = voice._load_kokoro(models)
+    tokens = kokoro.tokenizer.tokenize(kokoro.tokenizer.phonemize(question, "en-us"))
+    stock, _ = kokoro._infer(tokens, kokoro._style_for(kokoro.voices["af_heart"], len(tokens)), 1.15)
+    same = stock.size == alone.audio.size and float(np.abs(stock - alone.audio).max()) < 1e-3
+    check("pitch: editable model, nothing set", f"{stock.size}/{alone.audio.size} samples, max diff "
+          f"{float(np.abs(stock - alone.audio).max()) if stock.size == alone.audio.size else float('nan'):.1e}", "the stock model's samples", same)
+    asked = pitch.measure(speak(question, {}, settings))
+    rise = next((p for p in asked["phrases"] if p["end"] == "rise"), {})
+    check("pitch: a question ends on a rise", f"{rise.get('got_st')} st, {rise.get('voiced')} of it cleanly voiced",
+          f">= {pitch.HEARD_RISE_ST} st and clean", bool(rise.get("ok")))
+    heard, follows = pitch.follow(alone)
+    tail = heard[-80:][follows[-80:]]
+    check("pitch: the model alone, same question", f"{12 * np.log2(tail[-3:].mean() / tail.min()):+.1f} st at the end" if tail.size > 4 else "no pitch at the end",
+          "info only", True)
+    accent = pitch.measure(speak("The Romans tied the blocks with iron clamps.", {"focus": ["iron"]}, settings))
+    check("pitch: an accent lands on its word", f"{accent['focus'][0].get('got_st')} st over the line", f">= {settings['focus_st'] - 1.0} st",
+          bool(accent["focus"][0].get("ok")) and accent["ok"])
+    lines = [{"id": "p1", "text": question}, {"id": "p2", "text": "Those dark dots are holes.", "pitch": {"focus": ["holes"]}}]
+    spoken = dict(voice="af_heart", lang="en-us", speed=1.15, fps=FPS, prosody=settings)
+    pitched = voice.synthesise(lines, OUT / "voice_pitch", **spoken)
+    once = digest(OUT / "voice_pitch" / "voice.wav", OUT / "voice_pitch" / "narration.json")
+    voice.synthesise(lines, OUT / "voice_pitch", **spoken)
+    check("pitch: narration rerun identical", f"{once}/{digest(OUT / 'voice_pitch' / 'voice.wav', OUT / 'voice_pitch' / 'narration.json')}",
+          "same hash", once == digest(OUT / "voice_pitch" / "voice.wav", OUT / "voice_pitch" / "narration.json"))
+    words = pitched["sentences"][0]["words"]
+    starts = [w["start_s"] for w in words]
+    check("pitch: word times", f"{len(words)} words, {starts[0]:.2f} to {starts[-1]:.2f} s", "5 words, in order, inside the sentence",
+          len(words) == 5 and starts == sorted(starts) and pitched["sentences"][0]["start_s"] - 0.06 <= starts[0]
+          and words[-1]["end_s"] <= pitched["sentences"][0]["end_s"] + 0.3)
+    check("pitch: sheet drawn", "pitch.png", "exists", (OUT / "voice_pitch" / "pitch.png").exists())
 
     # --- sound
     cues = [

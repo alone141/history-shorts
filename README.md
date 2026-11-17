@@ -12,6 +12,7 @@ engine/            everything shared by all films
   tokens.json        colours, type, safe areas, sound levels: the single source of design values
   timeline.py        times as expressions on the narration clock ("s3", "s4.cue:lintels", "s5+0.4")
   voice.py           narration (Kokoro) and the clock it defines
+  pitch.py           the narrator's intonation: planned per line, rendered through the model, measured from the audio
   sound.py           voice + room tone + code-made cues, with a levels report
   encode.py          H.264 MP4 (PyAV)
   files.py           safe file writing (see "This PC" below)
@@ -23,9 +24,11 @@ topics/            one data module per film, plus the site's sources
   stonehenge_1740.py         "What did Stonehenge look like in 1740?"            (light table)
   great_pyramid_original.py  "What did the Great Pyramid originally look like?"  (phase model)
   sphinx_buried.py           "The Sphinx was buried to its neck for about 1,500 years"  (light table)
+  colosseum_holes.py         "Why is the Colosseum full of holes?"               (light table, planned pitch)
   stonehenge/                the site: sources.json, refs.json, survey, plan digitising, model
     stones.json              the measured stone table the model is built from (kept in the repository)
   sphinx/                    the scans' sources.json and research.md (claims, quotes, what not to say)
+  colosseum/                 sources.json, research.md, pictures.md and factcheck.md for the Colosseum film
   giza/                      the site: sources.json, reading of Petrie's plate of course levels, model
     courses.json             the level of every course of the Great Pyramid (kept in the repository)
 films/             one folder per film: MP4, README, FACTS, CREDITS, stills, contact sheet
@@ -45,6 +48,10 @@ A topic is **one data module plus its sources**.
 3. For the phase model, a function that returns the model: prisms that survive (`matter`) and prisms that are inferred (`light`). See `topics/stonehenge/model.py`.
 4. `films/<id>/FACTS.md` and `CREDITS.md`.
 
+The narrator's pitch is part of the script. A film with `"prosody": {}` has every line's
+intonation planned, rendered and measured (see "The narrator's pitch" below); a line says what
+it wants under `"pitch"`, for example `{"focus": ["holes"]}` or `{"ends": ["continue"]}`.
+
 Then:
 
 ```
@@ -57,6 +64,51 @@ python -m engine.film <film> render
 ```
 
 Run from the repository root with the project environment (`.venv`).
+
+## The narrator's pitch
+
+Kokoro on its own ends most questions flat: on eight yes/no questions only one rose, and it often
+gives the last word of a phrase no pitch at all and lets it trail off. `engine/pitch.py` therefore
+sets the pitch itself. It writes a copy of the voice model (`models/kokoro/kokoro-v1.0-pitch.onnx`,
+built on first use, identical to the stock model when nothing is set) whose pitch curve, energy and
+phoneme lengths can be given, and for each line it:
+
+- widens the model's own movement about the line's median (`range`),
+- puts a pitch accent on the line's `focus` words, counted from the words around them,
+- ends each phrase by its punctuation: a yes/no question rises from a low on its last stressed
+  syllable, a statement or a question that opens on what/why/how falls, a comma or a colon keeps the model's
+  own ending;
+  `"ends"` overrides this (`"rise"`, `"fall"`, `"continue"`, `"keep"`),
+- then measures the audio with Praat's pitch tracker and reports every asked movement next to what
+  came out.
+
+What the report can and cannot say. A rise passes only if it is a glide: at least 4 semitones over at
+least 100 ms of unbroken clean voice (a rise that is only a short step after a gap fails). An accent
+passes if the vowel holds its height for 40 ms. A fall is different: the model ends most statements
+in a creak that no pitch tracker follows, with or without this engine, so most falls are reported as
+"set, ends in a creak (not heard)": the curve was set low, and nothing more can be measured. None of
+this says how natural the voice sounds; that takes ears.
+
+Writing for it (from 70 test lines and an independent re-measurement, November 2026):
+
+- A question: 12 words at most, one clause, and a last word the voice keeps voiced to the end:
+  "piers", "man-made", "damage", "iron", "Colosseum". On some last words the model trails off and
+  the rise breaks ("... most of the Colosseum's holes?" did); the check says so, and the cure is to
+  reword, not to raise the settings.
+- An accent: one per clause, on a word with a long voiced vowel, and not the last word of a falling
+  line if its vowel is short ("picks", "gap"). Two accents on neighbouring words flatten the second.
+- Figures need `"say"` in words. A line with digits is spoken, but its word times are approximate.
+- The settings were tested with `af_heart` at 1.15. With the older films' `bm_fable` only two of five
+  test questions got a real glide, so those films keep their narration until that voice is tuned.
+- The limits in `engine/pitch.py` (`LIMITS`) are where the tests stopped: a rise over 9 semitones or
+  a range over 1.6 makes the voice rough.
+
+`python -m engine.film <film> voice` prints that report and the spread of pitch over the whole
+narration, and writes `build/<film>/voice/pitch.png`, a drawing of every line's curve (the model
+alone, the curve set, the pitch heard). `check` and `render` stop on a movement that did not come
+out. The settings and their meaning are in `engine/tokens.json` under `"prosody"`. A narration made
+this way also knows when every word is spoken, so a picture event can be tied to a word:
+`"s2.word:dots"` (and a `"cues"` entry is timed from the same word times).
 
 ## Setting up on another machine
 

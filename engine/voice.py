@@ -25,6 +25,12 @@ half a second of rumble too low to hear, which the ordinary trim keeps, so
 every pause runs that much longer than the script sets. Tight clips are trimmed
 on what can be heard.
 
+A film with a "prosody" setting has its sentences made by engine/pitch.py
+instead: each line's pitch is planned (question rises, accents on chosen words,
+falls), rendered through the model and measured from the audio. The narration
+then also carries, per sentence, the time of every word ("words") and what the
+pitch was asked to do and did ("pitch"); pitch.png beside it draws the curves.
+
 Clips are cached under <out_dir>/cache, so a re-run with unchanged text is
 instant and bit-identical.
 
@@ -78,14 +84,8 @@ def _cache_key(text: str, voice: str, lang: str, speed: float, tight: bool = Fal
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:32]
 
 
-def trim_silence(audio: np.ndarray, sample_rate: int, *, tight: bool = False) -> np.ndarray:
-    """Cut leading and trailing silence, keeping TRIM_PAD_S either side.
-
-    The threshold is relative to the clip's own peak (with a small floor) so a
-    quiet voice and a loud one are trimmed alike. With `tight`, silence is judged
-    on a copy with the rumble below RUMBLE_HZ removed (the clip itself is not
-    filtered), and a little more is kept after the last sound.
-    """
+def trim_bounds(audio: np.ndarray, sample_rate: int, *, tight: bool = False) -> tuple[int, int]:
+    """First and one-past-last sample of a clip once leading and trailing silence is cut (see trim_silence)."""
     probe = audio
     if tight:
         from scipy.signal import butter, sosfiltfilt
@@ -98,8 +98,18 @@ def trim_silence(audio: np.ndarray, sample_rate: int, *, tight: bool = False) ->
         raise ValueError("synthesised audio is silent")
     pad = int(round(TRIM_PAD_S * sample_rate))
     tail = int(round(TIGHT_TAIL_PAD_S * sample_rate)) if tight else pad
-    start = max(0, int(loud[0]) - pad)
-    end = min(audio.size, int(loud[-1]) + 1 + tail)
+    return max(0, int(loud[0]) - pad), min(audio.size, int(loud[-1]) + 1 + tail)
+
+
+def trim_silence(audio: np.ndarray, sample_rate: int, *, tight: bool = False) -> np.ndarray:
+    """Cut leading and trailing silence, keeping TRIM_PAD_S either side.
+
+    The threshold is relative to the clip's own peak (with a small floor) so a
+    quiet voice and a loud one are trimmed alike. With `tight`, silence is judged
+    on a copy with the rumble below RUMBLE_HZ removed (the clip itself is not
+    filtered), and a little more is kept after the last sound.
+    """
+    start, end = trim_bounds(audio, sample_rate, tight=tight)
     return audio[start:end].astype(np.float32, copy=True)
 
 
@@ -115,6 +125,43 @@ def _clip(text: str, voice: str, lang: str, speed: float, cache_dir: Path,
     cache_dir.mkdir(parents=True, exist_ok=True)
     sf.write(fresh(path), clip, int(rate), subtype="FLOAT")
     return clip, int(rate)
+
+
+def _pitched_clip(item: dict, voice: str, lang: str, speed: float, cache_dir: Path, model_dir: Path,
+                  tight: bool, prosody: dict) -> tuple[np.ndarray, int, dict]:
+    """The trimmed clip of a script line with its pitch planned and measured, and what the pitch engine reports.
+
+    The report holds the word times and curve times counted from the start of the trimmed clip.
+    """
+    from engine import pitch
+
+    text = item.get("say", item["text"])
+    plan = pitch.plan_for(item, prosody)
+    payload = json.dumps([CACHE_VERSION, "pitch", pitch.ENGINE_VERSION, text, voice, lang, speed, bool(tight), plan],
+                         ensure_ascii=True, sort_keys=True)
+    key = hashlib.sha256(payload.encode("utf-8")).hexdigest()[:32]
+    wav, side = cache_dir / f"{key}.wav", cache_dir / f"{key}.pitch.json"
+    if wav.exists() and side.exists():
+        data, rate = sf.read(wav, dtype="float32")
+        return data, int(rate), json.loads(side.read_text(encoding="utf-8"))
+    take = pitch.speak(text, voice=voice, lang=lang, speed=speed, plan=plan, model_dir=model_dir)
+    start, end = trim_bounds(take.audio, pitch.RATE, tight=tight)
+    clip = take.audio[start:end].astype(np.float32, copy=True)
+    offset = start / pitch.RATE
+    length = clip.size / pitch.RATE               # the last sound of a line fades into silence that is trimmed off
+    words = [{**w, **{k: round(min(max(w[k], 0.0), length), 3) for k in ("start_s", "end_s", "stress_s")}}
+             for w in pitch.word_times(take, offset)]
+    report = {"words": words, "pitch": {"plan": _plan_summary(plan), **pitch.measure(take)},
+              "curves": pitch.curves(take, offset)}
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    sf.write(fresh(wav), clip, pitch.RATE, subtype="FLOAT")
+    save_text(side, json.dumps(report, ensure_ascii=False))
+    return clip, pitch.RATE, report
+
+
+def _plan_summary(plan: dict) -> dict:
+    """The part of a pitch plan worth keeping in the narration: what the line itself asked for."""
+    return {"focus": [f["word"] for f in plan["focus"]], "ends": plan["ends"], "range": plan["range"], "level": plan["level"]}
 
 
 def _write_float_wav(path: Path, samples: np.ndarray, sample_rate: int) -> None:
@@ -238,11 +285,12 @@ def _validate(script: list[dict]) -> None:
 def synthesise(script: list[dict], out_dir: str | Path, *, voice: str = "bm_fable",
                lang: str = "en-gb", speed: float = 0.92, fps: int = 30,
                lead_in: float = 0.4, gap: float = 0.38, tail: float = 2.5,
-               model_dir: str | Path | None = None, tight: bool = False) -> dict:
+               model_dir: str | Path | None = None, tight: bool = False, prosody: dict | None = None) -> dict:
     """Synthesise `script`, write voice.wav and narration.json, return the narration dict.
 
     `model_dir` overrides the default models/kokoro location (an addition to the
-    specified signature; it is keyword-only and optional).
+    specified signature; it is keyword-only and optional). With `prosody` (a dict of
+    pitch settings, possibly empty) the sentences are made by engine/pitch.py.
     """
     _validate(script)
     out = Path(out_dir)
@@ -251,12 +299,17 @@ def synthesise(script: list[dict], out_dir: str | Path, *, voice: str = "bm_fabl
     models = Path(model_dir) if model_dir else _MODEL_DIR
 
     placed: list[tuple[dict, np.ndarray, int]] = []  # (entry, faded clip, start sample)
+    curves: dict[str, dict] = {}                     # pitch curves per sentence id, when prosody is on
     sample_rate = 0
     cursor = 0  # samples; end of the previous sentence
     for index, item in enumerate(script):
         # "say" is what the voice reads when it differs from the caption text
         # (for example years and figures written out as words)
-        clip, rate = _clip(item.get("say", item["text"]), voice, lang, speed, cache_dir, models, tight)
+        report = None
+        if prosody is not None:
+            clip, rate, report = _pitched_clip(item, voice, lang, speed, cache_dir, models, tight, prosody)
+        else:
+            clip, rate = _clip(item.get("say", item["text"]), voice, lang, speed, cache_dir, models, tight)
         if sample_rate and rate != sample_rate:
             raise RuntimeError("model sample rate changed between clips")
         sample_rate = rate
@@ -266,8 +319,12 @@ def synthesise(script: list[dict], out_dir: str | Path, *, voice: str = "bm_fabl
             start = cursor + int(round(float(item.get("gap_before", gap)) * sample_rate))
         cues: dict[str, float] = {}
         for name, prefix in (item.get("cues") or {}).items():
-            prefix_clip, _ = _clip(prefix, voice, lang, speed, cache_dir, models, tight)
-            offset = max(0.0, prefix_clip.size / sample_rate + CUE_OFFSET_S)
+            if report is not None:               # a pitched clip knows when each of its words ends
+                said = report["words"][min(len(prefix.split()), len(report["words"])) - 1]
+                offset = max(0.0, said["end_s"] + CUE_OFFSET_S)
+            else:
+                prefix_clip, _ = _clip(prefix, voice, lang, speed, cache_dir, models, tight)
+                offset = max(0.0, prefix_clip.size / sample_rate + CUE_OFFSET_S)
             cues[name] = round(start / sample_rate + offset, 3)
         entry = {
             "id": item["id"],
@@ -300,6 +357,13 @@ def synthesise(script: list[dict], out_dir: str | Path, *, voice: str = "bm_fabl
             # "at_pause": the chunk starts as a real pause ends, which is certain; otherwise "spread_s" is the check
             entry["chunks"] = [{"text": text, "start_s": a, "end_s": b, "spread_s": spread, "at_pause": bool(pause)}
                                for text, a, b, spread, pause in zip(texts, edges[:-1], edges[1:], spreads, at_pause)]
+        if report is not None:
+            at = start / sample_rate
+            # word times are on the film clock; "stress_s" is where the word's stressed vowel starts
+            entry["words"] = [{"text": w["text"], **{k: round(at + w[k], 3) for k in ("start_s", "end_s", "stress_s")}}
+                              for w in report["words"]]
+            entry["pitch"] = report["pitch"]
+            curves[item["id"]] = report["curves"]
         if item.get("caption") is False:
             entry["caption"] = False
         placed.append((entry, _faded(clip, sample_rate), start))
@@ -325,5 +389,11 @@ def synthesise(script: list[dict], out_dir: str | Path, *, voice: str = "bm_fabl
         "cue_method": CUE_METHOD,
         "sentences": [entry for entry, _, _ in placed],
     }
+    if prosody is not None:
+        from engine import pitch
+
+        narration["prosody"] = prosody
+        narration["pitch"] = pitch.overall(curves)
+        pitch.sheet(narration, curves, out / "pitch.png")
     save_text(out / "narration.json", json.dumps(narration, indent=1) + "\n")
     return narration
