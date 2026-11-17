@@ -97,8 +97,12 @@ My interpretation, to apply in every session here:
   'Most of the clamps are gone now'" (17 November 2026). I had put a small
   "continue" rise on both, one by the engine's default for a colon, one by
   hand for a contrast pair. So: a finished statement falls, and a colon keeps
-  the model's own ending (now the default). Ask for `"continue"` only on a
-  clause that is plainly unfinished ("After Rome fell, iron was valuable,").
+  the model's own ending (now the default). Later the same day: "'iron was
+  valuable,' ends with a pitch raise when it shouldnt", although that clause
+  is unfinished and runs on into the next line. So: do not ask for
+  `"continue"` at all. The only rise inside a statement the owner has
+  accepted is on the first of two choices ("was it barbarians, or market
+  stalls?").
 - "these two lines are perfect" (17 November 2026), said of "Those dark dots
   are holes, and they've puzzled people for centuries." and "In 1651, this
   page asked: was it barbarians, or market stalls?", after the owner had asked

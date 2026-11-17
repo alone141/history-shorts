@@ -24,6 +24,9 @@ STJOHN = D + "met_stjohn_1856_colosseum_287727.jpg"
 SUARESIUS = D + "suaresius1651_p4_colosseum_holes.jpg"
 MIDDLETON = D + "middleton1892_vol2_p87_colosseum_clamps.jpg"
 
+# The owner hears a rise at the end of a finished clause as wrong ("It's right here:", "gone now", "iron was
+# valuable,"), and the voice makes such rises by itself at some commas. So a finished clause inside a line is asked
+# to fall a little ("fall_st": 2.0); a lead-in ("In 1651,", "After Rome fell,", "this page asked:") is left alone.
 # Each line carries its pitch plan (engine/pitch.py): "focus" words get a pitch accent, and a phrase ends by its
 # punctuation unless "ends" says otherwise (a yes/no question rises, a statement or a what-question falls).
 SCRIPT = [
@@ -32,7 +35,7 @@ SCRIPT = [
     # Colosseum's holes?" was tried first and its rise broke up on "holes" (a 50 ms step, not a glide).
     {"id": "s0", "beat": 1, "text": "Did you know most of the Colosseum's holes are man-made?"},
     {"id": "s1", "beat": 2, "gap_before": 0.5, "text": "Look at this old photo. Can you see the piers?",
-     "pitch": {"ends": ["keep", "rise"]}},
+     "pitch": {"ends": ["fall", "rise"], "fall_st": 2.0}},
     {"id": "s2", "beat": 2, "gap_before": 0.2, "text": "Those dark dots are holes, and they've puzzled people for centuries.",
      "pitch": {"focus": ["holes"]}},
     {"id": "s3", "beat": 3, "gap_before": 0.6, "text": "In 1651, this page asked: was it barbarians, or market stalls?",
@@ -42,15 +45,15 @@ SCRIPT = [
     {"id": "s4", "beat": 4, "gap_before": 0.4, "text": "So what do historians say?"},
     {"id": "s5", "beat": 4, "gap_before": 0.6, "text": "It's right here: iron clamps tied each block to the next.",
      "pitch": {"focus": ["iron"]}},
-    {"id": "s6", "beat": 5, "gap_before": 0.5, "text": "After Rome fell, iron was valuable,",
-     "pitch": {"ends": ["keep", "continue"]}},
+    {"id": "s6", "beat": 5, "gap_before": 0.5, "text": "After Rome fell, iron was valuable,"},
     {"id": "s7", "beat": 5, "gap_before": 0.25, "text": "so people dug the clamps out, one by one.",
-     "pitch": {"focus": ["dug"]}},
+     "pitch": {"focus": ["dug"], "ends": ["fall", "fall"], "fall_st": 2.0}},
     {"id": "s8", "beat": 6, "gap_before": 0.5, "text": "How much metal went into the building?"},
     {"id": "s9", "beat": 6, "gap_before": 0.3, "text": "About 300 tons, by one estimate.",
-     "say": "About three hundred tons, by one estimate.", "pitch": {"focus": ["hundred"]}},
+     "say": "About three hundred tons, by one estimate.",
+     "pitch": {"focus": ["hundred"], "ends": ["fall", "fall"], "fall_st": 2.0}},
     {"id": "s10", "beat": 6, "gap_before": 0.7, "text": "Most of the clamps are gone now, but the holes never left.",
-     "pitch": {"focus": ["clamps", "holes"]}},
+     "pitch": {"focus": ["clamps", "holes"], "ends": ["fall", "fall"], "fall_st": 2.0}},
 ]
 
 WALL_AT = [1500, 2080]                      # Piranesi: the outer arcades at the front

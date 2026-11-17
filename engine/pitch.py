@@ -77,7 +77,7 @@ VOICED_HZ = 50.0           # the model writes 0 where there is no voice
 LEAD = 4                   # curve points by which the sound runs ahead of the reported phoneme frames
 SOUND_BELOW_PEAK_DB = 32.0 # quieter than this under the clip's loudest moment is not speech
 HISS_SHARE = 0.35          # more of the energy than this above 4 kHz is a hiss (s, f, sh), not a voice
-ENGINE_VERSION = "19"       # part of the clip cache key: bump when the shaping changes
+ENGINE_VERSION = "20"       # part of the clip cache key: bump when the shaping changes
 MODEL_NAME, EDITABLE_NAME = "kokoro-v1.0.onnx", "kokoro-v1.0-pitch.onnx"
 
 STRESS = "ˈˌ"
@@ -103,6 +103,7 @@ OPENERS = {"so", "and", "but", "then", "well", "now", "ok", "okay"}
 TOLERANCE = {"rise": 0.75, "fall_st": 1.0, "continue": 0.6, "focus_st": 1.0}
 HEARD_RISE_ST = 4.0        # under this a final rise is too small to be heard as a question
 ACCENT_MARGIN_ST = 0.5     # short peaks are heard a little under the pitch set, so an accent is set this much over
+OWN_RISE_ST = 2.5          # an ending left to the model that climbs this much is pointed out in the report
 MIN_GLIDE_MS = 100         # a question's rise has to climb over at least this long a stretch of unbroken clean voice
 CLEAN_RISE_SHARE = 0.55    # at least this share of a question's rise has to be cleanly voiced
 FOLLOW_ST = 1.5            # the audio "follows" the curve it was rendered from when it is this close to it
@@ -739,11 +740,24 @@ def measure(take: Take) -> dict:
         run = heard[idx[start:]]
         return float((idx[-1] - idx[start] + 1) * F0_STEP_S * 1000.0), _st(float(np.median(run[-3:])), float(run.min()))
 
-    for entry in planned["phrases"]:
+    def own_ending(number: int) -> float | None:
+        """What the voice does by itself over the last 200 ms of a phrase's last word, in semitones (None: no pitch)."""
+        if number >= len(take.phrases) or not take.phrases[number].words:
+            return None
+        word = take.words[take.phrases[number].words[-1]]
+        a, b = int(take.time_of(word.stress) / F0_STEP_S), int(take.time_of(word.span[1]) / F0_STEP_S) + 2
+        points = [i for i in range(a, min(b, heard.size)) if follows[i]][-16:]
+        if len(points) < 4:
+            return None
+        return round(_st(float(np.median(heard[points[-3:]])), float(np.median(heard[points[:3]]))), 2)
+
+    for number, entry in enumerate(planned["phrases"]):
         got = {k: entry.get(k) for k in ("end", "mark", "on", "asked_st")}
         if "frames" not in entry:
             if entry["end"] == "keep":
-                out["phrases"].append({**got, "note": "left as the model spoke it"})
+                # nothing was asked, but it is reported: the model raises its pitch at some commas, and the owner
+                # hears a rise at the end of a finished clause as wrong
+                out["phrases"].append({**got, "own_st": own_ending(number), "note": "left as the model spoke it"})
             else:                                 # asked for, and there was nothing to carry it
                 out["phrases"].append({**got, "ok": False, "note": entry.get("note", "could not be carried out")})
                 out["ok"] = False
@@ -873,6 +887,8 @@ def summary(sentence: dict) -> str:
     parts = [f"range {p['range_st']:.1f} st (model alone {p['model_range_st']:.1f})"]
     for phrase in p["phrases"]:
         if phrase["end"] == "keep":
+            if (phrase.get("own_st") or 0.0) >= OWN_RISE_ST:
+                parts.append(f"\"{phrase['on']}\" left alone RISES {phrase['own_st']:+.1f} st")
             continue
         mark = "ok" if phrase.get("ok") else "SHORT"
         name = f"{phrase['end']} on \"{phrase['on']}\""
