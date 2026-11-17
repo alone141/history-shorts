@@ -73,13 +73,8 @@ F0_STEP_S = FRAME_S / 2    # the pitch curve has two points per duration frame
 VOICED_HZ = 50.0           # the model writes 0 where there is no voice
 LEAD = 4                   # curve points by which the sound runs ahead of the reported phoneme frames
 SOUND_BELOW_PEAK_DB = 32.0 # quieter than this under the clip's loudest moment is not speech
-CARRIER = "today"          # the word a question is spoken into and then cut before (see speak); "" switches it off
-FINAL_LENGTHENING = 1.45   # how much longer the voiced end of a sentence is than the same sounds in mid-sentence
-LEVEL_PER_ST = 0.77        # dB by which this voice gets louder per semitone of pitch (1170 points of its own speech)
-LEVEL_PER_ENERGY = 4.3     # dB of level per unit of the model's energy curve (same points)
-ENERGY_CEILING = 10.0      # the model's own energy curve tops out near 9
 HISS_SHARE = 0.35          # more of the energy than this above 4 kHz is a hiss (s, f, sh), not a voice
-ENGINE_VERSION = "21"       # part of the clip cache key: bump when the shaping changes
+ENGINE_VERSION = "16"       # part of the clip cache key: bump when the shaping changes
 MODEL_NAME, EDITABLE_NAME = "kokoro-v1.0.onnx", "kokoro-v1.0-pitch.onnx"
 
 STRESS = "ˈˌ"
@@ -92,7 +87,7 @@ END_KINDS = ("rise", "fall", "continue", "keep")
 DEFAULTS = {
     "range": 1.0, "level": 0.0,
     "focus_st": 4.0, "stretch": 1.0,
-    "rise_st": 7.0, "rise_low_st": -1.5, "rise_floor_st": -4.0, "rise_top_min_st": 4.0, "rise_stretch": 1.0, "rise_energy": -1.0, "rise_effort_db": 0.0,
+    "rise_st": 7.0, "rise_low_st": -1.5, "rise_floor_st": -4.0, "rise_top_min_st": 4.0, "rise_stretch": 1.0, "rise_energy": -1.0,
     "fall_st": 4.0, "continue_st": 2.5, "continue_energy": -1.0,
     "floor_st": -8.0, "ceiling_st": 10.0,       # about as low and as high as this voice goes by itself
 }
@@ -312,7 +307,6 @@ def plan_for(item: dict, prosody: dict | None) -> dict:
     settings = {k: v for k, v in (prosody or {}).items() if not k.startswith("_")}
     own = dict(item.get("pitch") or {})
     where = f"line {item.get('id')!r}"
-    carrier = str(own.pop("carrier", settings.pop("carrier", CARRIER)) or "")
     for name, given in (("the film's prosody", settings), (f"{where} pitch", {k: v for k, v in own.items() if k not in ("focus", "ends", "end")})):
         unknown = sorted(set(given) - set(DEFAULTS))
         if unknown:
@@ -340,7 +334,6 @@ def plan_for(item: dict, prosody: dict | None) -> dict:
         if e is not None and e not in END_KINDS:
             raise ValueError(f"line {item.get('id')!r}: unknown phrase ending {e!r}; use one of {END_KINDS}")
     plan["ends"] = list(ends) if ends else None
-    plan["carrier"] = carrier
     return plan
 
 
@@ -412,9 +405,6 @@ class Shaping:
     f0_add: np.ndarray
     n_add: np.ndarray
     planned: dict
-    rises: list = field(default_factory=list)      # per question rise: the points of its upper half that carry voice,
-                                                   # how many semitones over the line's median they are set, and the
-                                                   # level in dB of the line's ordinary vowels
 
     @property
     def changes_nothing(self) -> bool:
@@ -482,7 +472,6 @@ def shape(base_hz: np.ndarray, energy: np.ndarray, audio: np.ndarray, phonemes: 
 
     level = float(plan["level"])
     target = base * float(plan["range"]) + level
-    rises: list = []
     given = np.zeros(total, bool)                # points that get a pitch although the model predicted none
     n_add = np.zeros(total)
     planned: dict = {"ref_hz": round(ref, 1), "phrases": [], "focus": []}
@@ -582,11 +571,6 @@ def shape(base_hz: np.ndarray, energy: np.ndarray, audio: np.ndarray, phonemes: 
             low_until = vowel_end if last - vowel_end >= 8 else first + 0.3 * (last - first)
             count = lift(first, low, high, low_until, plan["rise_energy"])
             entry.update(asked_st=round(high - low, 2), low_st=round(low, 2), high_st=round(high, 2), given_pitch=count)
-            upper = np.flatnonzero(voice & (t >= (first + last) / 2) & (t <= last))
-            ordinary = voiced & voice & ~((t >= first) & (t <= last))
-            if upper.size >= 3 and ordinary.sum() >= 5:
-                rises.append({"points": upper, "span": (int(first), int(last)), "over_st": float(np.median(target[upper])) - level,
-                              "line_db": float(np.median(level_db[ordinary])), "entry": entry})
         elif kind == "continue":                 # more is coming: the last 150 ms of voice end a little up, not down
             # an accented last word carries the rise over its whole vowel, if the vowel is near the end
             accented = any(i == nuclear for i, _ in focus_words) and last - first <= 28
@@ -624,7 +608,7 @@ def shape(base_hz: np.ndarray, energy: np.ndarray, audio: np.ndarray, phonemes: 
     f0_mul = np.where(given, 0.0, 2.0 ** (delta / 12.0))
     f0_add = np.where(given, ref * 2.0 ** (np.nan_to_num(target) / 12.0), 0.0)
     n_add = np.convolve(np.pad(np.maximum(n_add, 0.0), 2, mode="edge"), np.ones(5) / 5.0, mode="valid")
-    return Shaping(f0_mul.astype(np.float32), f0_add.astype(np.float32), n_add.astype(np.float32), planned, rises)
+    return Shaping(f0_mul.astype(np.float32), f0_add.astype(np.float32), n_add.astype(np.float32), planned)
 
 
 # ------------------------------------------------------------------ speaking
@@ -647,47 +631,12 @@ class Take:
 
 
 def speak(text: str, *, voice: str, lang: str, speed: float, plan: dict, model_dir: str | Path) -> Take:
-    """Speak one line with its pitch plan carried out.
-
-    A line that ends on a rise is spoken with one more word after it (plan["carrier"], "today") and cut before
-    that word. The model speaks the last word of a sentence in a soft, breathy voice whatever pitch and energy it
-    is given, and a rise on that voice sounds airy (the owner's word for it); a word the sentence goes on from
-    gets the model's full voice. The carrier starts with "t", so the cut falls in the silence of that stop, after
-    the last word has been spoken out. Some last words do not take it (a long unstressed tail, as in "natural",
-    is hurried in mid-sentence and the rise breaks); if the rise fails that way and passes without the carrier,
-    the line is spoken without it, and the plan says so.
-    """
-    args = dict(voice=voice, lang=lang, speed=speed, model_dir=model_dir)
-    take = _speak(text, plan=plan, **args)
-    if take.planned.get("carrier"):
-        rise_ok = lambda t: all(p.get("ok", True) for p in measure(t)["phrases"] if p["end"] == "rise")
-        if not rise_ok(take):
-            plain = _speak(text, plan={**plan, "carrier": ""}, **args)
-            if rise_ok(plain):
-                plain.planned["carrier_dropped"] = "the rise broke before the carrier word and holds without it"
-                return plain
-    return take
-
-
-def _speak(text: str, *, voice: str, lang: str, speed: float, plan: dict, model_dir: str | Path) -> Take:
     session, kokoro = _load(Path(model_dir))
-    phonemize = lambda t: kokoro.tokenizer.phonemize(t, lang)
-    spoken, carried = text, 0
-    body = re.match(r"^(.*?)([?!.…]*)\s*$", text, re.S)
-    if plan["carrier"] and body and body.group(1).strip():
-        words, phrases = lay_out(text, phonemize(text), phonemize)
-        if phrases and endings_of(words, phrases, plan)[-1][1] == "rise":
-            spoken, carried = f"{body.group(1).rstrip()} {plan['carrier']}{body.group(2)}", len(plan["carrier"].split())
-    phonemes = phonemize(spoken)
+    phonemes = kokoro.tokenizer.phonemize(text, lang)
     tokens = kokoro.tokenizer.tokenize(phonemes)
     if len(tokens) != len(phonemes):
         raise ValueError(f"phonemes outside the model's vocabulary in {phonemes!r}")
-    words, phrases = lay_out(spoken, phonemes, phonemize)
-    if carried:                                          # the carrier is a phrase of its own that nothing is asked of
-        first_carried = len(words) - carried
-        last, start = phrases[-1], words[first_carried].span[0]
-        phrases[-1:] = [Phrase((last.span[0], start), last.mark, [i for i in last.words if i < first_carried], last.first_of_sentence),
-                        Phrase((start, last.span[1]), "", [i for i in last.words if i >= first_carried], last.first_of_sentence)]
+    words, phrases = lay_out(text, phonemes, lambda w: kokoro.tokenizer.phonemize(w, lang))
     style = np.asarray(kokoro.voices[voice][min(len(tokens), len(kokoro.voices[voice])) - 1], np.float32).reshape(1, 256)
 
     lengths = np.ones(len(tokens) + 2, np.float32)       # one per token, the pad at each end included
@@ -695,14 +644,12 @@ def _speak(text: str, *, voice: str, lang: str, speed: float, plan: dict, model_
         if f["stretch"] != 1.0:
             w = words[_find_word(words, f["word"], f["nth"])]
             lengths[1 + w.vowel[0]:1 + w.vowel[1]] *= f["stretch"]
-    # a question's rise gets a little more room; before a carrier the last word would otherwise be as short as
-    # any word in mid-sentence, so there it also gets the lengthening a speaker gives the end of a sentence
-    for n, (phrase, kind, nuclear) in enumerate(endings_of(words, phrases, plan)):
-        longer = plan["rise_stretch"] * (FINAL_LENGTHENING if carried and n == len(phrases) - 2 else 1.0)
-        if kind == "rise" and nuclear is not None and longer != 1.0:
-            for i in range(words[nuclear].vowel[0], phrase.span[1]):
-                if phonemes[i] in SONORANT and phonemes[i] not in STRESS:
-                    lengths[1 + i] *= longer
+    if plan["rise_stretch"] != 1.0:                      # a question's rise gets a little more room
+        for phrase, kind, nuclear in endings_of(words, phrases, plan):
+            if kind == "rise" and nuclear is not None:
+                for i in range(words[nuclear].vowel[0], phrase.span[1]):
+                    if phonemes[i] in SONORANT and phonemes[i] not in STRESS:
+                        lengths[1 + i] *= plan["rise_stretch"]
     one, zero = np.ones((1, 1), np.float32), np.zeros((1, 1), np.float32)
     feed = {"tokens": np.array([[0, *tokens, 0]], np.int64), "style": style, "speed": np.array([speed], np.float32),
             "n_mul": one, "dur_mul": lengths.reshape(1, -1)}
@@ -711,49 +658,13 @@ def _speak(text: str, *, voice: str, lang: str, speed: float, plan: dict, model_
     audio = np.asarray(audio, np.float32).ravel()
     frames = np.cumsum(np.asarray(duration).ravel())[:len(phonemes) + 1]   # entry i: frames before phoneme i (entry 0 is the lead-in pad)
     base_hz = np.asarray(base_hz, np.float64).ravel()
-    energy_curve = np.asarray(energy, np.float64).ravel()
-    shaping = shape(base_hz, energy_curve, audio, phonemes, words, phrases, frames, plan)
+    shaping = shape(base_hz, np.asarray(energy, np.float64).ravel(), audio, phonemes, words, phrases, frames, plan)
     set_hz = base_hz
     if not shaping.changes_nothing:
         row = lambda values: values.reshape(1, -1)
-        render = lambda: np.asarray(session.run(["audio"], {**feed, "f0_mul": row(shaping.f0_mul), "f0_add": row(shaping.f0_add),
-                                                            "n_add": row(shaping.n_add)})[0], np.float32).ravel()
-        audio = render()
+        audio = np.asarray(session.run(["audio"], {**feed, "f0_mul": row(shaping.f0_mul), "f0_add": row(shaping.f0_add),
+                                                   "n_add": row(shaping.n_add)})[0], np.float32).ravel()
         set_hz = base_hz * shaping.f0_mul + shaping.f0_add
-        # Effort follows pitch. This voice speaks about LEVEL_PER_ST dB louder for every semitone it goes up; at the
-        # end of a sentence it speaks softly whatever the pitch, and a high pitch on a soft voice sounds airy. So
-        # the upper half of a question's rise is brought to the level the voice itself has at that height: the
-        # energy is corrected by what the rendered audio still lacks, at most three times.
-        for _ in range(3):
-            level_db, moved = listen(audio)[0], False
-            for rise in shaping.rises:
-                wanted = rise["line_db"] + LEVEL_PER_ST * rise["over_st"] + plan["rise_effort_db"]
-                lacks = wanted - float(np.median(level_db[rise["points"]]))
-                rise["entry"].update(level_db=round(wanted - lacks, 1), wanted_db=round(wanted, 1))
-                if abs(lacks) > 0.75:
-                    first, last = rise["span"]
-                    at_most = max(0.0, ENERGY_CEILING - float(np.max(energy_curve[first:last + 1] + shaping.n_add[first:last + 1])))
-                    step = float(np.clip(lacks / LEVEL_PER_ENERGY, -1.0, min(1.0, at_most)))
-                    if abs(step) > 0.05:
-                        ramp = np.clip((np.arange(base_hz.size) - (first - 4)) / 4.0, 0.0, 1.0) * (np.arange(base_hz.size) <= last + 2)
-                        shaping.n_add = np.maximum(shaping.n_add + (step * ramp).astype(np.float32), 0.0).astype(np.float32)
-                        moved = True
-            if not moved:
-                break
-            audio = render()
-    if carried:                                          # cut where the breath before the carrier is quietest
-        word = words[len(words) - carried]
-        point = lambda position: int(np.clip(2 * frames[min(position, len(phonemes))] - LEAD, 0, base_hz.size))
-        a, b = max(0, point(word.span[0]) - 2), max(point(word.vowel[0]), point(word.span[0]))
-        level_db = listen(audio)[0]
-        cut = a + int(np.argmin(level_db[a:b + 1]))
-        sample, fade = cut * int(RATE * F0_STEP_S), int(0.012 * RATE)
-        audio = audio[:sample].copy()
-        audio[-fade:] *= np.linspace(1.0, 0.0, fade, dtype=np.float32)
-        base_hz, set_hz = base_hz[:cut], set_hz[:cut]
-        words, phrases = words[:len(words) - carried], phrases[:-1]
-        shaping.planned["phrases"] = shaping.planned["phrases"][:-1]
-        shaping.planned["carrier"] = plan["carrier"]
     return Take(text, phonemes, audio, words, phrases, frames, base_hz, set_hz, plan, shaping.planned)
 
 

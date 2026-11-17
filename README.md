@@ -79,14 +79,6 @@ phoneme lengths can be given, and for each line it:
 - then measures the audio with Praat's pitch tracker and reports every asked movement next to what
   came out.
 
-A question is spoken into one more word and cut before it. The model speaks the last word of a
-sentence in a soft, breathy voice whatever pitch and energy it is given, and a rise on that voice
-sounded airy to the owner. So a line that ends on a rise is rendered as "Can you see the piers
-today?" and cut in the silence before "today": "piers" then gets the model's full voice, and the
-lengthening a sentence end normally has is put back. If a last word does not take this (a long
-unstressed tail, as in "natural"), the line is spoken the plain way and the report says so.
-`"carrier": ""` in a line's `"pitch"` switches it off.
-
 What the report can and cannot say. A rise passes only if it is a glide: at least 4 semitones over at
 least 100 ms of unbroken clean voice (a rise that is only a short step after a gap fails). An accent
 passes if the vowel holds its height for 40 ms. A fall is different: the model ends most statements

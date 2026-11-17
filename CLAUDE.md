@@ -106,14 +106,6 @@ My interpretation, to apply in every session here:
   lines with digits. `film voice` now says "set, not heard" for those falls.
 - I still cannot hear. What I can vouch for is the pitch measured in the audio,
   not how natural it sounds; say that plainly when sending a film.
-- "man made and piers lines sound too airy" (17 November 2026, on the mock).
-  None of my measures (noise, harmonics, level) had flagged those endings, so
-  a clean pitch report does not mean the voice sounds right. What I found: the
-  model speaks the last word of a sentence softly and breathily whatever
-  pitch it is given. Questions are now spoken into a carrier word ("... the
-  piers today?") and cut before it, so the last word gets the model's full
-  voice. Whether that cured it is the owner's call, not a measurement: send
-  the two or three variants as numbered samples with the mock.
 - The engine is tuned for `af_heart` at 1.15 only. With `bm_fable` two of five
   test questions got a real glide; the older films were not converted.
 - Process the owner accepted for this: a workflow with Sonnet agents (research
