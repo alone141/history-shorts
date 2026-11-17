@@ -19,3 +19,26 @@ Read directly: the Middleton p.87 and Suaresius p.4 image files; Met API (curl);
 9. **Rhetoric, with a basis.** Art of Making: "In the post-Roman period these clamps were more valuable when melted down as raw materials than they were holding these blocks in place." "More than the monument" is an overstatement. Acceptable only softened. Replace: "To some, the metal was worth more than the stone."
 
 Caption plate: "about 300 tons of metal (estimate)" should add "used in building". "IRON CLAMPS ROBBED AFTER ANTIQUITY" is fine. Source line fine.
+
+## Checks of the final wording (16 and 17 November 2026)
+
+Three further hostile checks were run on later wordings; this is what they settled. The script as rendered is the
+SCRIPT list in topics/colosseum_holes.py.
+
+Verdicts on the final lines: no line false.
+
+| Line | Verdict | What the check said |
+|---|---|---|
+| "Did you know most of the Colosseum's holes are man-made?" | true but challengeable | "Most" is the safe word: original lifting holes, repair pin holes and modern ties exist. No source counts the holes. |
+| "Look at this old photo. Can you see the piers?" | true | Jane Martha St. John, 1856, Met 2005.100.382 (68), object 287727. |
+| "Those dark dots are holes, and they've puzzled people for centuries." | true but challengeable | Documented puzzlement runs from Chacon (d. 1599) through Donatus (1639) and Suaresius (1651) to Middleton (1892). No evidence anyone asked earlier, so do not imply the Middle Ages. A dark dot in an 1856 print could be a pit or a shadow. |
+| "In 1651, this page asked: was it barbarians, or market stalls?" | true but challengeable | Page 4 quotes Donatus on the barbarians and then prefers market-stall poles ("signa nundinantis industriae, quam Barbariae saevientis"). An earlier wording, "this page blamed barbarians", was misleading and was dropped. Elsewhere Suaresius lists metal robbing among six causes and does not choose. Do not say he was wrong. The archive.org item is dated 1651; a Lyon reprint is 1652. |
+| "So what's the answer today?" | replaces "So what do historians say?" | "Historians" credited an 1892 page by one archaeologist. The one present-day source that could be opened is the Art of Making database (King's College London), https://artofmaking.ac.uk/explore/sources/411 : "The pock-marked facade ... is a result of the removal of iron clamps"; "In the post-Roman period these clamps were more valuable when melted down". Claridge, Lancaster, Rea and the Parco archeologico pages could not be opened. |
+| "It's right here: iron clamps tied each block to the next." | true but challengeable | Middleton p. 87: "each clamped to the next with heavy iron clamps, run with lead", said of the exterior travertine. No analysis of surviving metal was found. |
+| "After Rome fell, iron was valuable," | true but challengeable | Middleton note 3: "the then valuable iron of the clamps ... labour must then have been worth but very little, or iron very scarce". He says "early Middle Ages"; no source dates the digging, so no century and no named people. |
+| "so people dug the clamps out, one by one." | true but challengeable | Middleton: "to extract each clamp". "The clamps", not "it": Suaresius lists bronze and lead as well as iron. |
+| "How much metal went into the building?" / "About 300 tons, by one estimate." | true but challengeable | Art of Making: "Approximately 300 tonnes of metal, it has been estimated, was used in the construction of the Colosseum." Unattributed; Wikipedia credits Claridge 1998 (not read). It is metal used, not removed; the source says tonnes. Coming after the digging lines, a viewer may hear "removed": the plate says "METAL USED TO BUILD IT". The plate's source line was changed from "Middleton 1892 · Suaresius 1651 · The Met", which implied one of them gave the figure, to "Figure: Art of Making, King's College London". |
+| "Most of the clamps are gone now, but the holes never left." | true but unsourced | No source counts surviving clamps; "most" is the hedge. "Never left" is rhetoric: restorations have filled or changed some holes. |
+
+Most likely corrections in the comments: the 300 tons (no named author, tonnes); "iron" and "after Rome fell" (no metal
+analysis, no dated evidence); "the holes never left".

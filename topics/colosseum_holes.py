@@ -135,7 +135,8 @@ FILM = {
     "stills": {"01_landing": 0.75, "02_view": 1.9, "03_photo": "s1.end", "04_pier": "s2.end-0.05",
                "05_book": "s3.end-0.3", "06_page": "s5.end-0.1", "07_note": "s7.end-0.1",
                "08_plate": "s9.end+0.2", "09_hold": "end-0.3"},
-    # placeholder for the mock until the owner picks a track; "Suonatore di Liuto" by Kevin MacLeod, CC BY 4.0
+    # "Suonatore di Liuto" by Kevin MacLeod (incompetech.com), CC BY 4.0: the owner's choice (17 November 2026);
+    # the credit must go in every post
     "music": {"file": "data/music/suonatore_di_liuto_kevin_macleod.mp3", "start": 0.2, "lufs": -30.0,
               "fade_in": 0.3, "fade_out": 1.5},
     "sound": [

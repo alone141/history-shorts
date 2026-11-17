@@ -64,5 +64,11 @@
     "url": "https://archive.org/download/remainsofancient02midd/remainsofancient02midd_jp2.zip/remainsofancient02midd_jp2%2Fremainsofancient02midd_0103.jp2",
     "dest": "data/colosseum/middleton1892_vol2_p87_colosseum_clamps.jpg",
     "note": "John Henry Middleton, The Remains of Ancient Rome, vol. 2 (London: A. and C. Black, 1892), p. 87, Internet Archive remainsofancient02midd (Robarts, University of Toronto copy), scan 0103, https://archive.org/details/remainsofancient02midd . Public domain (1892; author died 1896). 2391x3644, upright. Text page: the exterior is 'massive travertine ... set without mortar, and each clamped to the next with heavy iron clamps, run with lead', and footnote 3: 'The numerous holes, which disfigure the arcades, were made during the early Middle Ages in attempts to extract the then valuable iron of the clamps'. It is Middleton's 1892 statement, with no evidence given on the page. Crops: body text (the 'each clamped to the next' sentence) [200,560,2250,1250]; footnote 3 [180,2910,2250,3290]"
+  },
+  {
+    "name": "music-suonatore-di-liuto",
+    "url": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Suonatore%20di%20Liuto.mp3",
+    "dest": "data/music/suonatore_di_liuto_kevin_macleod.mp3",
+    "note": "'Suonatore di Liuto' by Kevin MacLeod (incompetech.com), licensed under Creative Commons Attribution 4.0 (https://creativecommons.org/licenses/by/4.0/). Background music of the Colosseum holes film; attribution is required wherever the film is posted"
   }
 ]

@@ -24,9 +24,11 @@ topics/            one data module per film, plus the site's sources
   stonehenge_1740.py         "What did Stonehenge look like in 1740?"            (light table)
   great_pyramid_original.py  "What did the Great Pyramid originally look like?"  (phase model)
   sphinx_buried.py           "The Sphinx was buried to its neck for about 1,500 years"  (light table)
+  colosseum_holes.py         "Why is the Colosseum full of holes?"               (light table, planned pitch)
   stonehenge/                the site: sources.json, refs.json, survey, plan digitising, model
     stones.json              the measured stone table the model is built from (kept in the repository)
   sphinx/                    the scans' sources.json and research.md (claims, quotes, what not to say)
+  colosseum/                 sources.json, research.md, pictures.md and factcheck.md for the Colosseum film
   giza/                      the site: sources.json, reading of Petrie's plate of course levels, model
     courses.json             the level of every course of the Great Pyramid (kept in the repository)
 films/             one folder per film: MP4, README, FACTS, CREDITS, stills, contact sheet
