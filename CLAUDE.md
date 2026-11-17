@@ -102,10 +102,9 @@ My interpretation, to apply in every session here:
 - "these two lines are perfect" (17 November 2026), said of "Those dark dots
   are holes, and they've puzzled people for centuries." and "In 1651, this
   page asked: was it barbarians, or market stalls?", after the owner had asked
-  for "a more natural flowing dialogue". The owner did not say why; my reading
-  of what the two share, to write other lines by:
-  - each points at what is on screen ("those dark dots", "this page") and
-    also hands over to the next line, so no line stands alone;
+  for "a more natural flowing dialogue". My reading of what the two share,
+  to write other lines by (the owner confirmed these two points, and struck a
+  third, "each line does two jobs", as unnecessary):
   - the pitch moves because of how the sentence is built (two clauses joined
     by "and"; a choice of two, up on the first and down on the second), not
     because a movement was added to its end. The one rise in them, on

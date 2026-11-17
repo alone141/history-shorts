@@ -39,17 +39,17 @@ SCRIPT = [
      "say": "In sixteen fifty-one, this page asked: was it barbarians, or market stalls?",
      # a choice between two ends like a statement: up on the first, down on the second
      "pitch": {"focus": ["barbarians", "market"], "ends": ["keep", "keep", "continue", "fall"]}},
-    {"id": "s4", "beat": 4, "gap_before": 0.4, "text": "So what's the accepted answer?"},
+    {"id": "s4", "beat": 4, "gap_before": 0.4, "text": "So what do historians say?"},
     {"id": "s5", "beat": 4, "gap_before": 0.6, "text": "It's right here: iron clamps tied each block to the next.",
      "pitch": {"focus": ["iron"]}},
     {"id": "s6", "beat": 5, "gap_before": 0.5, "text": "After Rome fell, iron was valuable,",
      "pitch": {"ends": ["keep", "continue"]}},
     {"id": "s7", "beat": 5, "gap_before": 0.25, "text": "so people dug the clamps out, one by one.",
      "pitch": {"focus": ["dug"]}},
-    {"id": "s8", "beat": 6, "gap_before": 0.5, "text": "By one estimate, about 300 tons of metal went into the building.",
-     "say": "By one estimate, about three hundred tons of metal went into the building.",
-     "pitch": {"focus": ["hundred"]}},
-    {"id": "s9", "beat": 6, "gap_before": 0.7, "text": "Most of the clamps are gone now. The holes never left.",
+    {"id": "s8", "beat": 6, "gap_before": 0.5, "text": "How much metal went into the building?"},
+    {"id": "s9", "beat": 6, "gap_before": 0.3, "text": "About 300 tons, by one estimate.",
+     "say": "About three hundred tons, by one estimate.", "pitch": {"focus": ["hundred"]}},
+    {"id": "s10", "beat": 6, "gap_before": 0.7, "text": "Most of the clamps are gone now, but the holes never left.",
      "pitch": {"focus": ["clamps", "holes"]}},
 ]
 
@@ -112,7 +112,7 @@ FILM = {
          "fade": {"at": "s8-0.2", "dur": 0.2}, "width": 2.6},
         {"id": "dugout", "type": "underline", "object": "note", "box": NOTE_BOX, "draw": "s7.word:dug", "dur": 0.8,
          "fade": {"at": "s8-0.2", "dur": 0.2}, "width": 2.6},
-        {"id": "pier2", "type": "ellipse", "object": "close", "box": PIER2_BOX, "draw": "s8.word:three", "dur": 0.7,
+        {"id": "pier2", "type": "ellipse", "object": "close", "box": PIER2_BOX, "draw": "s8+0.4", "dur": 0.7,
          "width": 2.6},
     ],
     "plate": {
@@ -122,22 +122,22 @@ FILM = {
         "source": "Middleton 1892 · Suaresius 1651 · The Met",
         "ours": "The marks and the 2x loupe are ours.",
         "x": 60, "y": 1098, "width": 820,
-        "in": {"at": "s8.word:three+0.2", "dur": 0.9}, "rise": 12,
-        "leader": {"from": "pier2", "at": "s8.word:three+0.9", "dur": 0.6},
+        "in": {"at": "s9.word:three", "dur": 0.9}, "rise": 12,
+        "leader": {"from": "pier2", "at": "s9.word:three+0.7", "dur": 0.6},
     },
     "camera": {"scale": [1.0, 1.05], "focus": [540, 860],
                "moves": [{"at": "s1", "dur": 3.0, "focus": [560, 800]}]},
     "credit": {"text": "The Met · Internet Archive · Synthetic voice",
-               "at": "s9.end+0.3", "dur": 0.6, "x": 60, "bottom": 1524},
+               "at": "s10.end+0.3", "dur": 0.6, "x": 60, "bottom": 1524},
     "stills": {"01_landing": 0.75, "02_view": 1.9, "03_photo": "s1.end", "04_pier": "s2.end-0.05",
                "05_book": "s3.end-0.3", "06_page": "s5.end-0.1", "07_note": "s7.end-0.1",
-               "08_plate": "s8.end+0.2", "09_hold": "end-0.3"},
+               "08_plate": "s9.end+0.2", "09_hold": "end-0.3"},
     # placeholder for the mock until the owner picks a track; "Suonatore di Liuto" by Kevin MacLeod, CC BY 4.0
     "music": {"file": "data/music/suonatore_di_liuto_kevin_macleod.mp3", "start": 0.2, "lufs": -30.0,
               "fade_in": 0.3, "fade_out": 1.5},
     "sound": [
         {"type": "tick", "at": "s2.word:dots+0.6"},        # the ring round the pier closes
         {"type": "tick", "at": "s5.word:clamps+0.8"},      # the line under the clamps is drawn
-        {"type": "tick", "at": "s8.word:three+0.7"},       # the ring round the second pier closes
+        {"type": "tick", "at": "s8+1.1"},       # the ring round the second pier closes
     ],
 }
