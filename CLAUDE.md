@@ -99,6 +99,19 @@ My interpretation, to apply in every session here:
   hand for a contrast pair. So: a finished statement falls, and a colon keeps
   the model's own ending (now the default). Ask for `"continue"` only on a
   clause that is plainly unfinished ("After Rome fell, iron was valuable,").
+- "these two lines are perfect" (17 November 2026), said of "Those dark dots
+  are holes, and they've puzzled people for centuries." and "In 1651, this
+  page asked: was it barbarians, or market stalls?", after the owner had asked
+  for "a more natural flowing dialogue". The owner did not say why; my reading
+  of what the two share, to write other lines by:
+  - each points at what is on screen ("those dark dots", "this page") and
+    also hands over to the next line, so no line stands alone;
+  - the pitch moves because of how the sentence is built (two clauses joined
+    by "and"; a choice of two, up on the first and down on the second), not
+    because a movement was added to its end. The one rise in them, on
+    "barbarians,", is there because the sentence asks for it;
+  - they sound said, not read: a contraction, a question the viewer would
+    ask, plain nouns, no hedging phrase in front.
 - A question must be short (12 words at most) and end on a word the voice
   keeps voiced. My first opening, "Did you know people made most of the
   Colosseum's holes?", passed my own check and was wrong: an independent
