@@ -74,7 +74,7 @@ VOICED_HZ = 50.0           # the model writes 0 where there is no voice
 LEAD = 4                   # curve points by which the sound runs ahead of the reported phoneme frames
 SOUND_BELOW_PEAK_DB = 32.0 # quieter than this under the clip's loudest moment is not speech
 HISS_SHARE = 0.35          # more of the energy than this above 4 kHz is a hiss (s, f, sh), not a voice
-ENGINE_VERSION = "16"       # part of the clip cache key: bump when the shaping changes
+ENGINE_VERSION = "18"       # part of the clip cache key: bump when the shaping changes
 MODEL_NAME, EDITABLE_NAME = "kokoro-v1.0.onnx", "kokoro-v1.0-pitch.onnx"
 
 STRESS = "ˈˌ"
@@ -341,8 +341,8 @@ def _default_end(phrase: Phrase, words: list[Word]) -> str:
     if phrase.mark == "?":
         # a question that opens on a question word falls ("So what is the answer?"); every other one rises,
         # also one with such a word inside it ("Is this what the clamps did?")
-        opening = [_plain(w.text) for w in words[phrase.first_of_sentence:phrase.first_of_sentence + 3]]
-        while len(opening) > 1 and opening[0] in OPENERS:
+        opening = [re.sub(r"'(s|re|d|ll|ve)$", "", _plain(w.text)) for w in words[phrase.first_of_sentence:phrase.first_of_sentence + 3]]
+        while len(opening) > 1 and opening[0] in OPENERS:              # "what's" counts as "what"
             opening = opening[1:]
         return "fall" if opening and opening[0] in WH_WORDS else "rise"
     if phrase.mark in (".", "!"):
@@ -752,6 +752,7 @@ def measure(take: Take) -> dict:
         if entry["end"] == "fall":
             set_end = take.set_hz[max(first, last - 3):last + 1]
             got["set_st"] = round(_st(float(np.median(set_end[set_end > VOICED_HZ])), line), 2) if (set_end > VOICED_HZ).any() else None
+            end = pitches(max(first, last - 3), last + 2)     # a fall is heard only if the voice holds to the very end
             if end.size:
                 got["got_st"] = round(_st(float(np.median(end)), line), 2)
                 got["ok"] = got["got_st"] <= entry["asked_st"] + TOLERANCE["fall_st"]

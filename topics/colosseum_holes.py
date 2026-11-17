@@ -27,25 +27,28 @@ MIDDLETON = D + "middleton1892_vol2_p87_colosseum_clamps.jpg"
 # Each line carries its pitch plan (engine/pitch.py): "focus" words get a pitch accent, and a phrase ends by its
 # punctuation unless "ends" says otherwise (a yes/no question rises, a statement or a what-question falls).
 SCRIPT = [
-    # the opening ends on "man-made" because that word carries a clean rise; "... people made most of the
-    # Colosseum's holes?" was tried first and its rise broke up on "holes" (a 50 ms step, not a glide)
+    # Conversational: each line leads into the next (the owner asked for "a more natural flowing dialogue").
+    # The opening ends on "man-made" because that word carries a clean rise; "... people made most of the
+    # Colosseum's holes?" was tried first and its rise broke up on "holes" (a 50 ms step, not a glide).
     {"id": "s0", "beat": 1, "text": "Did you know most of the Colosseum's holes are man-made?"},
-    {"id": "s1", "beat": 2, "gap_before": 0.5, "text": "Can you see the piers?"},
-    {"id": "s2", "beat": 2, "gap_before": 0.2, "text": "Those dark dots are holes!", "pitch": {"focus": ["holes"]}},
-    {"id": "s3", "beat": 3, "gap_before": 0.7, "text": "In 1651, this page weighed barbarians against market stalls.",
-     "say": "In sixteen fifty-one, this page weighed barbarians against market stalls.",
-     "pitch": {"focus": ["barbarians", "market"]}},
-    {"id": "s4", "beat": 4, "gap_before": 0.3, "text": "So what is the accepted answer?"},
-    {"id": "s5", "beat": 4, "gap_before": 0.8, "text": "Iron clamps tied each block to the next.",
-     "pitch": {"focus": ["Iron"]}},
-    {"id": "s6", "beat": 5, "gap_before": 0.5, "text": "In the centuries after Rome fell,",
-     "pitch": {"focus": ["fell"], "ends": ["continue"]}},
-    {"id": "s7", "beat": 5, "gap_before": 0.3, "text": "people dug the metal out, clamp by clamp.",
+    {"id": "s1", "beat": 2, "gap_before": 0.5, "text": "Look at this old photo. Can you see the piers?",
+     "pitch": {"ends": ["keep", "rise"]}},
+    {"id": "s2", "beat": 2, "gap_before": 0.2, "text": "Those dark dots are holes, and they've puzzled people for centuries.",
+     "pitch": {"focus": ["holes"]}},
+    {"id": "s3", "beat": 3, "gap_before": 0.6, "text": "In 1651, this page blamed barbarians, or maybe market stalls.",
+     "say": "In sixteen fifty-one, this page blamed barbarians, or maybe market stalls.",
+     "pitch": {"focus": ["barbarians", "market"], "ends": ["keep", "continue", "fall"]}},
+    {"id": "s4", "beat": 4, "gap_before": 0.4, "text": "So what's the accepted answer?"},
+    {"id": "s5", "beat": 4, "gap_before": 0.6, "text": "It's right here: iron clamps tied each block to the next.",
+     "pitch": {"focus": ["iron"]}},
+    {"id": "s6", "beat": 5, "gap_before": 0.5, "text": "After Rome fell, iron was valuable,",
+     "pitch": {"ends": ["keep", "continue"]}},
+    {"id": "s7", "beat": 5, "gap_before": 0.25, "text": "so people dug it out, clamp by clamp.",
      "pitch": {"focus": ["dug"]}},
-    {"id": "s8", "beat": 6, "gap_before": 0.5, "text": "One estimate says about 300 tons of metal went into the building.",
-     "say": "One estimate says about three hundred tons of metal went into the building.",
+    {"id": "s8", "beat": 6, "gap_before": 0.5, "text": "By one estimate, about 300 tons of metal went into the building.",
+     "say": "By one estimate, about three hundred tons of metal went into the building.",
      "pitch": {"focus": ["hundred"]}},
-    {"id": "s9", "beat": 6, "gap_before": 0.7, "text": "The clamps went. The holes stayed.",
+    {"id": "s9", "beat": 6, "gap_before": 0.7, "text": "Most of the clamps are gone now. The holes never left.",
      "pitch": {"focus": ["clamps", "holes"], "ends": ["continue", "fall"]}},
 ]
 
