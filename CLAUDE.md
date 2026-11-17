@@ -137,3 +137,36 @@ My interpretation, to apply in every session here:
 - Process the owner accepted for this: a workflow with Sonnet agents (research
   on intonation, a baseline measurement of the voice, three script writers and
   three judges, then independent verification of the engine).
+
+**The Colosseum film, start to finish (posted 17 November 2026).**
+"Why is the Colosseum full of holes?" was accepted and posted by the owner.
+What follows is my reading of how it went, for the next film; the owner asked
+me to record what I learned and did not dictate these points.
+
+- Send the narration alone before rendering. From the conversational rewrite
+  on, I sent a narration-only audio file with the numbered script, the owner
+  corrected lines by ear ("ends with a rise when it should not"), and the
+  film was rendered once the narration was right. Earlier I had rendered a
+  full mock for every change.
+- When the owner reports one ending, check every ending of that kind before
+  sending again. Three finished clauses were reported one after another
+  before I listed them all and found four more that the voice raised by
+  itself.
+- When the owner reports a sound my measures do not show, do not rebuild the
+  engine on it. "Too airy" led me to change how every question is spoken; the
+  owner then said "It's ok I've misheard it" and I took it all out. Next time:
+  send the same clip beside a variant first, and leave verified audio alone
+  until the owner confirms the fault.
+- Run the fact check again after every rewording, not only on the first
+  script. Making the lines conversational introduced one misleading line
+  ("this page blamed barbarians", when its author preferred the market
+  stalls) and one false attribution ("what do historians say", answered by a
+  page of 1892). The same check found that the caption plate's source line
+  named sources that do not give the figure on the plate.
+- The owner accepted the music heard in the mocks ("music is good") without
+  going through the seven samples: "Suonatore di Liuto" (Kevin MacLeod, CC BY
+  4.0), an Italian lute piece, chosen by me because it signals the place.
+- 35 seconds was accepted; the conversational script needed about 100 words.
+- The post title states the finding ("Most of the Colosseum's holes are
+  man-made"), not the question on screen.
+

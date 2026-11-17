@@ -6,7 +6,7 @@ behind it.
 Status: drafted 17 November 2026 from topics/colosseum_holes.py and
 topics/colosseum/ (research.md, pictures.md, sources.json, and factcheck.md,
 including its "Checks of the final wording" section of 16 and 17 November 2026).
-The owner has accepted the mock. Not final until the film is approved for posting.
+The owner accepted the film and posted it on 17 November 2026.
 
 ## Sources
 
